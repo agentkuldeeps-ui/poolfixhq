@@ -15,7 +15,7 @@ export default function TeamGrid() {
   if (!team.length) return null
 
   return (
-    <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
       {team.map((member) => (
         <li
           key={member.id}

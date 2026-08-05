@@ -15,18 +15,46 @@ export const metadata = buildMetadata({
   path: '/about',
 })
 
-function Section({ id, title, children, wide = false }) {
+/**
+ * Section shell. Content runs the full width of the content column; individual
+ * blocks opt into multi-column layouts rather than the whole page being capped
+ * at a prose measure. `lead` renders the intro paragraph wider and larger.
+ */
+function Section({ id, title, children, lead }) {
   return (
-    <section aria-labelledby={id} className="border-t border-slate-200 py-10 first:border-0 first:pt-2">
-      <div className={wide ? '' : 'max-w-prose'}>
-        <h2 id={id} className="text-2xl font-bold tracking-tight text-pool-900 sm:text-3xl">
-          {title}
-        </h2>
-        <div className="mt-4 space-y-4 text-[17px] leading-relaxed text-slate-700">{children}</div>
-      </div>
+    <section
+      aria-labelledby={id}
+      className="scroll-mt-24 border-t border-slate-200 py-12 first:border-0 first:pt-4"
+    >
+      <h2 id={id} className="text-2xl font-bold tracking-tight text-pool-900 sm:text-3xl">
+        {title}
+      </h2>
+      {lead && (
+        <p className="mt-3 max-w-3xl text-lg leading-relaxed text-slate-600">{lead}</p>
+      )}
+      <div className="mt-5 space-y-4 text-[17px] leading-relaxed text-slate-700">{children}</div>
     </section>
   )
 }
+
+/** Long prose that splits into two columns on wide screens so the measure stays readable. */
+function TwoCol({ children }) {
+  return (
+    <div className="gap-x-12 lg:columns-2 [&>p]:mb-4 [&>p]:break-inside-avoid">{children}</div>
+  )
+}
+
+const NAV = [
+  ['what', 'What this site is'],
+  ['why', 'Why this exists'],
+  ['wrong', 'What the industry gets wrong'],
+  ['team', 'Who writes this'],
+  ['process', 'How a guide gets made'],
+  ['gear', 'Gear we rely on'],
+  ['limits', "What we don't do"],
+  ['money', 'How we make money'],
+  ['contact', 'Contact'],
+]
 
 /** Amber block marking content that needs real facts. Never ships filled with invention. */
 function NeedsFacts({ children }) {
@@ -88,8 +116,30 @@ export default function AboutPage() {
         <Breadcrumbs items={crumbs} />
       </PageHeader>
 
-      <div className="container-page py-4">
-        <div className="mx-auto w-full max-w-4xl">
+      <div className="mx-auto w-full max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
+        <div className="lg:grid lg:grid-cols-[15rem,minmax(0,1fr)] lg:gap-14">
+          <nav
+            aria-label="On this page"
+            className="sticky top-24 hidden self-start lg:block"
+          >
+            <p className="mb-3 text-xs font-bold uppercase tracking-widest text-pool-700">
+              On this page
+            </p>
+            <ul className="space-y-1.5 border-l border-slate-200">
+              {NAV.map(([id, label]) => (
+                <li key={id}>
+                  <a
+                    href={`#${id}`}
+                    className="-ml-px block border-l-2 border-transparent py-1 pl-4 text-[15px] leading-snug text-slate-600 hover:border-accent-600 hover:text-pool-800"
+                  >
+                    {label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          <div className="min-w-0">
           <Section id="what" title="What this site is">
             <p>
               We diagnose pool problems from the symptom — green water, a pump that won&rsquo;t hold
@@ -101,17 +151,18 @@ export default function AboutPage() {
               and the rest of this page is mostly about why.
             </p>
 
-            <dl className="not-prose mt-6 divide-y divide-slate-200 rounded-xl border border-slate-200 bg-slate-50">
+            <dl className="not-prose mt-8 grid gap-px overflow-hidden rounded-xl border border-slate-200 bg-slate-200 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
               {QUICK_FACTS.map(([k, v]) => (
-                <div key={k} className="grid gap-1 px-5 py-3 sm:grid-cols-[10rem,1fr] sm:gap-4">
-                  <dt className="text-sm font-bold uppercase tracking-wide text-pool-700">{k}</dt>
-                  <dd className="text-[15px] leading-relaxed text-slate-700">{v}</dd>
+                <div key={k} className="flex flex-col bg-white p-5">
+                  <dt className="text-xs font-bold uppercase tracking-widest text-pool-600">{k}</dt>
+                  <dd className="mt-2 text-[15px] leading-relaxed text-slate-700">{v}</dd>
                 </div>
               ))}
             </dl>
           </Section>
 
           <Section id="why" title="Why this exists">
+            <TwoCol>
             <p>
               Almost everyone who gives you pool advice is also selling you something. That&rsquo;s not
               a conspiracy, it&rsquo;s just the business model. The pool store tests your water for
@@ -136,6 +187,7 @@ export default function AboutPage() {
               fixes ordered by what they cost, and a clear line where you should stop and call
               somebody.
             </p>
+            </TwoCol>
             <NeedsFacts>
               <strong className="font-semibold">Origin story pending.</strong> This is where the one
               real incident goes — what broke, when, what you were told to do, what it cost, what
@@ -144,48 +196,49 @@ export default function AboutPage() {
             </NeedsFacts>
           </Section>
 
-          <Section id="wrong" title="What the industry gets wrong">
-            <p>
-              A few positions we hold that you won&rsquo;t hear at the counter. These are ours, stated
-              plainly, and you&rsquo;re free to disagree.
-            </p>
-            <p>
-              <strong className="text-pool-900">Most algaecide is a waste of money.</strong> It&rsquo;s
+          <Section
+            id="wrong"
+            title="What the industry gets wrong"
+            lead="A few positions we hold that you won't hear at the counter. These are ours, stated plainly, and you're free to disagree."
+          >
+            <div className="not-prose grid gap-5 sm:grid-cols-2">
+            <p className="rounded-xl border border-slate-200 bg-white p-5 text-[16px] leading-relaxed text-slate-700">
+              <strong className="block text-pool-900">Most algaecide is a waste of money.</strong> It&rsquo;s
               what gets reached for when free chlorine has been at zero for a week, and it treats
               the symptom of a sanitizer problem you could&rsquo;ve solved with eight dollars of liquid
               chlorine. It has real uses — black algae, and pools left unwatched for a month.
               Routine weekly dosing isn&rsquo;t one of them. We&rsquo;d make more money recommending it.
             </p>
-            <p>
-              <strong className="text-pool-900">Test strips are fine.</strong> For a routine check —
+            <p className="rounded-xl border border-slate-200 bg-white p-5 text-[16px] leading-relaxed text-slate-700">
+              <strong className="block text-pool-900">Test strips are fine.</strong> For a routine check —
               is there chlorine in this pool, is the pH sane — a strip answers the question in ten
               seconds and you&rsquo;ll actually do it. A drop kit is genuinely better when you&rsquo;re
               troubleshooting something, and worth owning. But the purists have oversold the gap,
               and a strip you use twice a week beats a drop kit you use twice a summer.
             </p>
-            <p>
-              <strong className="text-pool-900">Weekly shocking isn&rsquo;t a rule.</strong> It&rsquo;s a
+            <p className="rounded-xl border border-slate-200 bg-white p-5 text-[16px] leading-relaxed text-slate-700">
+              <strong className="block text-pool-900">Weekly shocking isn&rsquo;t a rule.</strong> It&rsquo;s a
               response to a condition. If your free chlorine is holding and the water is clear,
               dumping shock in every Saturday is burning money and driving your stabilizer up.
               Shock when something&rsquo;s wrong — after heavy use, after a storm, when combined
               chlorine climbs.
             </p>
-            <p>
-              <strong className="text-pool-900">Run time beats chemistry more often than people
-              think.</strong> A surprising share of &ldquo;chemistry problems&rdquo; are circulation
+            <p className="rounded-xl border border-slate-200 bg-white p-5 text-[16px] leading-relaxed text-slate-700">
+              <strong className="block text-pool-900">Run time beats chemistry more often than people think.</strong> A surprising share of &ldquo;chemistry problems&rdquo; are circulation
               problems. Water that isn&rsquo;t moving isn&rsquo;t being filtered or sanitized, no matter
               what you pour in.
             </p>
+            </div>
           </Section>
 
-          <Section id="team" title="Who writes this" wide>
-            <p className="max-w-prose">
-              Names, faces, and what each person is actually qualified to say. Where someone reviews
-              chemistry, their credential is listed — and only if it&rsquo;s real.
-            </p>
+          <Section
+            id="team"
+            title="Who writes this"
+            lead="Names, faces, and what each person is actually qualified to say. Where someone reviews chemistry, their credential is listed — and only if it's real."
+          >
 
             {teamHasPlaceholders && (
-              <div className="max-w-prose">
+              <div className="max-w-3xl">
                 <NeedsFacts>
                   <strong className="font-semibold">Placeholder team.</strong> Replace the entries in{' '}
                   <code className="rounded bg-white px-1.5 py-0.5 text-sm">lib/team.js</code> with real
@@ -200,7 +253,7 @@ export default function AboutPage() {
               <TeamGrid />
             </div>
 
-            <p className="max-w-prose pt-2">
+            <p className="max-w-3xl pt-4">
               Being straight about the limits: no one here is a licensed electrician, a gas fitter
               or a structural engineer, and we don&rsquo;t write as though we are. Chemistry content is
               currently checked against CDC guidance, EPA documentation and university extension
@@ -211,6 +264,7 @@ export default function AboutPage() {
           </Section>
 
           <Section id="process" title="How a guide gets made">
+            <TwoCol>
             <p>
               Every guide starts from a symptom, because that&rsquo;s how you actually arrive: the
               water&rsquo;s green, the pump is screaming, the heater won&rsquo;t fire. Not &ldquo;I have a
@@ -246,33 +300,34 @@ export default function AboutPage() {
               chlorine gas in a confined equipment pad, and people are hurt by this every summer.
               That warning stays.
             </p>
+            </TwoCol>
           </Section>
 
-          <Section id="gear" title="The gear we don't work without">
-            <p>
-              Not a shopping list — a short answer to &ldquo;what actually earns its place.&rdquo;
-            </p>
-            <ul className="space-y-3 pl-5 [&>li]:list-disc [&>li]:marker:text-pool-400">
-              <li>
-                <strong className="text-pool-900">A drop-based test kit</strong> that reads free and
+          <Section
+            id="gear"
+            title="The gear we don't work without"
+            lead={'Not a shopping list — a short answer to "what actually earns its place."'}
+          >
+            <ul className="not-prose grid gap-4 sm:grid-cols-2">
+              <li className="rounded-xl border border-slate-200 bg-white p-5 text-[16px] leading-relaxed text-slate-700">
+                <strong className="block text-pool-900">A drop-based test kit</strong> that reads free and
                 combined chlorine separately. The gap between those two numbers explains more
                 problems than any other measurement.
               </li>
-              <li>
-                <strong className="text-pool-900">A spare pump lid o-ring and a tube of silicone
-                lubricant.</strong> Costs about as much as lunch and prevents the most common
+              <li className="rounded-xl border border-slate-200 bg-white p-5 text-[16px] leading-relaxed text-slate-700">
+                <strong className="block text-pool-900">A spare pump lid o-ring and silicone lubricant.</strong> Costs about as much as lunch and prevents the most common
                 service call there is.
               </li>
-              <li>
-                <strong className="text-pool-900">A real telescoping pole.</strong> The flimsy ones
+              <li className="rounded-xl border border-slate-200 bg-white p-5 text-[16px] leading-relaxed text-slate-700">
+                <strong className="block text-pool-900">A real telescoping pole.</strong> The flimsy ones
                 flex so much you can&rsquo;t brush properly, and brushing is most of the job.
               </li>
-              <li>
-                <strong className="text-pool-900">A pressure gauge you trust.</strong> Filter
+              <li className="rounded-xl border border-slate-200 bg-white p-5 text-[16px] leading-relaxed text-slate-700">
+                <strong className="block text-pool-900">A pressure gauge you trust.</strong> Filter
                 pressure is the cheapest diagnostic on the pad, and half of them are dead.
               </li>
-              <li>
-                <strong className="text-pool-900">A notebook.</strong> Unglamorous. Readings over
+              <li className="rounded-xl border border-slate-200 bg-white p-5 text-[16px] leading-relaxed text-slate-700">
+                <strong className="block text-pool-900">A notebook.</strong> Unglamorous. Readings over
                 time tell you things a single test never will.
               </li>
             </ul>
@@ -292,6 +347,7 @@ export default function AboutPage() {
           </Section>
 
           <Section id="money" title="How we make money">
+            <TwoCol>
             <p>
               Two ways. Some product links pay us a commission when you buy, and we get paid when we
               connect you with a repair contractor. That&rsquo;s it — no sponsored posts, nobody pays
@@ -310,6 +366,7 @@ export default function AboutPage() {
               </Link>
               .
             </p>
+            </TwoCol>
           </Section>
 
           <Section id="contact" title="Contact">
@@ -327,6 +384,7 @@ export default function AboutPage() {
               pulled.
             </p>
           </Section>
+          </div>
         </div>
       </div>
     </>
