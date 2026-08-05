@@ -1,10 +1,17 @@
-import Link from 'next/link'
-import ArticleCard from '@/components/ArticleCard'
-import ProblemCards from '@/components/ProblemCards'
-import { categories } from '@/lib/categories'
-import { getFeatured } from '@/lib/content'
+import Hero from '@/components/home/Hero'
+import TrustStrip from '@/components/home/TrustStrip'
+import SymptomIndex from '@/components/home/SymptomIndex'
+import FeaturedGuides from '@/components/home/FeaturedGuides'
+import SeasonalBlock from '@/components/home/SeasonalBlock'
+import ToolsStrip from '@/components/home/ToolsStrip'
+import RegionalFinder from '@/components/home/RegionalFinder'
+import EmailCapture from '@/components/home/EmailCapture'
+import RepairCTA from '@/components/home/RepairCTA'
+import TransparencyNote from '@/components/home/TransparencyNote'
+import JsonLd from '@/components/JsonLd'
 import { site } from '@/lib/site'
 import { buildMetadata } from '@/lib/seo'
+import { homeItemListSchema } from '@/lib/schema'
 
 export const metadata = buildMetadata({
   title: `${site.name} — ${site.tagline}`,
@@ -12,105 +19,50 @@ export const metadata = buildMetadata({
   path: '/',
 })
 
-export default function HomePage() {
-  const featured = getFeatured(6)
+/**
+ * Regenerate daily so <SeasonalBlock> stays current without a manual redeploy.
+ * Still served as static HTML from the edge -- this is ISR, not SSR, and the
+ * page keeps its Static/SSG classification in the build output.
+ */
+export const revalidate = 86400
 
+/**
+ * SECTION ORDER IS THE ARGUMENT.
+ *
+ * A visitor arrives mid-problem, on a phone, standing next to a green pool.
+ * Everything above the fold serves that person; everything below serves the
+ * one whose problem was not one of the four.
+ *
+ *  1. Hero            the question + four taps to the four common failures
+ *  2. TrustStrip      why believe a shock dosage from strangers
+ *  3. SymptomIndex    the long tail, in the reader's own words
+ *  4. FeaturedGuides  editorial picks
+ *  5. SeasonalBlock   a reason to come back next quarter
+ *  6. ToolsStrip      calculators
+ *  7. RegionalFinder  climate silo entry point
+ *  8. EmailCapture    owned audience (flag-gated until wired)
+ *  9. RepairCTA       monetize the reader DIY did not solve
+ * 10. TransparencyNote how we get paid, said before the footer
+ *
+ * Every section is a server component. The homepage ships no client JS of its
+ * own -- that is the Core Web Vitals margin over the WordPress competition,
+ * and it is easy to give away. Check the build output before adding anything.
+ */
+export default function HomePage() {
   return (
     <>
-      <section className="border-b border-slate-200 bg-gradient-to-b from-pool-50 via-pool-50 to-white">
-        <div className="container-page py-12 sm:py-16 lg:py-20">
-          <div className="max-w-3xl">
-            <h1 className="text-4xl font-extrabold tracking-tight text-pool-900 sm:text-5xl lg:text-6xl">
-              What&rsquo;s Wrong With Your Pool?
-            </h1>
-            <p className="mt-5 text-lg leading-relaxed text-slate-600 sm:text-xl">
-              Pick the symptom. We will tell you what is actually causing it, what the fix costs,
-              and whether it is worth doing yourself — written by people who do this for a living.
-            </p>
-          </div>
+      <JsonLd data={homeItemListSchema()} />
 
-          <div className="mt-10">
-            <h2 className="sr-only">Start with your symptom</h2>
-            <ProblemCards />
-          </div>
-        </div>
-      </section>
-
-      <section className="container-page py-12 sm:py-16">
-        <div className="flex flex-wrap items-end justify-between gap-4">
-          <div>
-            <h2 className="text-2xl font-bold text-pool-900 sm:text-3xl">Start Here</h2>
-            <p className="mt-2 text-slate-600">The guides people open most often.</p>
-          </div>
-        </div>
-
-        {featured.length ? (
-          <ul className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {featured.map((article) => (
-              <li key={`${article.category}/${article.slug}`}>
-                <ArticleCard article={article} />
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p className="mt-6 rounded-xl border border-dashed border-slate-300 p-8 text-center text-slate-500">
-            No articles published yet.
-          </p>
-        )}
-      </section>
-
-      <section className="border-y border-slate-200 bg-slate-50">
-        <div className="container-page py-12 sm:py-16">
-          <h2 className="text-2xl font-bold text-pool-900 sm:text-3xl">Browse by Topic</h2>
-          <ul className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {categories.map((category) => (
-              <li key={category.slug}>
-                <Link
-                  href={`/${category.slug}`}
-                  className="group block h-full rounded-xl border border-slate-200 bg-white p-5 transition-colors hover:border-pool-300 hover:bg-pool-50"
-                >
-                  <h3 className="text-lg font-bold text-pool-900 group-hover:underline">
-                    {category.title}
-                  </h3>
-                  <p className="mt-1.5 text-[15px] leading-relaxed text-slate-600">
-                    {category.description}
-                  </p>
-                </Link>
-              </li>
-            ))}
-            <li>
-              <Link
-                href="/tools"
-                className="group block h-full rounded-xl border border-slate-200 bg-white p-5 transition-colors hover:border-pool-300 hover:bg-pool-50"
-              >
-                <h3 className="text-lg font-bold text-pool-900 group-hover:underline">
-                  Calculators
-                </h3>
-                <p className="mt-1.5 text-[15px] leading-relaxed text-slate-600">
-                  Volume, chlorine dosing, and salt. Get the number before you pour anything in.
-                </p>
-              </Link>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <section className="container-page py-12 sm:py-16">
-        <div className="rounded-2xl bg-pool-800 px-6 py-10 sm:px-10 sm:py-12">
-          <div className="max-w-2xl">
-            <h2 className="text-2xl font-bold text-white sm:text-3xl">
-              Some jobs are not worth doing yourself.
-            </h2>
-            <p className="mt-3 text-lg leading-relaxed text-pool-100">
-              Cracked plumbing, a dead heater, a pump that keeps tripping the breaker. Tell us what
-              it is doing and we will connect you with licensed techs near you.
-            </p>
-            <Link href="/pool-repair" className="btn-primary mt-6">
-              Get Repair Quotes
-            </Link>
-          </div>
-        </div>
-      </section>
+      <Hero />
+      <TrustStrip />
+      <SymptomIndex />
+      <FeaturedGuides />
+      <SeasonalBlock />
+      <ToolsStrip />
+      <RegionalFinder />
+      <EmailCapture />
+      <RepairCTA />
+      <TransparencyNote />
     </>
   )
 }

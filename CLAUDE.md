@@ -58,6 +58,7 @@ app/                      routes (App Router)
   about|editorial-policy|affiliate-disclosure|privacy-policy|terms/
   sitemap.js robots.js feed.xml/route.js
 components/
+  home/                   the 10 homepage sections (see "Homepage" below)
   mdx/                    the 8 components authors use inside MDX
   mdx/index.js            component map handed to MDXRemote
   ArticlePage.jsx         shared article shell (every category uses it)
@@ -66,6 +67,9 @@ components/
   Header, Footer, ArticleCard, Breadcrumbs, JsonLd, PageHeader,
   ProblemCards, ProsePage
 lib/
+  authors.js              author + trust-strip data (CONTAINS PLACEHOLDERS)
+  seasonal.js             four-season copy for the homepage "right now" block
+  symptoms.js             THE SYMPTOM INDEX -- also the content roadmap
   content.js              MDX loading + FRONTMATTER SCHEMA ENFORCEMENT
   products.js             SINGLE SOURCE OF TRUTH for products
   categories.js           the 5 categories
@@ -227,6 +231,40 @@ mirrors its algorithm so TOC anchors always resolve. **Change one, change both.*
 
 ---
 
+## Homepage
+
+`app/page.js` composes ten server components from `components/home/`. **Section
+order is the argument** -- it is documented in a comment at the top of
+`app/page.js`; read that before reordering anything.
+
+Three things about it are load-bearing:
+
+**The symptom index is the differentiator.** `lib/symptoms.js` lists ~24
+symptoms in the reader's own words. Entries whose article does not exist render
+as muted text with a "soon" tag, not links -- so the homepage can show the
+finished shape of the site without a single 404, and each entry becomes a link
+automatically the day its MDX lands. **That file doubles as the content
+roadmap**: add the symptom there first, write the article second. Same
+published-or-muted pattern in `RegionalFinder`.
+
+**The homepage revalidates daily** (`export const revalidate = 86400`) so
+`<SeasonalBlock>` stays current without a redeploy. This is ISR -- still static
+HTML, still `○` in the build output. `currentSeason()` resolves on the server;
+never move it to the client, or the server and browser clocks disagree and
+React throws a hydration error.
+
+**Unwired sections are flag-gated, not commented out.** `features.emailCapture`
+in `lib/site.js` is `false`, so `<EmailCapture>` renders nothing. A form that
+silently eats addresses costs more trust than no form. Flip the flag only once
+a provider and a POST handler exist.
+
+Placeholders that must not ship: `lib/authors.js` is entirely fabricated. The
+trust strip renders a loud `UNVERIFIED` tag next to any point with
+`verified: false`, deliberately -- an unsubstantiated credibility claim on a
+site giving chemical-handling advice should be impossible to ship by accident.
+
+---
+
 ## Design system
 
 Strict two colors plus neutrals. Defined in `tailwind.config.js`.
@@ -237,6 +275,13 @@ Strict two colors plus neutrals. Defined in `tailwind.config.js`.
 
 Do not add a third hue. Use `.btn-primary` (accent) and `.btn-secondary` (pool
 outline) from `globals.css` rather than restyling buttons per page.
+
+⚠️ **Dark backgrounds need an explicit heading colour.** The base layer in
+`globals.css` paints every `h1`–`h4` `text-pool-900`. On a `pool-800` section
+that renders navy-on-navy — invisible, and it still passes a build and any
+markup-level check. Any heading on a dark background must set `text-white`
+itself. This shipped once already; check dark sections in a real screenshot,
+not just in the HTML.
 
 Mobile-first. The header nav is a CSS-only `<details>` menu — **no client
 components in the shell**, which is why First Load JS is ~87 kB shared and the
@@ -277,6 +322,13 @@ placeholder, and flip `status` off `'planned'` to make it indexable.
 - `content/**` files are placeholder scaffolds that exercise every component.
   Replace them; do not ship them.
 - `lib/products.js` holds 3 placeholder entries with fake ASINs.
+- `lib/authors.js` is entirely placeholder. Homepage trust strip renders
+  `UNVERIFIED` tags until each point is substantiated and flipped to
+  `verified: true`.
+- `features.emailCapture` is off; `<EmailCapture>` needs a provider and a POST
+  handler before it renders.
+- ~20 of the 24 symptoms in `lib/symptoms.js` have no article yet and render
+  as muted "soon" text.
 - `/privacy-policy` and `/terms` are outlines, not legal documents. Get counsel
   before collecting a single lead.
 - Missing assets referenced by metadata: `/public/og-default.png` (1200×630) and
