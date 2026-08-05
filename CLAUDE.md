@@ -29,10 +29,18 @@ a bug** — it means a client component or a request-time API crept in.
 ## Commands
 
 ```bash
-npm run dev      # localhost:3000
-npm run build    # MUST pass before any commit
-npm start        # serve the production build locally
+npm run dev          # localhost:3000
+npm run build        # next build + check:links. MUST pass before any commit
+npm run check:links  # internal link checker (needs a build first)
+npm start            # serve the production build locally
 ```
+
+`npm run build` runs `scripts/check-links.mjs` after `next build` and **fails
+the build if any internal href has no matching route**. It scans the rendered
+HTML in `.next/server/app`, not the source — most hrefs here are built at
+render time (`/${category.slug}`, `article.href`), so a static scan of the JSX
+would miss them. Add a broken link and the build tells you the href and which
+page it came from.
 
 Copy `.env.example` to `.env.local` before running anything.
 
@@ -215,6 +223,16 @@ mirrors its algorithm so TOC anchors always resolve. **Change one, change both.*
 - **Metadata**: every page goes through `buildMetadata()` in `lib/seo.js` —
   canonical, Open Graph, Twitter card, robots. Do not hand-roll a `metadata`
   export on a new page; call the helper.
+- **Title composition happens in ONE place**: `title.template` in
+  `app/layout.js` (`%s | PoolFixHQ`). `buildMetadata()` returns a bare title and
+  lets the template append the brand. **Never append `| PoolFixHQ` in
+  `buildMetadata()`** — doing so double-suffixes every inner page
+  (`Pool Problems | PoolFixHQ | PoolFixHQ`). The homepage passes
+  `{ absolute: title }` to opt out. OG/Twitter bypass the template, so they use
+  an explicitly composed `socialTitle`.
+- **Never add a page to `robots.txt` `disallow` to keep it out of the index.**
+  A blocked page can't be crawled, so its robots meta tag is never read.
+  Control indexability per page via `noindex` / `nofollow` on `buildMetadata()`.
 - **JSON-LD**: builders in `lib/schema.js`, rendered by `<JsonLd>`.
   - Every article: `Article` + `BreadcrumbList` + `FAQPage`
   - Hubs: `CollectionPage` + `BreadcrumbList`
