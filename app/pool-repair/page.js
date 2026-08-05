@@ -10,7 +10,17 @@ export const metadata = buildMetadata({
   description:
     'Tell us what your pool is doing and get matched with licensed pool repair techs in your area. Free, no obligation.',
   path: '/pool-repair',
+  /**
+   * nofollow: intentional and permanent. A lead-capture page should not pass
+   * link equity outward.
+   *
+   * noindex: TEMPORARY. This form has no handler and its submit button is
+   * disabled -- indexing it now would rank a lead form that cannot capture a
+   * lead. Flip `noindex` to false (leaving nofollow true) the day the form
+   * actually submits; that is step 5 of the setup notes below.
+   */
   noindex: true,
+  nofollow: true,
 })
 
 const PROBLEM_TYPES = [
