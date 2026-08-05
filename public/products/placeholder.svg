@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-label="Product image placeholder">
+  <rect width="400" height="400" fill="#EFF8FC"/>
+  <rect x="100" y="110" width="200" height="180" rx="10" fill="#AEDAEE"/>
+  <rect x="130" y="140" width="140" height="20" rx="6" fill="#0F6188"/>
+  <rect x="130" y="175" width="110" height="12" rx="6" fill="#77BFE0"/>
+  <rect x="130" y="197" width="90" height="12" rx="6" fill="#77BFE0"/>
+  <text x="200" y="330" font-family="system-ui, sans-serif" font-size="18" fill="#0C4E6E" text-anchor="middle">Product image placeholder</text>
+</svg>
