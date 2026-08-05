@@ -110,6 +110,7 @@ export default function AboutPage() {
       <JsonLd data={[breadcrumbSchema(crumbs), orgSchema]} />
 
       <PageHeader
+        wide
         title="About PoolFixHQ"
         description="Pool problems, diagnosed from the symptom rather than the sales counter."
       >
