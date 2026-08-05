@@ -107,6 +107,7 @@ category: problems                                # required, one of the 5 categ
 quickAnswer: "Green water is almost always algae…" # required, ≥ 40 chars
 metaDescription: "Clear a green pool in 24 hours…" # required, ≤ 155 chars
 lastUpdated: 2026-08-05                           # required, YYYY-MM-DD
+status: scaffold                                  # required, 'scaffold' | 'live'
 products:                                         # optional, ids from lib/products.js
   - taylor-k2006
 relatedSlugs:                                     # optional, "slug" or "category/slug"
@@ -121,6 +122,21 @@ frontmatter key**, or a `products` id that does not exist in `lib/products.js`.
 Silent bad data is worse than a red build.
 
 To add a field, add it to `SCHEMA` in `lib/content.js`. Nowhere else.
+
+### Publishing an article: the `status` field
+
+`status: scaffold` — placeholder or draft. The page builds and is reachable,
+but it is `noindex, follow` and excluded from `sitemap.xml`.
+
+`status: live` — real, sourced content. Indexable and listed in the sitemap.
+
+**Flipping that one field is the entire publish step.** The robots meta tag
+(`articleMetadata()` in `lib/seo.js`) and sitemap inclusion (`app/sitemap.js`)
+both read it, so they can never disagree. It is `required`, so a new article
+must make a deliberate choice — a missing or misspelled value fails the build.
+
+Do not set `status: live` on an article that still contains placeholder copy or
+uncited claims.
 
 ### Required article structure
 

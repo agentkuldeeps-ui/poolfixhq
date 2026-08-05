@@ -23,8 +23,9 @@ export default function Hero() {
 
           <p className="mt-4 text-base leading-relaxed text-slate-600 sm:mt-5 sm:text-xl">
             Pick the symptom. We will tell you what is actually causing it, what the fix costs, and
-            whether it is worth doing yourself — written by people who do this for a living, not by
-            the store that wants to sell you chemicals.
+            whether it is worth doing yourself — built from manufacturer documentation, CDC
+            guidance, and university extension research, not from the store that wants to sell you
+            chemicals.
           </p>
         </div>
 
