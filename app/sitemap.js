@@ -47,7 +47,7 @@ export default function sitemap() {
       .filter((article) => article.status === 'live')
       .map((article) => ({
       url: absoluteUrl(article.href),
-        lastModified: article.lastUpdated,
+        lastModified: article.dateModified,
         changeFrequency: 'monthly',
         priority: article.featured ? 0.9 : 0.7,
       })),

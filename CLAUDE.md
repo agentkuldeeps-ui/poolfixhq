@@ -101,42 +101,70 @@ fails otherwise — that check is in `lib/content.js` and is deliberate.
 
 ```yaml
 ---
-title: "Green Pool Water: How to Clear It Fast"   # required, ≤ 70 chars
-slug: green-pool-water                            # required, kebab-case, == filename
-category: problems                                # required, one of the 5 category slugs
-quickAnswer: "Green water is almost always algae…" # required, ≥ 40 chars
-metaDescription: "Clear a green pool in 24 hours…" # required, ≤ 155 chars
-lastUpdated: 2026-08-05                           # required, YYYY-MM-DD
-status: scaffold                                  # required, 'scaffold' | 'live'
-products:                                         # optional, ids from lib/products.js
-  - taylor-k2006
-relatedSlugs:                                     # optional, "slug" or "category/slug"
-  - chemistry/chlorine-basics
-featured: false                                   # optional, bool — homepage "Start Here"
+title: "Pool Pump Will Not Prime: Every Cause, Cheapest Fix First"  # req, ≤90
+seoTitle: "Pool Pump Won't Prime: Causes & Fixes"   # optional, ≤60 — drives <title>/og:title only
+slug: pump-not-priming                    # req, kebab-case, == filename
+planId: EQP-001                           # req, AAA-000, UNIQUE across all content
+category: equipment                       # req, == folder, one of the 5 category slugs
+cluster: equipment                        # req, one of the 6 plan clusters
+primaryKeyword: pool pump not priming     # req
+quickAnswer: "…"                          # req, ≥40 chars — feeds <QuickAnswer /> and FAQPage
+metaDescription: "…"                      # req, ≤155
+status: scaffold                          # req, scaffold | live
+datePublished: 2026-08-06                 # req
+dateModified: 2026-08-06                  # req, must be ≥ datePublished
+uncommonTip: shaving-cream-lid-leak       # req, UNIQUE across live articles
+reviewedBy: "Name, credential"            # optional
+sources:                                  # req; URLs validated; non-empty for chemistry/safety
+  - title: Hayward Super Pump Owner's Manual
+    url: https://…
+faqs:                                     # optional — drives <FAQ /> AND FAQPage schema
+  - q: "…"
+    a: "…"
+products: [taylor-k2006]                  # optional
+relatedSlugs: [problems/green-pool-water] # optional
+featured: false                           # optional
 ---
 ```
 
-Validation is strict on purpose. `npm run build` fails on: a missing required
-field, a length violation, a bad date, a slug/filename mismatch, an **unknown
-frontmatter key**, or a `products` id that does not exist in `lib/products.js`.
-Silent bad data is worse than a red build.
+`title` is the H1. `seoTitle` exists only so a long editorial headline can keep
+its full wording on the page while the SERP gets something that isn't
+truncated. Omit it unless the title is over ~60 characters.
 
-To add a field, add it to `SCHEMA` in `lib/content.js`. Nowhere else.
+`category` and `cluster` are **not** duplicates. `category` is structural — it
+must equal the folder and drives the route. `cluster` is the content plan's
+taxonomy, and the two differ because **`brand-codes` and `equipment` both live
+under `/equipment`**. The mapping is enforced: a `cluster` under the wrong
+`category` fails the build.
 
-### Publishing an article: the `status` field
+### Build-time QC — two severities
 
-`status: scaffold` — placeholder or draft. The page builds and is reachable,
-but it is `noindex, follow` and excluded from `sitemap.xml`.
+**Hard failures** (break the build):
 
-`status: live` — real, sourced content. Indexable and listed in the sitemap.
+- any schema violation, unknown frontmatter key, or unknown product id
+- **`planId` duplicate — always, at any status.** A duplicate means two people
+  wrote the same plan row; that should stop everything.
+- a `sources[].url` that isn't a real absolute URL — this is the check that
+  makes an invented citation impossible to ship
+- `dateModified` earlier than `datePublished`
+- cluster/category mismatch
 
-**Flipping that one field is the entire publish step.** The robots meta tag
-(`articleMetadata()` in `lib/seo.js`) and sitemap inclusion (`app/sitemap.js`)
-both read it, so they can never disagree. It is `required`, so a new article
-must make a deliberate choice — a missing or misspelled value fails the build.
+**Hard failures only at `status: live`, warnings at `scaffold`:**
 
-Do not set `status: live` on an article that still contains placeholder copy or
-uncited claims.
+- primary keyword absent from the title
+- `uncommonTip` already used by another live article
+- chemistry articles, or any article containing `<SafetyWarning>`, with no sources
+
+**Always advisory:** primary keyword absent from the first 100 words. Deliberate
+— the natural opening to an article often doesn't contain the keyword, and
+forcing it produces exactly the jammed phrasing the voice spec exists to avoid.
+
+Drafts must stay committable. A schema that blocks half-finished work pushes
+writers out of the repo, which costs more than it saves.
+
+Keyword matching is normalised — lowercased, punctuation stripped, stopwords
+ignored, lightly stemmed, and satisfied at 70% of content words. So
+`"pump not priming"` in a title satisfies `"pool pump not priming"`.
 
 ### Required article structure
 
@@ -210,6 +238,9 @@ Available inside any MDX file with no import. Bound in `components/mdx/index.js`
 | `<TableOfContents />` | Auto from H2s. Renders nothing under 3 headings. |
 | `<ProductBlock id="…" />` | CTA at top **and** bottom, by design. |
 | `<ComparisonTable ids="a, b" />` | Comma-separated string, **not** an array. Horizontal scroll on mobile; scroll region is focusable and labelled. |
+| `<UncommonTip>` | The one mechanism per article. Prose as children; the `uncommonTip` frontmatter id enforces no-reuse. |
+| `<FAQ />` | Renders the `faqs` frontmatter block. Same data drives FAQPage schema, so they can't drift. |
+| `<Sources />` | Renders the `sources` frontmatter block. Links are followed, not nofollowed. |
 | `<LeadFormCTA />` | Links to `/pool-repair`. Never inline a second form. |
 | `<RelatedPosts />` | 3-card grid. Auto-appended at the end of every article unless the MDX already places it. |
 
@@ -253,10 +284,12 @@ mirrors its algorithm so TOC anchors always resolve. **Change one, change both.*
   - Every article: `Article` + `BreadcrumbList` + `FAQPage`
   - Hubs: `CollectionPage` + `BreadcrumbList`
   - Root layout: `WebSite` + `Organization`
-- **FAQPage** entries are derived, never hand-written: title + `quickAnswer`
-  seeds the list, then any H2 phrased as a question contributes the first
-  paragraph under it. An H2 question with no prose under it is skipped rather
-  than answered with filler.
+- **FAQPage** comes only from the explicit `faqs` frontmatter block. Deriving
+  it from question-shaped H2s is gone — guessing which headings were questions
+  produced entries whose "answer" was whatever paragraph happened to follow.
+  Worth knowing this is close to inert: Google restricted FAQ rich results to
+  government and health sites in 2023. It's emitted because it correctly
+  describes the page, not because it will render.
 - **Breadcrumbs**: `<Breadcrumbs items>` and `breadcrumbSchema(items)` take the
   same array. Always pass both the same variable so they cannot drift.
 - **sitemap.xml** excludes `/pool-repair` and any tool with

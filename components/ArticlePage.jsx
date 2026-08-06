@@ -30,7 +30,7 @@ export default function ArticlePage({ article }) {
         data={[
           breadcrumbSchema(crumbs),
           articleSchema(article),
-          faqSchema(article.faqs),
+          faqSchema((article.faqs || []).map((f) => ({ question: f.q, answer: f.a }))),
         ].filter(Boolean)}
       />
 
@@ -48,7 +48,7 @@ export default function ArticlePage({ article }) {
 
           <p className="mt-3 text-sm text-slate-500">
             Last updated{' '}
-            <time dateTime={article.lastUpdated}>{formatDate(article.lastUpdated)}</time>
+            <time dateTime={article.dateModified}>{formatDate(article.dateModified)}</time>
             {article.readingTime ? ` · ${article.readingTime} min read` : null}
             {' · '}
             <a href="/editorial-policy" className="underline decoration-slate-300 underline-offset-2 hover:text-pool-700">

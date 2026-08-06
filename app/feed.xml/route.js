@@ -6,7 +6,7 @@ export const dynamic = 'force-static'
 /** RSS 2.0 feed at /feed.xml. Regenerated at build time with the rest of the site. */
 export function GET() {
   const articles = getAllArticles()
-  const updated = articles[0]?.lastUpdated
+  const updated = articles[0]?.dateModified
 
   const items = articles
     .map(
@@ -16,7 +16,7 @@ export function GET() {
       <guid isPermaLink="true">${absoluteUrl(article.href)}</guid>
       <description>${escapeXml(article.metaDescription)}</description>
       <category>${escapeXml(article.category)}</category>
-      <pubDate>${toRfc822(article.lastUpdated)}</pubDate>
+      <pubDate>${toRfc822(article.dateModified)}</pubDate>
     </item>`,
     )
     .join('\n')

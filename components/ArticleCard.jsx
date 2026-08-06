@@ -25,7 +25,7 @@ export default function ArticleCard({ article, showCategory = true }) {
 
       <p className="mt-4 text-xs text-slate-500">
         Updated{' '}
-        <time dateTime={article.lastUpdated}>{formatDate(article.lastUpdated)}</time>
+        <time dateTime={article.dateModified}>{formatDate(article.dateModified)}</time>
         {article.readingTime ? ` · ${article.readingTime} min read` : null}
       </p>
     </article>

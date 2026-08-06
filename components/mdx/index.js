@@ -6,6 +6,9 @@ import ProductBlock from './ProductBlock'
 import ComparisonTable from './ComparisonTable'
 import LeadFormCTA from './LeadFormCTA'
 import RelatedPosts from './RelatedPosts'
+import UncommonTip from './UncommonTip'
+import FAQ from './FAQ'
+import Sources from './Sources'
 
 /**
  * The component map handed to MDXRemote.
@@ -26,6 +29,9 @@ export function mdxComponents({ article, related = [] } = {}) {
     QuickAnswer: (props) => <QuickAnswer answer={article?.quickAnswer} {...props} />,
     TableOfContents: (props) => <TableOfContents headings={article?.headings ?? []} {...props} />,
     RelatedPosts: (props) => <RelatedPosts posts={related} {...props} />,
+    FAQ: (props) => <FAQ faqs={article?.faqs ?? []} {...props} />,
+    Sources: (props) => <Sources sources={article?.sources ?? []} {...props} />,
+    UncommonTip,
     Callout,
     SafetyWarning,
     ProductBlock,
@@ -43,4 +49,7 @@ export {
   ComparisonTable,
   LeadFormCTA,
   RelatedPosts,
+  UncommonTip,
+  FAQ,
+  Sources,
 }
