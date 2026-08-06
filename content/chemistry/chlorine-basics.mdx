@@ -1,21 +1,39 @@
 ---
-title: "Free vs Total Chlorine: Placeholder Scaffold Article"
+title: "Free Chlorine vs Total vs Combined: The Three Numbers and Why Only One Matters Daily"
+seoTitle: "Free vs Total vs Combined Chlorine Explained"
 slug: chlorine-basics
 planId: CHM-001
 cluster: chemistry
 primaryKeyword: free chlorine vs total chlorine
-uncommonTip: tbd-chm-001
+uncommonTip: total-only-strips-hide-zero-free
 category: chemistry
-quickAnswer: "Placeholder answer block. Free chlorine is what is left to sanitize, total chlorine includes what is already used up, and the gap between them is the problem."
-metaDescription: "Placeholder meta description for the chlorine chemistry scaffold article. Replace before publishing."
-datePublished: 2026-08-03
-dateModified: 2026-08-03
+quickAnswer: "Free chlorine is what's left to sanitize. Combined chlorine is what's already been used up and is now doing nothing useful. Total is just the two added together — which is why a healthy-looking total can hide a pool with no working sanitizer at all."
+metaDescription: "Free chlorine vs total chlorine: what each number means, why combined chlorine matters, and which one to actually act on."
+datePublished: 2026-08-06
+dateModified: 2026-08-06
 status: scaffold
+sources:
+  - title: "CDC — Home Pool and Hot Tub Water Treatment and Testing"
+    url: https://www.cdc.gov/healthy-swimming/about/home-pool-and-hot-tub-water-treatment-and-testing.html
+  - title: "CDC — What You Can Do to Stay Healthy in Swimming Pools"
+    url: https://www.cdc.gov/healthy-swimming/safety/what-you-can-do-to-stay-healthy-in-swimming-pools.html
+  - title: "CDC — Model Aquatic Health Code (2023)"
+    url: https://www.cdc.gov/model-aquatic-health-code/php/about/index.html
+faqs:
+  - q: "Which number should I test daily?"
+    a: "Free chlorine. It's the only one that tells you whether the pool is sanitized right now. Total on its own tells you nothing actionable, because it counts chlorine that's already spent."
+  - q: "My strips say 3 ppm but the pool went green. How?"
+    a: "Check whether your strips read free chlorine or total chlorine. Many cheap strips read total only. A pool with zero free and 3 ppm combined reads as 3 ppm on that strip while having no working sanitizer at all."
+  - q: "What's a normal combined chlorine reading?"
+    a: "Ideally at or near zero, and under about 0.5 ppm in practice. Above that you'll usually smell it and swimmers' eyes will sting — both of which mean too little free chlorine, not too much."
+  - q: "Why is the CDC number different from what my pool store says?"
+    a: "CDC publishes separate guidance for home pools and public facilities. The widely quoted 7.2–7.8 pH range and 2 ppm minimum are the public-facility figures. For home pools CDC gives pH 7.0–7.8 and at least 1 ppm free chlorine, rising to at least 2 ppm where cyanuric acid is present."
 products:
   - drop-test-kit
+  - test-strips
 relatedSlugs:
   - problems/green-pool-water
-sources: []
+  - problems/cloudy-pool-water
 featured: true
 ---
 
@@ -23,17 +41,169 @@ featured: true
 
 <TableOfContents />
 
-Placeholder intro paragraph for the chemistry category scaffold.
+Free chlorine vs total chlorine is the distinction that decides whether your
+testing is worth doing. Most pool owners read one number, treat it as "the
+chlorine," and act on it. Sometimes that number is the right one. Often it's the
+one that hides the problem.
 
-## Placeholder Section
+There are three, they measure different things, and only one of them tells you
+what to do today.
+
+## What each number actually is
+
+**Free chlorine (FC)** is chlorine still available to sanitize. It hasn't
+reacted with anything yet. This is the working number — the one that determines
+whether the pool is safe to swim in right now.
+
+**Combined chlorine (CC)** is chlorine that has already reacted with ammonia and
+nitrogen compounds — sweat, urine, sunscreen, leaf debris. These compounds are
+called chloramines. They still register as chlorine on a test, but their
+sanitizing power is a small fraction of free chlorine's, and they're what
+produces the sharp "pool smell" and stinging eyes.
+
+**Total chlorine (TC)** is free plus combined. It's not a separate substance,
+just the sum. On its own it's the least useful of the three, which is unfortunate
+because it's the one most commonly reported.
+
+The relationship is arithmetic:
+
+```
+Total chlorine − Free chlorine = Combined chlorine
+```
+
+That subtraction is the actual diagnostic. A pool at 3 ppm total could be 3 free
+and 0 combined, which is healthy — or 0.2 free and 2.8 combined, which is a pool
+with essentially no sanitizer and a chloramine problem. Same total. Opposite
+situations.
+
+## Target ranges
+
+CDC publishes **different figures for home pools and public facilities**, and
+this is where most pool content goes wrong. The widely repeated numbers on other
+sites are the public-facility standards, quoted at homeowners by people who
+haven't noticed there are two sets.
+
+| Measurement | CDC home pool | CDC public facility |
+|---|---|---|
+| Free chlorine | at least **1 ppm** — at least **2 ppm** where cyanuric acid is present | at least 2 ppm |
+| pH | **7.0 – 7.8** | 7.2 – 7.8 |
+| Combined chlorine | as close to zero as you can hold it | same |
+
+Use the home figures. They're the ones written for your pool.
+
+That said, the CDC minimum is a floor, not a target. A pool sitting at exactly
+1 ppm is one hot afternoon away from zero, and zero is where algae starts. In
+practice most owners run comfortably above the minimum so there's margin for a
+day they don't test.
+
+The number that changes everything here is **cyanuric acid**. CYA protects
+chlorine from sunlight and simultaneously holds it back from working, so the
+higher your CYA, the more free chlorine you need for the same effect. That's why
+CDC raises the home minimum from 1 ppm to 2 ppm the moment CYA is present, and
+why "I added chlorine and nothing happened" is usually a CYA story rather than a
+chlorine story.
+
+<UncommonTip>
+  **A test that reads only total chlorine can show a healthy number on a pool
+  with no working sanitizer.**
+
+  Plenty of inexpensive strips report total chlorine and don't separate free
+  from combined. Read one on a pool sitting at 0.2 ppm free and 2.8 ppm
+  combined and it returns roughly 3 ppm — a number that looks completely fine.
+  Meanwhile nothing in that pool is being sanitized, and algae is already
+  winning.
+
+  This is the mechanism behind the most common complaint in pool care: *my
+  strips say the chlorine is fine but the water went green.* The strips weren't
+  lying. They were answering a different question.
+
+  Before you trust any reading, find out which number your test actually
+  measures. If the packaging says "total chlorine" or just "chlorine" with a
+  single pad, it cannot tell you whether your pool is sanitized. A test that
+  reports free and total separately gives you combined for free, by subtraction
+  — and that difference is the most useful number on the whole panel.
+</UncommonTip>
+
+<ProductBlock id="drop-test-kit" note="A FAS-DPD kit reads free and combined separately by titration, which is the whole point. Worth owning even if strips do your routine checks." />
+
+<ProductBlock id="test-strips" />
+
+## How to raise free chlorine
+
+Add chlorine — but choose the form deliberately, because each one brings
+something else with it.
+
+- **Liquid chlorine (sodium hypochlorite)** adds chlorine and salt. Nothing
+  else. It's the right choice while you're correcting a problem.
+- **Cal-hypo** adds chlorine and calcium hardness. Fine unless your calcium is
+  already high.
+- **Dichlor and trichlor** add chlorine *and cyanuric acid* — roughly 0.9 ppm
+  CYA per ppm of chlorine for dichlor, roughly 0.6 for trichlor. Convenient, and
+  the reason so many pools drift into a CYA problem over a season.
+
+Doses depend entirely on your volume, so there's no useful "add this much" here.
+Run the numbers in the [chlorine dosage
+calculator](/tools/chlorine-dosage-calculator), and if you don't know your
+gallons, start with the [volume calculator](/tools/pool-volume-calculator) —
+every figure downstream is wrong if that one is.
 
 <SafetyWarning>
-  Placeholder safety warning. Never mix chlorine products with acid, and never
-  mix two different types of shock. Mixing produces chlorine gas.
+  Never mix pool chemicals. Add each product to the water separately — never to
+  another chemical, never into a bucket that held one, and never combine two
+  types of shock. Chlorine and acid together produce chlorine gas. Always add
+  chemicals to water, never water to chemicals, and don't swim until free
+  chlorine is back in range.
 </SafetyWarning>
 
-## When to Call a Pro
+## How to lower combined chlorine
 
-Placeholder copy.
+You don't lower it directly. You destroy it with more chlorine.
+
+Combined chlorine breaks down when free chlorine is raised high enough for long
+enough — that's what shocking is actually for. Not "adding chlorine because the
+pool looks off," but oxidizing accumulated chloramines until the combined
+reading drops back toward zero.
+
+Which means the instinct most people have is exactly backwards. A pool that
+smells strongly of chlorine and stings your eyes doesn't have too much chlorine.
+It has too little free chlorine and too much combined, and the fix is more
+chlorine, not less.
+
+## Order of operations
+
+Chemistry adjustments interact, so sequence matters more than most guides admit.
+
+1. **Circulation first.** Nothing you add works in water that isn't moving.
+2. **Total alkalinity next.** TA buffers pH. Correct it first or pH won't hold
+   still while you chase it.
+3. **pH after that.** Above 7.8, chlorine's effectiveness falls off sharply, so
+   correcting pH makes every chlorine dose work harder.
+4. **Then chlorine.** Test, dose, wait a full turnover, retest.
+5. **CYA last, and rarely.** It only goes up with stabilized products and only
+   comes down by replacing water.
+
+Wait a full turnover between adjustments and retest before adding anything else.
+Most over-correction happens because someone tested twenty minutes after dosing.
+
+## What goes wrong when it's off
+
+**Free chlorine too low:** algae within days in warm water, and no protection
+against what swimmers bring in. See [green pool
+water](/problems/green-pool-water).
+
+**Free chlorine very high:** not the hazard people assume at ordinary pool
+levels, but it will bleach swimsuits and some liners, and it makes pH readings
+unreliable on some tests. It also falls on its own — the usual answer is to stop
+adding and wait.
+
+**Combined chlorine elevated:** the smell, the eye sting, and a pool that feels
+harsh. It's a signal that free chlorine has been too low relative to the load.
+
+**Total chlorine watched instead of free:** the failure mode in the tip above —
+a normal-looking number on an unsanitized pool.
 
 <LeadFormCTA />
+
+<FAQ />
+
+<Sources />

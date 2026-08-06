@@ -437,8 +437,17 @@ end. Under 40 lines.
 
 **`content/research/tips.json` is the tip bank's source of truth**, not the
 spreadsheet. A tip is `candidate` until confirmed against a readable source with
-the URL logged. Only `verified` tips get assigned to articles — a candidate with
-no source is a research task, not a tip.
+the URL logged.
+
+**A candidate tip may be assigned and written against while the article is
+`status: scaffold`. Verification gates `live`, not writing.** Otherwise every
+writing session blocks on a research session, which is the interleaving that
+caused the context problem in the first place. Sourcing a candidate is a
+research-session job; it must be done before the article flips to `live`, and
+not before.
+
+The candidate/verified split exists to stop *invented* mechanisms that sound
+plausible — not to re-litigate standard practice. Judge accordingly.
 
 ## Working rules
 
