@@ -1,5 +1,5 @@
 {
-  "_doc": "Uncommon tip bank. SOURCE OF TRUTH \u2014 replaces the spreadsheet tab. state: candidate = from domain reasoning or an unreadable snippet, NEVER assignable. verified = confirmed against a readable source with the URL logged. assignedTo = planId or null. Research sessions append here; writing sessions read only.",
+  "_doc": "Uncommon tip bank. SOURCE OF TRUTH — replaces the spreadsheet tab. state: candidate = from domain reasoning or an unreadable snippet, NEVER assignable. verified = confirmed against a readable source with the URL logged. assignedTo = planId or null. Research sessions append here; writing sessions read only.",
   "_rules": {
     "assignable": "state === 'verified' && assignedTo === null",
     "uniqueness": "id is enforced unique across live articles by lib/frontmatter.js",
@@ -7,30 +7,39 @@
   },
   "tips": [
     {
+      "id": "surface-material-decides-diagnosis",
+      "mechanism": "Ask what the pool is made of before testing anything. Cyanobacteria needs microscopic surface texture to anchor its holdfasts; a smooth gelcoat or vinyl liner does not offer it. So black spots on a fiberglass pool are usually not algae at all — they are cobalt coming through the gelcoat from underneath, which is why they powder away under a brush and reappear in exactly the same place within days. Owners routinely spend months holding chlorine at 20-30 ppm against something that was never alive, and scratch the gelcoat with a stainless brush while doing it. The surface material narrows the diagnosis before a single test strip comes out of the bottle.",
+      "appliesTo": "Black spots, black algae, cobalt spotting, fiberglass, gelcoat, vinyl liner",
+      "state": "verified",
+      "sourceUrl": "https://www.fibretechinc.com/blog/black-spots-on-pool-surface-explained",
+      "sourceTitle": "Fibretech — Black Spots on Pool Surface Explained",
+      "assignedTo": "SYM-004"
+    },
+    {
       "id": "hottest-water-precipitates-first",
-      "mechanism": "Calcium does not come out of solution evenly. It crystallizes in the hottest water first \u2014 inside the heat exchanger, across salt cell plates, at a sunlit spillway or tile line. Two consequences owners never connect: milky water appearing right after a heater run points at saturation rather than anything added; and if the pool is going milky, the heater and cell are already scaling internally where it cannot be seen. Checking the cell for white crust is a free early warning weeks before the pool itself goes white.",
+      "mechanism": "Calcium does not come out of solution evenly. It crystallizes in the hottest water first — inside the heat exchanger, across salt cell plates, at a sunlit spillway or tile line. Two consequences owners never connect: milky water appearing right after a heater run points at saturation rather than anything added; and if the pool is going milky, the heater and cell are already scaling internally where it cannot be seen. Checking the cell for white crust is a free early warning weeks before the pool itself goes white.",
       "appliesTo": "Milky white water, calcium hardness, scale, salt cell, heater",
       "state": "verified",
       "sourceUrl": "https://blog.orendatech.com/lsi-balance-and-calcium-management-pillar-1",
-      "sourceTitle": "Orenda Technologies \u2014 LSI Balance and Calcium Management (Pillar 1)",
+      "sourceTitle": "Orenda Technologies — LSI Balance and Calcium Management (Pillar 1)",
       "assignedTo": "SYM-003"
     },
     {
       "id": "carbonate-clouding",
-      "mechanism": "Water can go cloudy because it is precipitating calcium carbonate rather than holding debris. When pH and calcium hardness climb far enough, carbonate stops staying dissolved and forms microscopic crystals through the water column. Every standard fix fails: filtering cannot outpace crystals forming, clarifier has no debris to gather, and shocking raises pH further and precipitates more. The free diagnostic is timing \u2014 filtration problems take days, this appears between one test and the next.",
+      "mechanism": "Water can go cloudy because it is precipitating calcium carbonate rather than holding debris. When pH and calcium hardness climb far enough, carbonate stops staying dissolved and forms microscopic crystals through the water column. Every standard fix fails: filtering cannot outpace crystals forming, clarifier has no debris to gather, and shocking raises pH further and precipitates more. The free diagnostic is timing — filtration problems take days, this appears between one test and the next.",
       "appliesTo": "Cloudy water, milky water, cloudy after shocking, new plaster",
       "state": "verified",
       "sourceUrl": "https://ask.orendatech.com/knowledge/what-causes-cloudy-pool-water",
-      "sourceTitle": "Orenda Technologies \u2014 What causes cloudy pool water?",
+      "sourceTitle": "Orenda Technologies — What causes cloudy pool water?",
       "assignedTo": "SYM-002"
     },
     {
       "id": "suction-side-never-drips",
-      "mechanism": "A suction-side leak pulls air in rather than pushing water out, so it never leaves a puddle. Hunting for water is worse than useless \u2014 any water found is on the pressure side and therefore ruled out as the cause of a priming failure. Invert the test: look for bubbles entering the pump lid window and trace where they start.",
+      "mechanism": "A suction-side leak pulls air in rather than pushing water out, so it never leaves a puddle. Hunting for water is worse than useless — any water found is on the pressure side and therefore ruled out as the cause of a priming failure. Invert the test: look for bubbles entering the pump lid window and trace where they start.",
       "appliesTo": "Pump will not prime, pump loses prime, air in returns",
       "state": "verified",
       "sourceUrl": "https://diy.inyopools.com/article/test-suction-side-air-leaks/",
-      "sourceTitle": "Inyo Pools \u2014 How to Test for Suction Side Air Leaks",
+      "sourceTitle": "Inyo Pools — How to Test for Suction Side Air Leaks",
       "assignedTo": "EQP-001"
     },
     {
@@ -39,21 +48,21 @@
       "appliesTo": "Loud pump, screeching bearings, motor replacement, pump leaking underneath",
       "state": "verified",
       "sourceUrl": "https://www.inyopools.com/HowToPage/how-to-troubleshoot-a-pool-pump-motor-motor-noisy.aspx",
-      "sourceTitle": "Inyo Pools \u2014 How To Troubleshoot a Pool Pump Motor: Motor Noisy",
+      "sourceTitle": "Inyo Pools — How To Troubleshoot a Pool Pump Motor: Motor Noisy",
       "assignedTo": "EQP-002"
     },
     {
       "id": "thermal-overload-resets-itself",
-      "mechanism": "A pump that dies and works again about half an hour later is not an intermittent electrical fault. It is the motor's built-in thermal overload cutting on heat and reclosing once cool \u2014 a reset interval of roughly 20-30 minutes is the characteristic signature. The overload is the alarm, not the fault: something is making the motor run hot (failing bearings adding drag, blocked cooling vents, direct sun, low supply voltage, cavitation). People replace breakers and rewire timers for weeks because the pump runs every time they test it.",
+      "mechanism": "A pump that dies and works again about half an hour later is not an intermittent electrical fault. It is the motor's built-in thermal overload cutting on heat and reclosing once cool — a reset interval of roughly 20-30 minutes is the characteristic signature. The overload is the alarm, not the fault: something is making the motor run hot (failing bearings adding drag, blocked cooling vents, direct sun, low supply voltage, cavitation). People replace breakers and rewire timers for weeks because the pump runs every time they test it.",
       "appliesTo": "Pump not turning on, pump starts then stops, motor overheating, breaker confusion",
       "state": "verified",
       "sourceUrl": "https://www.inyopools.com/HowToPage/how-to-troubleshoot-a-pool-pump-motor-motor-shuts-down.aspx",
-      "sourceTitle": "Inyo Pools \u2014 Motor Shuts Down (bad bearings overheat the motor and trip the overload until it cools)",
+      "sourceTitle": "Inyo Pools — Motor Shuts Down (bad bearings overheat the motor and trip the overload until it cools)",
       "assignedTo": "EQP-003"
     },
     {
       "id": "total-only-strips-hide-zero-free",
-      "mechanism": "A test that reads only total chlorine can show a healthy number on a pool with no working sanitizer. At 0.2 ppm free and 2.8 ppm combined, a total-only strip returns roughly 3 ppm and looks fine while nothing is being sanitized. This is the mechanism behind 'my strips say chlorine is fine but the pool went green' \u2014 the strip answered a different question.",
+      "mechanism": "A test that reads only total chlorine can show a healthy number on a pool with no working sanitizer. At 0.2 ppm free and 2.8 ppm combined, a total-only strip returns roughly 3 ppm and looks fine while nothing is being sanitized. This is the mechanism behind 'my strips say chlorine is fine but the pool went green' — the strip answered a different question.",
       "appliesTo": "Free vs total vs combined chlorine, test strips vs drop kit, chlorine will not hold",
       "state": "candidate",
       "sourceUrl": null,
@@ -63,17 +72,17 @@
     },
     {
       "id": "open-below-60-degrees",
-      "mechanism": "Open the pool while the water is still below roughly 60F rather than when you want to swim. Algae is close to dormant at that temperature, so an early open is a pool you clean rather than one you rescue. Waiting for warm weather means opening a pool that has been incubating under a cover in still water with no sanitizer \u2014 a bloom already in progress.",
+      "mechanism": "Open the pool while the water is still below roughly 60F rather than when you want to swim. Algae is close to dormant at that temperature, so an early open is a pool you clean rather than one you rescue. Waiting for warm weather means opening a pool that has been incubating under a cover in still water with no sanitizer — a bloom already in progress.",
       "appliesTo": "Pool opening, spring startup, seasonal timing",
       "state": "candidate",
       "sourceUrl": null,
       "sourceTitle": null,
       "assignedTo": "GDE-001",
-      "_note": "Algae growth vs water temperature \u2014 source against a university extension or CDC/MAHC reference."
+      "_note": "Algae growth vs water temperature — source against a university extension or CDC/MAHC reference."
     },
     {
       "id": "texas-hardness-inverts",
-      "mechanism": "Evaporation concentrates hardness, so a West Texas pool gets harder all summer with nothing done wrong. Water leaves as vapor, minerals stay, and every top-up gallon brings more in \u2014 a pool filling at 19-22 gpg concentrates twice over. A calcium reading fine in April can be scaling tile by August. No chemical removes it; dilution is the only route, which is a different conversation in a drought year.",
+      "mechanism": "Evaporation concentrates hardness, so a West Texas pool gets harder all summer with nothing done wrong. Water leaves as vapor, minerals stay, and every top-up gallon brings more in — a pool filling at 19-22 gpg concentrates twice over. A calcium reading fine in April can be scaling tile by August. No chemical removes it; dilution is the only route, which is a different conversation in a drought year.",
       "appliesTo": "Texas and arid-climate regional articles, calcium hardness, scale",
       "state": "candidate",
       "sourceUrl": null,
@@ -83,13 +92,13 @@
     },
     {
       "id": "dead-algae-turns-gray",
-      "mechanism": "A clearing pool goes gray before it goes clear. Dead algae loses its color and becomes fine gray particulate, which usually looks worse than the green did \u2014 and that is exactly where people stop dosing, with a day of filtering left to run. Gray means the chlorine won and the job is now the filter's.",
+      "mechanism": "A clearing pool goes gray before it goes clear. Dead algae loses its color and becomes fine gray particulate, which usually looks worse than the green did — and that is exactly where people stop dosing, with a day of filtering left to run. Gray means the chlorine won and the job is now the filter's.",
       "appliesTo": "Green pool water, algae treatment, how long to clear",
       "state": "candidate",
       "sourceUrl": null,
       "sourceTitle": null,
       "assignedTo": "SYM-001",
-      "_note": "ASSIGNED WHILE UNSOURCED \u2014 predates the verified/candidate rule. Needs a readable source or SYM-001 needs a different tip before it goes live."
+      "_note": "ASSIGNED WHILE UNSOURCED — predates the verified/candidate rule. Needs a readable source or SYM-001 needs a different tip before it goes live."
     },
     {
       "id": "shaving-cream-lid-leak",
@@ -111,7 +120,7 @@
     },
     {
       "id": "acid-column-ta-drop",
-      "mechanism": "Pour alkalinity-lowering acid in one narrow column with the pump off, then wait \u2014 lowers TA with less effect on pH.",
+      "mechanism": "Pour alkalinity-lowering acid in one narrow column with the pump off, then wait — lowers TA with less effect on pH.",
       "appliesTo": "Lowering TA without dropping pH",
       "state": "candidate",
       "sourceUrl": null,
@@ -126,7 +135,7 @@
       "sourceUrl": null,
       "sourceTitle": null,
       "assignedTo": null,
-      "_note": "Reserved for SYM-016 \u2014 do not spend elsewhere."
+      "_note": "Reserved for SYM-016 — do not spend elsewhere."
     },
     {
       "id": "cold-water-false-low-salt",
@@ -136,7 +145,7 @@
       "sourceUrl": null,
       "sourceTitle": null,
       "assignedTo": null,
-      "_note": "Verify against Hayward AquaRite service literature \u2014 BRD-031."
+      "_note": "Verify against Hayward AquaRite service literature — BRD-031."
     },
     {
       "id": "dead-gauge-not-dead-pump",
@@ -158,7 +167,7 @@
     },
     {
       "id": "rinse-after-backwash",
-      "mechanism": "Backwash until the sight glass clears, then rinse 20 seconds \u2014 skipping rinse sends the first slug of dirt straight back to the pool.",
+      "mechanism": "Backwash until the sight glass clears, then rinse 20 seconds — skipping rinse sends the first slug of dirt straight back to the pool.",
       "appliesTo": "Backwash vs rinse",
       "state": "candidate",
       "sourceUrl": null,
@@ -194,7 +203,7 @@
     },
     {
       "id": "brush-black-algae-first",
-      "mechanism": "Brush black algae with a stainless brush before treating \u2014 treatment cannot reach through the protective cap.",
+      "mechanism": "Brush black algae with a stainless brush before treating — treatment cannot reach through the protective cap.",
       "appliesTo": "Black algae",
       "state": "candidate",
       "sourceUrl": null,
@@ -218,11 +227,11 @@
       "sourceUrl": null,
       "sourceTitle": null,
       "assignedTo": null,
-      "_note": "Corroborated by In The Swim and Hallmark Pool Supplies \u2014 needs one URL logged to promote to verified."
+      "_note": "Corroborated by In The Swim and Hallmark Pool Supplies — needs one URL logged to promote to verified."
     },
     {
       "id": "flow-switch-fails-closed",
-      "mechanism": "Heater and chlorinator flow switches fail closed as often as open \u2014 a No Flow message with visible flow points at the switch.",
+      "mechanism": "Heater and chlorinator flow switches fail closed as often as open — a No Flow message with visible flow points at the switch.",
       "appliesTo": "AquaRite no flow, heater LO code",
       "state": "candidate",
       "sourceUrl": null,
