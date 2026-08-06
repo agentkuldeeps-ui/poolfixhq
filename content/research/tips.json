@@ -45,6 +45,16 @@
       "_note": "Algae growth vs water temperature \u2014 source against a university extension or CDC/MAHC reference."
     },
     {
+      "id": "texas-hardness-inverts",
+      "mechanism": "Evaporation concentrates hardness, so a West Texas pool gets harder all summer with nothing done wrong. Water leaves as vapor, minerals stay, and every top-up gallon brings more in \u2014 a pool filling at 19-22 gpg concentrates twice over. A calcium reading fine in April can be scaling tile by August. No chemical removes it; dilution is the only route, which is a different conversation in a drought year.",
+      "appliesTo": "Texas and arid-climate regional articles, calcium hardness, scale",
+      "state": "candidate",
+      "sourceUrl": null,
+      "sourceTitle": null,
+      "assignedTo": "REG-001",
+      "_note": "Hardness figures sourced (PurityMap, Aquatell) but the evaporation-concentration mechanism itself needs an extension or manufacturer source."
+    },
+    {
       "id": "dead-algae-turns-gray",
       "mechanism": "A clearing pool goes gray before it goes clear. Dead algae loses its color and becomes fine gray particulate, which usually looks worse than the green did \u2014 and that is exactly where people stop dosing, with a day of filtering left to run. Gray means the chlorine won and the job is now the filter's.",
       "appliesTo": "Green pool water, algae treatment, how long to clear",

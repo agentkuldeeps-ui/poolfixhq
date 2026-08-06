@@ -178,7 +178,24 @@ Every article, in this order:
 5. One uncommon tip most sites miss.
 6. `## When to Call a Pro` containing `<LeadFormCTA />`.
 
-Also non-negotiable: 8th-grade reading level, 1,400–1,800 words, target keyword
+### Word targets are per-cluster, and length is an output
+
+Never write to a number. The plan's target column is a **ceiling to aim at** for
+equipment, and a **soft guide** everywhere else.
+
+- **Equipment and brand-code** — procedural depth is available, so hit the
+  target. **If one of these is short, it is almost always missing the
+  procedure**: how to do the job *correctly*, not just how to diagnose it going
+  wrong. That gap is the depth. More diagnostic branches is not.
+- **Symptom and chemistry** — diagnostic depth only. 10–15% under target is
+  expected and fine. Do not pad to close it. Below ~1,100 words means something
+  is genuinely missing; investigate that.
+- **Regional** — length follows whether the state has an internal split in the
+  advice. No split, shorter article.
+
+Report unders plainly. An under is information, not a failure.
+
+Also non-negotiable: 8th-grade reading level, target keyword
 in the title, and the veteran-tech voice — direct, practical, says out loud when
 the cheap fix beats the expensive one.
 

@@ -4,46 +4,46 @@ Read this and CLAUDE.md at the start of every session. Nothing else unless the
 task needs it. Rewrite this file at the end of every session.
 
 ## Last commit
-`(this one)` — Session C part 1: EQP-001 depth pass + hardness rule
+`(this one)` — REG-001 written. **All six scaffolds are now real articles.**
 
 ## Session type rules
 Research: Firecrawl only → `content/research/*.json`, one page in context at a
-time. Writing: repo only, no fetching — unknown facts become `[VERIFY: …]`.
+time. Writing: repo only, no fetching — unknowns become `[VERIFY: …]`.
 Three articles per writing session, then stop.
 
-## Written / remaining
-- done: SYM-001, SYM-002, EQP-001, CHM-001, GDE-001
-- remaining scaffold: **REG-001** texas — unblocked, data on disk, NOT started
-- B1 after that: 63 articles, 0 written
+## State
+- Scaffold replacements: **complete** — SYM-001, SYM-002, EQP-001, CHM-001,
+  GDE-001, REG-001. No placeholder text remains on the site.
+- B1: 63 articles, 0 written.
+- Everything is `status: scaffold` — nothing goes live until a review batch.
 
-## WORD TARGET TEST — result
-EQP-001 went **1,289 → 1,933** against a 1,900 target. The additions were real
-material, not padding: a concrete priming procedure and a real-prime vs
-false-prime section that did not exist. **The targets stand.** Equipment
-articles have procedural depth available. Do the same for the other three:
-SYM-002 1,370/1,800 · CHM-001 1,185/1,600 · GDE-001 1,045/2,000.
-Caveat: symptom articles have less procedure to draw on than equipment ones, so
-if SYM-002 tops out around 1,600 that is the topic, not the effort.
+## Word counts vs target (per-cluster policy now in CLAUDE.md)
+- EQP-001 **1,933** / 1,900 — hit, after the procedure was added
+- SYM-002 1,370 / 1,800 · CHM-001 1,185 / 1,600 · GDE-001 1,045 / 2,000 —
+  **depth passes still owed**
+- REG-001 **1,154** / 1,800 — under by design. One split (hardness inverts
+  across the state), one honest gap (season length). Padding it would mean
+  inventing the thing that isn't sourced.
+
+## Open [VERIFY]
+- `content/regional/texas.mdx` — swim-season length or water temperature
+  normals by TX region, from a citable climate or extension source.
 
 ## tips.json
-20 total, 2 verified, 18 candidates. Four assigned tips still unsourced —
-gate `live`, not writing.
-
-## REG-001 — read regional-tx.json before writing
-- **Lead with the intra-state split.** Dallas/Houston (~8 gpg) arrive BELOW the
-  200–400 ppm calcium target and need hardness raised; Lubbock/Odessa/Midland
-  (18–22 gpg) are fighting scale. That contradiction is why the article exists —
-  do not bury it under a season-by-season structure.
-- Total hardness ≠ calcium hardness (~70–80%). See CLAUDE.md standing rule.
-- San Antonio sources conflict (16.7 vs 21 gpg) — write as a range, say so.
-- Draining is municipal not statewide. Cite the three named cities.
-- **Season length gap: name it in the article.** Say a single figure would
-  mislead because it varies by region, then give the reader what actually
-  governs it — water temperature, since algae growth and heater decisions key
-  off temp rather than calendar months. That is more useful than a number.
-- **Every remaining state article asks: where does the advice invert within this
-  state?** No split means a thinner article — make it shorter, never padded.
+21 total, **2 verified**, 19 candidates, 0 assignable. Five assigned tips
+unsourced: `dead-algae-turns-gray`, `total-only-strips-hide-zero-free`,
+`open-below-60-degrees`, `carbonate-clouding`✓, `suction-side-never-drips`✓,
+`texas-hardness-inverts`. Candidates are writable at `scaffold`; they gate
+`live`. **Six articles are now finished but cannot publish** — this stack only
+grows.
 
 ## Next action
-**Session C part 2 (writing):** REG-001, then depth passes on SYM-002, CHM-001,
-GDE-001. Do not pad to a number.
+**Dedicated research session, before B1 opens.** Tip sourcing has slipped four
+sessions. Clear the assigned candidates first, then build toward 60 verified.
+**Manufacturer service bulletins first** — that vein is the differentiator for
+the 50 brand-code articles and the least picked-over source in the niche.
+
+Then B1, three articles per writing session. For every equipment and brand-code
+article, ask whether it explains how to do the job **correctly**, not only how
+to diagnose it going wrong. That gap is likely sitting in most of the 94
+equipment-cluster articles as a planned structure.
