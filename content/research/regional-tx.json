@@ -1,0 +1,69 @@
+{
+  "_doc": "Research for REG-001 (/regional/texas). Session B. Writing sessions read this and do not fetch. Anything marked gap:true must be written as an explicit unknown in the article, never estimated.",
+  "state": "partial",
+  "fillWaterHardness": {
+    "unit": "grains per gallon (gpg). 1 gpg = 17.1 ppm as CaCO3.",
+    "criticalCaveat": "These are TOTAL hardness figures. Pool testing measures CALCIUM hardness, which is typically 70-80% of total because the rest is magnesium. Do NOT present these as calcium hardness readings. Present them as fill-water total hardness and say the calcium fraction is lower.",
+    "stateAverage": { "gpg": 11.9, "note": "US average is 6.3 gpg. 20 of 20 surveyed TX cities are hard or very hard (7+ gpg)." },
+    "byCity": [
+      { "city": "Dallas", "gpg": 7.9, "approxPpmTotal": 135 },
+      { "city": "Houston", "gpg": 8.0, "approxPpmTotal": 137 },
+      { "city": "Denton", "gpg": 8.2, "approxPpmTotal": 140 },
+      { "city": "Irving", "gpg": 8.5, "approxPpmTotal": 145 },
+      { "city": "Plano", "gpg": 8.6, "approxPpmTotal": 147 },
+      { "city": "Fort Worth", "gpg": 8.8, "approxPpmTotal": 150 },
+      { "city": "Arlington", "gpg": 9.1, "approxPpmTotal": 156 },
+      { "city": "Garland", "gpg": 9.2, "approxPpmTotal": 157 },
+      { "city": "Frisco", "gpg": 9.8, "approxPpmTotal": 168 },
+      { "city": "McKinney", "gpg": 9.8, "approxPpmTotal": 168 },
+      { "city": "Austin", "gpg": 10.5, "approxPpmTotal": 180 },
+      { "city": "Corpus Christi", "gpg": 10.8, "approxPpmTotal": 185 },
+      { "city": "Round Rock", "gpg": 10.8, "approxPpmTotal": 185 },
+      { "city": "El Paso", "gpg": 11.4, "approxPpmTotal": 195 },
+      { "city": "Laredo", "gpg": 12.5, "approxPpmTotal": 214 },
+      { "city": "San Antonio", "gpg": 16.7, "approxPpmTotal": 286, "conflict": true },
+      { "city": "Amarillo", "gpg": 18.5, "approxPpmTotal": 316 },
+      { "city": "Midland", "gpg": 18.5, "approxPpmTotal": 316 },
+      { "city": "Odessa", "gpg": 19.0, "approxPpmTotal": 325 },
+      { "city": "Lubbock", "gpg": 22.2, "approxPpmTotal": 380 }
+    ],
+    "conflicts": [
+      {
+        "city": "San Antonio",
+        "values": ["16.7 gpg (PurityMap)", "21 gpg / 357 ppm (Aquatell)"],
+        "handling": "Write as a range (roughly 17-21 gpg) and say sources disagree. Do not pick one silently."
+      }
+    ],
+    "whyThisMatters": "Calcium hardness target for plaster is commonly 200-400 ppm. So Dallas and Houston fill water arrives BELOW target and hardness has to be raised, while Lubbock, Odessa and Midland arrive at or above it and the problem is scale rather than deficiency. That is the same state with opposite advice, and it is the article's differentiator.",
+    "sources": [
+      { "title": "PurityMap — Texas Water Quality Report", "url": "https://puritymap.com/water-quality/texas/" },
+      { "title": "Aquatell — Water Hardness Texas", "url": "https://www.aquatell.com/pages/water-hardness-texas" }
+    ]
+  },
+  "drainingRules": {
+    "headline": "There is no single Texas rule. Draining is governed municipally, and the limits differ city to city. That is the honest answer and it is more useful than a made-up statewide figure.",
+    "statewide": {
+      "citation": "25 Tex. Admin. Code § 265.188 — Wastewater Disposal",
+      "url": "https://www.law.cornell.edu/regulations/texas/25-Tex-Admin-Code-SS-265-188",
+      "gist": "Backwash and drain water must discharge through an air gap, the pipe opening at least two pipe diameters above the receiving point.",
+      "caveat": "Chapter 265 subchapter L is public/semi-public pool regulation. Do NOT present it as binding on a residential backyard pool without confirming scope.",
+      "gap": true
+    },
+    "municipalExamples": [
+      { "city": "Universal City", "rule": "Water must be dechlorinated and pH below 7.0 before draining. Call the city first.", "url": "https://www.universalcitytexas.gov/742/Draining-Swimming-Pools" },
+      { "city": "Oak Point", "rule": "Prohibited for water above 0.1 ppm chlorine to enter the storm sewer.", "url": "https://oakpointtexas.com/293/Draining-Your-Pool" },
+      { "city": "Burleson", "rule": "No chlorinated water, saline water or backwash to street or gutter — storm drains run to creeks and lakes untreated.", "url": "https://www.burlesontx.com/DocumentCenter/View/24870/Burleson-Pool-Resource-Guide---2022" }
+    ],
+    "commonThread": "Dechlorinate before discharge, and never to a storm drain. 0.1 ppm is the recurring chlorine limit. Saltwater pools are called out separately in several ordinances.",
+    "writingGuidance": "Give the common thread as the practical rule, cite two or three named cities as evidence that limits vary, and tell the reader to call their own city. Do not state a single number as if it applies statewide."
+  },
+  "seasonLength": {
+    "gap": true,
+    "note": "NOT FOUND this session. Needs a real source — climate normals or a state extension program. Do not estimate swim-season months. Either source it next research session or write the section around what is known (year-round operation in most of the state) without inventing month ranges."
+  },
+  "nextResearch": [
+    "Season length / water temperature normals by TX region, from a citable climate source",
+    "Confirm whether 25 TAC 265 subchapter L reaches residential pools or only public/semi-public",
+    "Houston, Dallas, San Antonio municipal drain ordinances (largest metros, currently unrepresented in the examples above)"
+  ]
+}
