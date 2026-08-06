@@ -25,6 +25,15 @@
       "assignedTo": "EQP-001"
     },
     {
+      "id": "bearings-die-of-seal-leaks",
+      "mechanism": "Failed pump bearings are usually a symptom, not the disease. The mechanical seal wears and weeps, water tracks along the shaft into the motor's front bearing, washes out the grease and corrodes the race. Months later the bearing screeches and everyone calls it a motor fault. Replacing the motor alone puts a new motor behind the same worn seal and buys the same failure twice. The early tell is a drip between wet end and motor that appears while running.",
+      "appliesTo": "Loud pump, screeching bearings, motor replacement, pump leaking underneath",
+      "state": "verified",
+      "sourceUrl": "https://www.inyopools.com/HowToPage/how-to-troubleshoot-a-pool-pump-motor-motor-noisy.aspx",
+      "sourceTitle": "Inyo Pools \u2014 How To Troubleshoot a Pool Pump Motor: Motor Noisy",
+      "assignedTo": "EQP-002"
+    },
+    {
       "id": "total-only-strips-hide-zero-free",
       "mechanism": "A test that reads only total chlorine can show a healthy number on a pool with no working sanitizer. At 0.2 ppm free and 2.8 ppm combined, a total-only strip returns roughly 3 ppm and looks fine while nothing is being sanitized. This is the mechanism behind 'my strips say chlorine is fine but the pool went green' \u2014 the strip answered a different question.",
       "appliesTo": "Free vs total vs combined chlorine, test strips vs drop kit, chlorine will not hold",

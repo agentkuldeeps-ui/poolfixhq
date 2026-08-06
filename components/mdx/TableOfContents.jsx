@@ -7,6 +7,10 @@
  *
  * Renders nothing when an article has fewer than three H2s -- a two-item TOC is
  * noise.
+ *
+ * Hidden on lg and up: ArticlePage renders a sticky "On this page" rail in the
+ * left gutter at that breakpoint, and two tables of contents on one page is
+ * clutter. This inline version is the mobile fallback.
  */
 export default function TableOfContents({ headings = [], minHeadings = 3 }) {
   if (!headings || headings.length < minHeadings) return null
@@ -14,7 +18,7 @@ export default function TableOfContents({ headings = [], minHeadings = 3 }) {
   return (
     <nav
       aria-labelledby="toc-heading"
-      className="not-prose my-6 rounded-xl border border-slate-200 bg-slate-50 p-5"
+      className="not-prose my-6 rounded-xl border border-slate-200 bg-slate-50 p-5 lg:hidden"
     >
       <p id="toc-heading" className="mb-3 text-sm font-bold uppercase tracking-widest text-pool-800">
         Jump to Section

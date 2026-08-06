@@ -34,8 +34,40 @@ export default function ArticlePage({ article }) {
         ].filter(Boolean)}
       />
 
-      <article className="container-page py-8 lg:py-12">
-        <div className="mx-auto w-full max-w-3xl">
+      {/*
+        Full-width shell with a sticky TOC rail. The article body still runs at a
+        readable measure -- stretching 17px prose to 1100px would be worse to read,
+        not better -- but the left gutter now carries navigation instead of nothing,
+        and the whole page uses the viewport.
+      */}
+      <article className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-8 lg:py-12">
+        <div className="lg:grid lg:grid-cols-[16rem,minmax(0,1fr)] lg:gap-14">
+          <nav
+            aria-label="On this page"
+            className="sticky top-24 hidden self-start lg:block"
+          >
+            {article.headings.length >= 3 && (
+              <>
+                <p className="mb-3 text-xs font-bold uppercase tracking-widest text-pool-700">
+                  On this page
+                </p>
+                <ul className="space-y-1.5 border-l border-slate-200">
+                  {article.headings.map((h) => (
+                    <li key={h.id}>
+                      <a
+                        href={`#${h.id}`}
+                        className="-ml-px block border-l-2 border-transparent py-1 pl-4 text-[15px] leading-snug text-slate-600 hover:border-accent-600 hover:text-pool-800"
+                      >
+                        {h.text}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
+          </nav>
+
+          <div className="min-w-0">
           <Breadcrumbs items={crumbs} />
 
           <p className="mb-2 text-sm font-bold uppercase tracking-widest text-pool-600">
@@ -56,11 +88,12 @@ export default function ArticlePage({ article }) {
             </a>
           </p>
 
-          <div className="prose prose-slate mt-8 prose-headings:scroll-mt-24 prose-h2:mt-10 prose-h2:text-2xl prose-h3:text-xl prose-img:rounded-xl">
+          <div className="prose prose-slate mt-8 max-w-[68ch] prose-headings:scroll-mt-24 prose-h2:mt-10 prose-h2:text-2xl prose-h3:text-xl prose-img:rounded-xl xl:max-w-[76ch]">
             <MdxRenderer source={article.body} article={article} related={related} />
           </div>
 
           {!bodyRendersRelated && <RelatedPosts posts={related} />}
+          </div>
         </div>
       </article>
     </>

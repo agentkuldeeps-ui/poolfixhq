@@ -12,9 +12,11 @@ time. Writing: repo only, no fetching — unknowns become `[VERIFY: …]`.
 Three articles per writing session, then stop.
 
 ## State
-- Scaffold replacements: **complete** — SYM-001, SYM-002, EQP-001, CHM-001,
-  GDE-001, REG-001. No placeholder text remains on the site.
-- B1: 63 articles, 0 written.
+- Scaffold replacements: **complete**.
+- **B1: 7 of 63 written** — SYM-001, SYM-002, EQP-001, EQP-002, CHM-001,
+  GDE-001, REG-001.
+- Article pages now use a full-width shell with a sticky TOC rail in the left
+  gutter (`ArticlePage.jsx`); the inline `<TableOfContents />` is mobile-only.
 - Everything is `status: scaffold` — nothing goes live until a review batch.
 
 ## Word counts vs target (per-cluster policy now in CLAUDE.md)
