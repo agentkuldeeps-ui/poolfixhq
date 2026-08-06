@@ -1,4 +1,4 @@
-import { getProducts, amazonUrl } from '@/lib/products'
+import { getProducts } from '@/lib/products'
 
 /**
  * ComparisonTable -- side-by-side product comparison, referenced by id.
@@ -42,16 +42,11 @@ export default function ComparisonTable({ ids = [], caption = 'Product compariso
             <tr className="bg-pool-700 text-white">
               <th scope="col" className="px-4 py-3 font-semibold">Product</th>
               <th scope="col" className="px-4 py-3 font-semibold">Best For</th>
-              <th scope="col" className="px-4 py-3 font-semibold">Key Features</th>
-              <th scope="col" className="px-4 py-3 font-semibold">
-                <span className="sr-only">Buy link</span>
-                Price
-              </th>
+              <th scope="col" className="px-4 py-3 font-semibold">Watch out for</th>
             </tr>
           </thead>
           <tbody>
             {items.map((product, index) => {
-              const href = amazonUrl(product)
               return (
                 <tr
                   key={product.id}
@@ -59,35 +54,17 @@ export default function ComparisonTable({ ids = [], caption = 'Product compariso
                 >
                   <th scope="row" className="max-w-[220px] px-4 py-4 align-top font-bold text-pool-900">
                     {product.title}
-                    {product.badge && (
+                    {false && (
                       <span className="mt-1 block text-xs font-semibold uppercase tracking-wide text-accent-700">
                         {product.badge}
                       </span>
                     )}
                   </th>
-                  <td className="max-w-[220px] px-4 py-4 align-top text-slate-700">
-                    {product.bestFor}
+                  <td className="max-w-[260px] px-4 py-4 align-top text-slate-700">
+                    {product.summary}
                   </td>
-                  <td className="max-w-[280px] px-4 py-4 align-top text-slate-700">
-                    <ul className="list-disc space-y-1 pl-4">
-                      {product.features?.slice(0, 3).map((feature) => (
-                        <li key={feature}>{feature}</li>
-                      ))}
-                    </ul>
-                  </td>
-                  <td className="px-4 py-4 align-top">
-                    {href ? (
-                      <a
-                        href={href}
-                        rel="nofollow sponsored noopener"
-                        target="_blank"
-                        className="inline-block rounded-lg bg-accent-700 px-4 py-2 text-sm font-semibold text-white hover:bg-accent-800"
-                      >
-                        Check Price
-                      </a>
-                    ) : (
-                      <span className="text-sm text-slate-500">Unavailable</span>
-                    )}
+                  <td className="max-w-[260px] px-4 py-4 align-top text-slate-700">
+                    {product.constraint || '—'}
                   </td>
                 </tr>
               )
