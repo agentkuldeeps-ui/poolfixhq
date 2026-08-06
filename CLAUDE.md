@@ -196,6 +196,21 @@ is "hold chlorine" or "you'll have to dilute first" — a fork worth thousands o
 gallons. Narrow the diagnosis where the diagnosis is still open; set the
 treatment path where it isn't.
 
+### Total hardness is not calcium hardness — standing rule
+
+Municipal water quality reports give **total** hardness. Pool test kits read
+**calcium** hardness, which is roughly **70–80%** of total, because the
+remainder is magnesium.
+
+Never present one as the other, in any article. A Dallas report saying 8 gpg is
+~135 ppm *total*, and the calcium fraction a pool owner will measure is lower
+than that. Getting this wrong would push every dosing recommendation in the
+chemistry cluster in the same wrong direction, and it would look authoritative
+while doing it.
+
+When quoting a municipal figure, say it's fill-water total hardness and that
+the calcium reading will come in below it.
+
 ### Sourcing
 
 Cite CDC, EPA, university extension programs, or manufacturer documentation.
