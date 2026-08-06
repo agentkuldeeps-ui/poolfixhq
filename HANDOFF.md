@@ -39,12 +39,18 @@ diagnosis. EQP-003 already routes the humming symptom away in its triage table.
 Watch this when EQP-021 comes up — if it can't hold its own ground, cut it.
 
 ## tips.json
-21 total, **2 verified**, 19 candidates, 0 assignable. Five assigned tips
+23 total, **4 verified**, 19 candidates, 0 assignable. Five assigned tips
 unsourced: `dead-algae-turns-gray`, `total-only-strips-hide-zero-free`,
 `open-below-60-degrees`, `carbonate-clouding`✓, `suction-side-never-drips`✓,
 `texas-hardness-inverts`. Candidates are writable at `scaffold`; they gate
 `live`. **Six articles are now finished but cannot publish** — this stack only
 grows.
+
+## Convergence watch
+EQP-003 (not turning on) and **EQP-021** (motor humming, not starting) overlap on
+the capacitor. EQP-003 handles the silent case and routes humming away
+explicitly. When EQP-021 comes up, it must own the humming diagnosis and the
+capacitor discharge procedure in depth, or one of the two should be cut.
 
 ## Next action
 **Dedicated research session, before B1 opens.** Tip sourcing has slipped four
