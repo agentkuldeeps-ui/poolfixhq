@@ -7,6 +7,15 @@
   },
   "tips": [
     {
+      "id": "hottest-water-precipitates-first",
+      "mechanism": "Calcium does not come out of solution evenly. It crystallizes in the hottest water first \u2014 inside the heat exchanger, across salt cell plates, at a sunlit spillway or tile line. Two consequences owners never connect: milky water appearing right after a heater run points at saturation rather than anything added; and if the pool is going milky, the heater and cell are already scaling internally where it cannot be seen. Checking the cell for white crust is a free early warning weeks before the pool itself goes white.",
+      "appliesTo": "Milky white water, calcium hardness, scale, salt cell, heater",
+      "state": "verified",
+      "sourceUrl": "https://blog.orendatech.com/lsi-balance-and-calcium-management-pillar-1",
+      "sourceTitle": "Orenda Technologies \u2014 LSI Balance and Calcium Management (Pillar 1)",
+      "assignedTo": "SYM-003"
+    },
+    {
       "id": "carbonate-clouding",
       "mechanism": "Water can go cloudy because it is precipitating calcium carbonate rather than holding debris. When pH and calcium hardness climb far enough, carbonate stops staying dissolved and forms microscopic crystals through the water column. Every standard fix fails: filtering cannot outpace crystals forming, clarifier has no debris to gather, and shocking raises pH further and precipitates more. The free diagnostic is timing \u2014 filtration problems take days, this appears between one test and the next.",
       "appliesTo": "Cloudy water, milky water, cloudy after shocking, new plaster",
