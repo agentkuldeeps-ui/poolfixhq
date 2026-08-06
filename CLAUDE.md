@@ -182,6 +182,20 @@ Also non-negotiable: 8th-grade reading level, 1,400–1,800 words, target keywor
 in the title, and the veteran-tech voice — direct, practical, says out loud when
 the cheap fix beats the expensive one.
 
+**US English throughout — spelling, idiom and units.** `color` not `colour`,
+`gray` not `grey`, `oxidizing` not `oxidising`, `stabilized` not `stabilised`.
+US customary units first: gallons, °F, psi, fl oz. No British idiom —
+`fortnight`, `whilst`, `straight away`, `amongst`. The build warns on a word
+list (`checkLocale` in `lib/frontmatter.js`); it's a warning rather than a
+failure because a quotation or proper noun can legitimately carry one.
+
+**"Test these numbers first" — what that section is for.** Not to narrow the
+diagnosis; by then the diagnosis is usually made. It's there to narrow the
+**treatment path**. In a green pool, cyanuric acid decides whether the answer
+is "hold chlorine" or "you'll have to dilute first" — a fork worth thousands of
+gallons. Narrow the diagnosis where the diagnosis is still open; set the
+treatment path where it isn't.
+
 ### Sourcing
 
 Cite CDC, EPA, university extension programs, or manufacturer documentation.
