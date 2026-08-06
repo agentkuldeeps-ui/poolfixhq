@@ -1,0 +1,237 @@
+---
+title: "Pool Pump Not Turning On: Work the Power Path Before You Buy a Motor"
+seoTitle: "Pool Pump Not Turning On: Fix It Cheapest First"
+slug: pool-pump-not-turning-on
+planId: EQP-003
+cluster: equipment
+primaryKeyword: pool pump not turning on
+uncommonTip: thermal-overload-resets-itself
+category: equipment
+quickAnswer: "A pool pump not turning on is a power path problem far more often than a dead motor. Work it in order — breaker, timer, then the capacitor — because the part that fails most is also the cheapest one on the pad."
+metaDescription: "Pool pump not turning on? Work the power path in order. The start capacitor is the cheap fix people replace an entire motor over."
+datePublished: 2026-08-06
+dateModified: 2026-08-06
+status: scaffold
+sources:
+  - title: "Inyo Pools — How To Troubleshoot a Pool Pump Motor: Motor Shuts Down"
+    url: https://www.inyopools.com/HowToPage/how-to-troubleshoot-a-pool-pump-motor-motor-shuts-down.aspx
+  - title: "Pool Pump Fix — Pool Pump Starts Then Stops"
+    url: https://poolpumpfix.com/pool-pump-starts-then-stops/
+faqs:
+  - q: "How do I know if it's the capacitor or the motor?"
+    a: "Listen. A motor with a dead capacitor usually hums but won't spin, because the windings are energized and nothing is giving the rotor its starting push. A motor with no power at all is silent. Silent means work the power path; humming means suspect the capacitor first."
+  - q: "My pump works in the morning and dies by afternoon. Why?"
+    a: "That pattern is the motor's thermal overload cutting out on heat and resetting when it cools, usually in 20 to 30 minutes. It isn't an intermittent electrical fault — it's a protection device doing its job, and something is making the motor run hot."
+  - q: "Can I replace a capacitor myself?"
+    a: "Mechanically it's straightforward, but a capacitor stores a charge after the power is off and can shock you badly. If you're not confident discharging one safely, this is a reasonable place to pay someone."
+  - q: "Is a humming motor about to fail?"
+    a: "Not necessarily, but don't leave it humming. A motor drawing current without spinning heats fast, and minutes of that can take out windings that were fine. Cut the power and diagnose it cold."
+products:
+  - capacitor
+relatedSlugs:
+  - equipment/pool-pump-loud-noise
+  - equipment/pump-not-priming
+featured: false
+---
+
+<QuickAnswer />
+
+<TableOfContents />
+
+A pool pump not turning on feels terminal. Nothing happens, the water sits
+still, and the obvious conclusion is that the motor has died. Most of the time
+it hasn't — the electricity simply isn't arriving, or the part that gives the
+motor its initial shove has quit.
+
+The cheapest possible answer and the most expensive one produce the same silence
+at the pad. So work the path in order rather than jumping to the end of it.
+
+## Which silence are you dealing with
+
+Before touching anything, stand at the pad and note exactly what the pump does
+when it should be running. There are three distinct symptoms and they lead in
+different directions:
+
+| What it does | Where to look |
+|---|---|
+| Completely silent, no vibration | Power isn't reaching the motor. Work the path below |
+| Hums but doesn't spin | Power is arriving. Suspect the capacitor, or a seized shaft |
+| Starts, runs, then dies after a while | Thermal overload. See the tip below — this is its own diagnosis |
+| Trips the breaker the instant it starts | Stop. This is a fault, not a puzzle |
+
+That last one deserves emphasis: a breaker tripping on start is the electrical
+system telling you something is wrong badly enough that it disconnected itself.
+Don't reset it repeatedly to see if it holds.
+
+## What has to happen for the motor to start
+
+Understanding the chain makes the order below obvious rather than arbitrary.
+
+Power leaves the breaker, passes through whatever controls the schedule — a
+mechanical timer, a relay, or an automation panel — and reaches the motor's
+terminal board. Inside the motor, a single-phase induction winding can't start
+turning on its own. It needs a second winding, energized out of phase, to give
+the rotor a directional push. **That phase shift is what the start capacitor
+provides.**
+
+Once the rotor is spinning, a centrifugal switch drops the start winding out and
+the motor runs on its main winding alone. Which is why a motor with a dead
+capacitor will often hum contentedly and never turn: everything is energized,
+nothing is nudging it in a direction.
+
+Break the chain anywhere and you get silence. The capacitor is the link that
+fails most, and it costs a small fraction of what a motor does.
+
+## Check in this order
+
+### 1. The breaker, properly. Free.
+
+**What to check:** the breaker at the sub-panel, and any GFCI in the circuit.
+
+**Good:** the handle sits firmly in ON.
+
+**Bad:** a tripped breaker often doesn't look tripped — the handle can sit in a
+middle position that reads as ON at a glance. Push it fully to OFF, then back to
+ON. That's the only way to reset it, and a surprising number of "dead pumps" end
+here.
+
+If it trips again immediately, stop and read the last section.
+
+### 2. The timer or automation. Free.
+
+**What to check:** whether the controller is actually calling for the pump.
+
+**Good:** the timer's ON dog is engaged, or the automation shows the pump on.
+
+**Bad:** mechanical timers drift and the dogs work loose, so the schedule quietly
+stops matching what you think it is. Push the mechanism into an ON position by
+hand. If the pump starts, your motor is fine and you have a timer problem — which
+is a different and cheaper repair.
+
+Automation panels have their own relays, and a relay that has welded or failed
+open presents exactly like a dead motor.
+
+### 3. Whether power is reaching the motor.
+
+**What to check:** voltage at the motor's terminal board, with a meter.
+
+This is the step that splits the diagnosis cleanly in two. Voltage present means
+the supply chain is fine and the fault is inside the motor. No voltage means the
+motor is innocent and the problem is upstream — breaker, timer, relay, or wiring.
+
+If you're not comfortable metering a live circuit, this is a sensible point to
+call someone. It's also the point where a technician will start, which is worth
+knowing before you pay for the visit.
+
+### 4. The start capacitor.
+
+**What to check:** the capacitor, usually under a cover on top of the motor or in
+the end housing.
+
+**Good:** a flat top, clean sides, terminals free of corrosion.
+
+**Bad:** a domed or bulging top, split casing, leaked residue, or a burnt smell.
+A visibly swollen capacitor is a confirmed diagnosis — you don't need a meter to
+call it.
+
+A capacitor can also fail with no outward sign at all, which is why the humming
+symptom matters more than the appearance. If the motor hums and the shaft turns
+freely by hand, the capacitor is the leading suspect regardless of how it looks.
+
+<SafetyWarning>
+  A start capacitor stores an electrical charge after the power is off, and it
+  can hold enough to injure you. Cut power at the breaker, confirm it's dead,
+  and discharge the capacitor across its terminals with an insulated tool before
+  touching them. Never bridge the terminals with a bare screwdriver and your
+  hand on the shaft. If you aren't confident doing this safely, stop here and
+  call someone — this is a genuinely reasonable place to pay for the visit.
+</SafetyWarning>
+
+<ProductBlock id="capacitor" />
+
+### 5. Whether the shaft turns at all.
+
+**What to check:** breaker off, lid off, turn the motor shaft by hand.
+
+**Good:** it turns freely with light resistance.
+
+**Bad:** it won't move, or grinds. A seized shaft means the motor tries to start
+into a locked rotor, which is why some humming motors have a mechanical cause
+rather than an electrical one. If the shaft is rough but turning, you have a
+bearing problem as well — see [pool pump loud
+noise](/equipment/pool-pump-loud-noise), where that fault gets its own
+diagnosis.
+
+<UncommonTip>
+  **A pump that dies in the afternoon and works again by evening isn't an
+  intermittent electrical fault. It's the thermal overload, and the pattern is
+  the diagnosis.**
+
+  Pool pump motors carry a built-in thermal overload — a switch that cuts power
+  when the windings get too hot and closes again once they cool. It's a
+  protection device, and when it operates it is working correctly.
+
+  The signature is the timing. A motor that stops and won't restart for roughly
+  20 to 30 minutes, then runs normally again, is almost certainly cycling on
+  that overload. That reset interval is characteristic, and it's why the fault
+  seems to "fix itself" every time you come back to look at it.
+
+  The trap is treating the symptom as electrical. People replace breakers,
+  rewire timers and chase loose connections for weeks, because every time they
+  test it the pump runs. **The overload isn't the fault. It's the alarm.**
+  Something is making the motor overheat, and the usual culprits are failing
+  bearings adding drag, airflow blocked at the motor's cooling vents, a motor
+  running in direct sun with no shade, low supply voltage, or cavitation making
+  it work against a starved suction line.
+
+  So when the pattern is *runs, stops, returns after half an hour*, stop testing
+  the electrics. Ask what's making it hot — that's the actual repair, and it's
+  usually cheaper than anything you were about to replace.
+</UncommonTip>
+
+## Parts you may need
+
+In the order they actually fail:
+
+- **Start capacitor** — the most common, and among the cheapest parts on the
+  pad. Must match microfarad rating and voltage exactly; close is not close
+  enough.
+- **Mechanical timer mechanism or trippers** — worn dogs and drifted clocks.
+- **Automation relay** — fails open or welds closed, mimicking a dead motor.
+- **Centrifugal switch** — inside the motor, and the reason some motors hum with
+  a perfectly good capacitor.
+- **Motor** — genuinely last, and only after the above are ruled out.
+
+## What it costs to have done
+
+- **Breaker or timer** — a short visit, and the tech will find it in minutes.
+- **Capacitor replacement** — parts are cheap, labor is brief. The classic case
+  of a small bill preventing a large one.
+- **Motor replacement** — the outcome worth avoiding, and the one that gets
+  quoted first when nobody has metered anything. If a quote arrives without
+  someone having checked voltage at the terminal board and looked at the
+  capacitor, ask why.
+
+That's the honest framing: a fair technician works this same list, and the value
+of doing it yourself is mostly knowing whether the quote you received matches
+the fault you have.
+
+## When to stop and call someone
+
+- **The breaker trips the moment the pump starts.** That's a short or a ground
+  fault. Repeated resetting is how equipment fires start.
+- **Any burning smell, scorched insulation, or discolored terminals.** Stop.
+- **You'd be metering a live circuit and you aren't sure.** No shame in it —
+  this is the specific step that justifies a call-out.
+- **The shaft is seized.** The motor is coming apart either way.
+- **The pump is wired without a visible disconnect**, or the wiring looks
+  improvised. Get that assessed before you work on anything downstream.
+
+We make more when you buy a part through us than when you call an electrician.
+Three of those five are electrician territory, and we'd rather say so.
+
+<LeadFormCTA />
+
+<FAQ />
+
+<Sources />

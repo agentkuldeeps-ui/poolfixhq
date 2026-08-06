@@ -13,8 +13,8 @@ Three articles per writing session, then stop.
 
 ## State
 - Scaffold replacements: **complete**.
-- **B1: 7 of 63 written** — SYM-001, SYM-002, EQP-001, EQP-002, CHM-001,
-  GDE-001, REG-001.
+- **B1: 8 of 63 written** — SYM-001, SYM-002, EQP-001, EQP-002, EQP-003,
+  CHM-001, GDE-001, REG-001.
 - Article pages now use a full-width shell with a sticky TOC rail in the left
   gutter (`ArticlePage.jsx`); the inline `<TableOfContents />` is mobile-only.
 - Everything is `status: scaffold` — nothing goes live until a review batch.
@@ -30,6 +30,13 @@ Three articles per writing session, then stop.
 ## Open [VERIFY]
 - `content/regional/texas.mdx` — swim-season length or water temperature
   normals by TX region, from a citable climate or extension source.
+
+## Convergence watch
+EQP-003 (not turning on) and EQP-021 (hums, won't start) both touch the start
+capacitor. Kept distinct: EQP-003 owns the full power path from a **silent**
+pump; EQP-021 should own the **humming** case and the mechanical seized-shaft
+diagnosis. EQP-003 already routes the humming symptom away in its triage table.
+Watch this when EQP-021 comes up — if it can't hold its own ground, cut it.
 
 ## tips.json
 21 total, **2 verified**, 19 candidates, 0 assignable. Five assigned tips
