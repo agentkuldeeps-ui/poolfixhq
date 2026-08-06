@@ -417,6 +417,29 @@ placeholder, and flip `status` off `'planned'` to make it indexable.
 
 ---
 
+## Session discipline
+
+**Never research and write in the same session.** Firecrawl and article writing
+compete for the same budget, and the writing loses.
+
+- **Research sessions** — Firecrawl only. Scrape, extract the mechanism, append
+  to `content/research/*.json`, move on. Never hold more than one scraped page
+  in context. Target 8–12 verified tips, then push and stop.
+- **Writing sessions** — repo only. No web fetching. A fact you don't have
+  becomes `[VERIFY: what's needed]` and you continue; verification is a research
+  session's job. **Three articles per session**, then build, update HANDOFF.md,
+  push, stop. If you're running low mid-article, finish that article properly —
+  never start a fourth to fill space.
+
+**`HANDOFF.md` is the session boundary.** Read it and this file at the start of
+every session; read nothing else unless the task needs it. Rewrite it at the
+end. Under 40 lines.
+
+**`content/research/tips.json` is the tip bank's source of truth**, not the
+spreadsheet. A tip is `candidate` until confirmed against a readable source with
+the URL logged. Only `verified` tips get assigned to articles — a candidate with
+no source is a research task, not a tip.
+
 ## Working rules
 
 - **Always run `npm run build` and confirm it passes before committing.**

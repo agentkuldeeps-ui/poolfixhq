@@ -1,0 +1,53 @@
+{
+  "_doc": "Uncommon tip bank. SOURCE OF TRUTH — replaces the spreadsheet tab. state: candidate = from domain reasoning or an unreadable snippet, NEVER assignable. verified = confirmed against a readable source with the URL logged. assignedTo = planId or null. Research sessions append here; writing sessions read only.",
+  "_rules": {
+    "assignable": "state === 'verified' && assignedTo === null",
+    "uniqueness": "id is enforced unique across live articles by lib/frontmatter.js",
+    "sourceRequired": "a verified tip without a sourceUrl is a bug"
+  },
+  "tips": [
+    {
+      "id": "carbonate-clouding",
+      "mechanism": "Water can go cloudy because it is precipitating calcium carbonate rather than holding debris. When pH and calcium hardness climb far enough, carbonate stops staying dissolved and forms microscopic crystals through the water column. Every standard fix fails: filtering cannot outpace crystals forming, clarifier has no debris to gather, and shocking raises pH further and precipitates more. The free diagnostic is timing — filtration problems take days, this appears between one test and the next.",
+      "appliesTo": "Cloudy water, milky water, cloudy after shocking, new plaster",
+      "state": "verified",
+      "sourceUrl": "https://ask.orendatech.com/knowledge/what-causes-cloudy-pool-water",
+      "sourceTitle": "Orenda Technologies — What causes cloudy pool water?",
+      "assignedTo": "SYM-002"
+    },
+    {
+      "id": "suction-side-never-drips",
+      "mechanism": "A suction-side leak pulls air in rather than pushing water out, so it never leaves a puddle. Hunting for water is worse than useless — any water found is on the pressure side and therefore ruled out as the cause of a priming failure. Invert the test: look for bubbles entering the pump lid window and trace where they start.",
+      "appliesTo": "Pump will not prime, pump loses prime, air in returns",
+      "state": "verified",
+      "sourceUrl": "https://diy.inyopools.com/article/test-suction-side-air-leaks/",
+      "sourceTitle": "Inyo Pools — How to Test for Suction Side Air Leaks",
+      "assignedTo": "EQP-001"
+    },
+    {
+      "id": "dead-algae-turns-gray",
+      "mechanism": "A clearing pool goes gray before it goes clear. Dead algae loses its color and becomes fine gray particulate, which usually looks worse than the green did — and that is exactly where people stop dosing, with a day of filtering left to run. Gray means the chlorine won and the job is now the filter's.",
+      "appliesTo": "Green pool water, algae treatment, how long to clear",
+      "state": "candidate",
+      "sourceUrl": null,
+      "sourceTitle": null,
+      "assignedTo": "SYM-001",
+      "_note": "ASSIGNED WHILE UNSOURCED — predates the verified/candidate rule. Needs a readable source or SYM-001 needs a different tip before it goes live."
+    },
+    { "id": "shaving-cream-lid-leak", "mechanism": "Shaving cream along the pump lid and unions gets sucked in at the exact leak point, marking it visibly.", "appliesTo": "Air bubbles, pump losing prime", "state": "candidate", "sourceUrl": null, "sourceTitle": null, "assignedTo": null },
+    { "id": "vitamin-c-stain-test", "mechanism": "A vitamin C tablet held against a stain fades it in seconds if the stain is metal, not organic.", "appliesTo": "Stain identification", "state": "candidate", "sourceUrl": null, "sourceTitle": null, "assignedTo": null },
+    { "id": "acid-column-ta-drop", "mechanism": "Pour alkalinity-lowering acid in one narrow column with the pump off, then wait — lowers TA with less effect on pH.", "appliesTo": "Lowering TA without dropping pH", "state": "candidate", "sourceUrl": null, "sourceTitle": null, "assignedTo": null },
+    { "id": "fc-cya-ratio-floor", "mechanism": "Chlorine effectiveness is roughly a percentage of CYA; about 7.5% free chlorine to CYA is the working floor.", "appliesTo": "Chlorine will not hold, still green after shock", "state": "candidate", "sourceUrl": null, "sourceTitle": null, "assignedTo": null, "_note": "Reserved for SYM-016 — do not spend elsewhere." },
+    { "id": "cold-water-false-low-salt", "mechanism": "Cold water alone makes an AquaRite report low salt with correct salt in the pool.", "appliesTo": "AquaRite check salt light", "state": "candidate", "sourceUrl": null, "sourceTitle": null, "assignedTo": null, "_note": "Verify against Hayward AquaRite service literature — BRD-031." },
+    { "id": "dead-gauge-not-dead-pump", "mechanism": "A pressure gauge reading zero at startup is usually a dead gauge, not a dead pump.", "appliesTo": "Filter pressure low", "state": "candidate", "sourceUrl": null, "sourceTitle": null, "assignedTo": null },
+    { "id": "cleaner-hose-length-test", "mechanism": "Run the cleaner hose length test before replacing anything on a suction cleaner.", "appliesTo": "Cleaner not moving", "state": "candidate", "sourceUrl": null, "sourceTitle": null, "assignedTo": null },
+    { "id": "rinse-after-backwash", "mechanism": "Backwash until the sight glass clears, then rinse 20 seconds — skipping rinse sends the first slug of dirt straight back to the pool.", "appliesTo": "Backwash vs rinse", "state": "candidate", "sourceUrl": null, "sourceTitle": null, "assignedTo": null },
+    { "id": "capacitor-holds-charge", "mechanism": "A start capacitor holds charge after power is off. Discharge before touching it.", "appliesTo": "Pump hums, will not start", "state": "candidate", "sourceUrl": null, "sourceTitle": null, "assignedTo": null },
+    { "id": "bucket-test-pump-on-off", "mechanism": "Bucket test on the step with the pump running versus off separates a pressure-side leak from evaporation.", "appliesTo": "Pool losing water", "state": "candidate", "sourceUrl": null, "sourceTitle": null, "assignedTo": null },
+    { "id": "salt-cell-4to1-acid", "mechanism": "Salt cell scale comes off in a 4:1 water-to-acid soak; anything stronger eats the plate coating.", "appliesTo": "Salt cell cleaning", "state": "candidate", "sourceUrl": null, "sourceTitle": null, "assignedTo": null },
+    { "id": "brush-black-algae-first", "mechanism": "Brush black algae with a stainless brush before treating — treatment cannot reach through the protective cap.", "appliesTo": "Black algae", "state": "candidate", "sourceUrl": null, "sourceTitle": null, "assignedTo": null },
+    { "id": "plaster-dust-three-weeks", "mechanism": "New plaster dust looks exactly like a cloudy water problem for the first three weeks.", "appliesTo": "New plaster cloudy", "state": "candidate", "sourceUrl": null, "sourceTitle": null, "assignedTo": null },
+    { "id": "sand-means-cracked-lateral", "mechanism": "Sand blowing into the pool is almost always a cracked lateral or standpipe, not worn sand.", "appliesTo": "Sand in pool", "state": "candidate", "sourceUrl": null, "sourceTitle": null, "assignedTo": null, "_note": "Corroborated by In The Swim and Hallmark Pool Supplies — needs one URL logged to promote to verified." },
+    { "id": "flow-switch-fails-closed", "mechanism": "Heater and chlorinator flow switches fail closed as often as open — a No Flow message with visible flow points at the switch.", "appliesTo": "AquaRite no flow, heater LO code", "state": "candidate", "sourceUrl": null, "sourceTitle": null, "assignedTo": null }
+  ]
+}
