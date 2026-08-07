@@ -4,7 +4,7 @@ Read this and CLAUDE.md at the start of every session. Nothing else unless the
 task needs it. Rewrite this file at the end of every session.
 
 ## Last commit
-SYM-007 foamy pool water — first article written under the lawncarehq method.
+CONTENT_STANDARD.md installed as the governing instruction file.
 
 ## Session type rules
 Research: Firecrawl only → `content/research/*.json`, one page in context at a
@@ -21,10 +21,10 @@ boundary; either way it was a deliberate call, not drift.
 project with a much more developed `ARTICLE_STANDARDS.md`. Used as reference from
 SYM-007 onward. What was ported:
 
-- **`archetype` in frontmatter** — schema now accepts it (`lib/frontmatter.js`).
-  Pick the shape *before* writing and record it so the choice is reviewable:
-  Diagnostic · Explainer · Project · Timing · Comparison · Profile. SYM-007 is
-  Diagnostic. Backfill the other 12 when convenient.
+- **`archetype` in frontmatter** — schema accepts it (`lib/frontmatter.js`).
+  **Superseded:** use CONTENT_STANDARD.md §7's thirteen archetypes (A-M), not
+  the lawn site's six. SYM-007 is **A (Diagnostic)**. Backfill A-M letters across
+  the other 12 articles during retrofit.
 - **No fixed word count.** Lawn standard: "cover the topic completely and stop",
   articles range 2,000-5,000+, never pad. This is better than our per-cluster
   targets, which have produced an over/under report on every article for six
@@ -74,42 +74,50 @@ the article); a `STATUS.md`; image recommendations per H2.
   pools are a known detection blind spot.
 - `mustard-algae-in-pool.mdx` — nothing found. Record the negative result.
 
-## SOURCING — RESOLVED, and it created real debt
-The rule is now decided and written into CLAUDE.md: **Tier 1 (gov / public
-health / academic) and Tier 2 (standards bodies, manufacturer technical docs)
-are citable. Tier 3 — retailer and service-company blogs, content marketing,
-aggregators, forums — are not.**
+## CONTENT_STANDARD.md is now the governing file
+`CONTENT_STANDARD.md` supersedes the article template and outranks `CLAUDE.md`
+on any disagreement. Read it in full before writing. It sets: the 13-archetype
+format router (§7), 4 source tiers (§3), internal-linking minimums including
+mandatory reciprocals (§5), the voice bans (§8), no word target (§9), the QC
+checklist (§10), the required report block (§11), the retrofit order (§12) and
+session discipline (§13).
 
-**Audit of the 13 finished articles, 44 citations total:**
+**It also overrode a rule I had written an hour earlier.** My three-tier version
+banned Orenda, AQUA Magazine and parts-supplier repair docs. The standard permits
+all three (T3/T4). CLAUDE.md now points at the standard instead of restating it —
+two conflicting sourcing rules in one repo was the actual danger.
 
-| Tier | Count | Share |
+## Source audit under CONTENT_STANDARD.md §3
+44 citations across 13 articles: **T1 15 · T2 1 · T3 3 · T4 8 · banned 17 (38%)**.
+
+**Six articles FAIL §3's "minimum two sources, at least one Tier 1 or 2":**
+
+| Article | Keeps | Why it fails |
 |---|---|---|
-| 1 — gov / academic | 15 | 34% |
-| 2 — manufacturer / standards | 5 | 11% |
-| **3 — must be replaced** | **24** | **54%** |
+| `problems/pool-stains-identification` | 1/5 | no T1/T2 |
+| `problems/black-algae-in-pool` | 1/5 | 4 banned |
+| `problems/foamy-pool-water` | 1/3 | 2 banned |
+| `equipment/pool-pump-not-turning-on` | 1/2 | no T1/T2 |
+| `equipment/pump-not-priming` | 2/2 | both T4, no T1/T2 |
+| `guides/pool-opening-checklist` | 1/1 | only one source |
 
-**Four articles have ZERO citable sources and are the priority:**
-- `problems/pool-stains-identification` — 0 of 5 survive
-- `equipment/pool-pump-not-turning-on` — 0 of 2
-- `equipment/pump-not-priming` — 0 of 2
-- (`problems/black-algae-in-pool` keeps only 1 of 5)
+Passing: `chlorine-basics`, `green-pool-water`, `cloudy-pool-water`,
+`milky-white-pool-water`, `pool-pump-loud-noise`, `mustard-algae-in-pool`,
+`regional/texas`.
 
-Four are already clean: `chemistry/chlorine-basics`, `problems/green-pool-water`,
-`problems/cloudy-pool-water`, `guides/pool-opening-checklist`.
+**Banned hosts to remove:** aiper, blogs.aiper, swimuniversity, dogdayspools,
+poolchecker, carefreepoolclub, discountsaltpool, abchomeandcommercial,
+scienceinsights, poolpumpfix, fibretechinc, puritymap, aquatell, oakpointtexas.
 
-**Do not just delete the Tier 3 citations.** Most support real claims in the
-body; stripping the source silently converts a sourced statement into an
-unsourced one, which is worse than the current state. Each one needs either a
-Tier 1/2 replacement found, or the claim rewritten as an explicit unknown.
+**Do not strip these without replacing them.** Most support real claims;
+deleting the citation silently converts a sourced statement into an unsourced
+one. §12 order: audit → sources → depth → interlinking → voice.
 
-**Where to look for this niche** — the research plan follows from the rule:
-- **State and county health department pool codes.** Tier 1, legally binding on
-  chemical limits and drain rules, and essentially unused by competitors.
-- **CDC Model Aquatic Health Code** — already cited once, has far more in it.
-- **Manufacturer service bulletins** — Pentair, Hayward, Jandy, Waterco. Covers
-  the equipment articles, which are the worst-sourced cluster, and is the
-  standing differentiator for the 50 brand-code articles.
-- **University extension** — thinner for pools than turf, but non-zero.
+**Tier 2 is the gap.** Exactly one manufacturer citation exists across the whole
+site, and §7B makes manufacturer service literature *required* for every
+brand-code article — 50 of the 63 planned rows. Pentair/Hayward/Jandy/Raypak
+service PDFs are the single highest-value research target and they fix the
+equipment cluster at the same time.
 
 ## Convergence watch
 - EQP-003 (silent, won't start) vs **EQP-021** (hums, won't start) — EQP-003
@@ -174,16 +182,23 @@ publishable" framing. Currently the repo says one thing and the site does
 another.
 
 ## Next action
-**Research session. Two things now block writing, not one.**
+**Research session** — §13 forbids research and writing in the same session, and
+two things block writing anyway:
 
-1. **Tip bank is empty** — zero assignable tips, so no article can be written.
-   Clear the four unsourced tips.
-2. **Re-source the four zero-source articles** under the new Tier rule, starting
-   with the equipment cluster via manufacturer service bulletins — that one push
-   fixes three articles and opens the brand-code work at the same time.
+1. **Tip bank is empty.** Zero assignable tips, so no article can be written at
+   all. Clear the four unsourced ones.
+2. **Six articles fail §3.** Re-source them, worst first.
 
-Both are the same kind of task and should run in one session. Health-department
-pool codes are the highest-value unexplored vein for the problems cluster.
+Target, in priority order:
+- **Manufacturer service PDFs** (Pentair, Hayward, Jandy, Raypak) — fixes the
+  equipment cluster, supplies the only-1-citation Tier 2 gap, and is *required*
+  for the 50 brand-code rows. Highest leverage available.
+- **State and county health department pool codes** — Tier 1, legally binding,
+  unused by competitors, and covers the problems cluster.
+- **University extension** for chemistry, where §7D wants Tier 1.
+
+Then a writing session: retrofit per §12, and report each article using the §11
+block.
 
 **Then apply the two answered VERIFYs** (quick edits, citations already gathered)
 and **backfill `archetype:`** across the 12 earlier articles. Four unsourced
