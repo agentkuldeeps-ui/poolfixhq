@@ -7,6 +7,15 @@
   },
   "tips": [
     {
+      "id": "copper-stain-is-heater-autopsy",
+      "mechanism": "A teal or blue-green stain in a pool that has never seen a copper algaecide is not really a stain problem. Copper does not arrive on its own, and the most common source is the heater: water held at low pH strips copper from the heat exchanger and carries it into the pool, where it plates onto the plaster. So the stain is an autopsy — it is telling you the inside of the heater has been dissolving, and it is still dissolving now if the pH has not been corrected. Owners treat the plaster, the stain returns in a month, and nobody looks at the heater until it fails. If a teal stain appears and there is a heater on the system, the pH history matters more than the stain remover.",
+      "appliesTo": "Pool stains, copper, teal or blue-green staining, low pH, heat exchanger, heater corrosion",
+      "state": "verified",
+      "sourceUrl": "https://poolchecker.com/stain-identifier/",
+      "sourceTitle": "PoolChecker — Stain Identifier",
+      "assignedTo": "SYM-006"
+    },
+    {
       "id": "pollen-is-hydrophobic",
       "mechanism": "Pollen grains carry a waxy, water-repellent outer coat — it is how they shed moisture in the wild. In a pool that property means pollen clumps and rides on the surface rather than dispersing through the water column, and it is why a skimmer lifts pollen out easily while a filter struggles with it once it sinks. Mustard algae does the opposite: disturb it and it disperses into the water as a plume, because it has no reason to repel water. That gives a reader an identification before touching a brush — riding on the surface in clumps and rafts is pollen; sitting on walls and floor in shaded patches is not.",
       "appliesTo": "Yellow dust, mustard algae, pollen, surface film, skimming",
