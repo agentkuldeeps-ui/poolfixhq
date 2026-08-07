@@ -4,7 +4,7 @@ Read this and CLAUDE.md at the start of every session. Nothing else unless the
 task needs it. Rewrite this file at the end of every session.
 
 ## Last commit
-Research session E — weak flow from the returns (EQP-004 proposed). Steps 1-3.
+EQP-004 weak flow from the returns.
 
 ## Session type rules
 Research: Firecrawl only → `content/research/*.json`, one page in context at a
@@ -269,6 +269,23 @@ instead. That returns a model-mediated extraction rather than raw page text. The
 cause/remedy strings look verbatim and are usable for structure, but
 **re-verify wording against the PDF before publishing any direct quote.** Logged
 as the file's one open [VERIFY].
+
+## EQP-004 written
+1,857 words, archetype A. planId EQP-004 confirmed by the user.
+
+- **Sources: 2 × Tier 2**, both Pentair. Site-wide manufacturer citations go
+  from 1 to 3 — §7B needs this source type for all 50 brand-code rows, so this
+  is the pattern to repeat.
+- **Boundary held.** EQP-001 keeps the won't-prime procedure, EQP-002 keeps
+  cavitation-as-noise, and the unwritten `high-filter-pressure` spoke keeps the
+  high-pressure depth — referenced in prose with a code comment, not absorbed.
+- **Reciprocals** added to both EQP-001 and EQP-002, verified in built HTML.
+- **One open [VERIFY]** in the article: the OptiFlo cause lists were extracted
+  via WebFetch during a Firecrawl outage, so the wording needs confirming
+  against the PDF before anything is quoted verbatim. The article describes the
+  table rather than quoting it, which contains the risk — but the six causes are
+  the article's backbone, so this is worth clearing.
+- Tip bank back to **zero assignable**.
 
 ## Next action
 **Research session** — §13 forbids research and writing in the same session, and
