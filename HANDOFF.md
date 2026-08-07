@@ -74,22 +74,42 @@ the article); a `STATUS.md`; image recommendations per H2.
   pools are a known detection blind spot.
 - `mustard-algae-in-pool.mdx` — nothing found. Record the negative result.
 
-## SOURCING TENSION — decide this before the next article
-lawncarehq's standard says: **never cite random blogs or forums**; use USDA,
-university extension, or manufacturer technical docs. poolfixhq's CLAUDE.md sets
-the same bar (CDC, EPA, extension, manufacturer).
+## SOURCING — RESOLVED, and it created real debt
+The rule is now decided and written into CLAUDE.md: **Tier 1 (gov / public
+health / academic) and Tier 2 (standards bodies, manufacturer technical docs)
+are citable. Tier 3 — retailer and service-company blogs, content marketing,
+aggregators, forums — are not.**
 
-**We are not meeting it.** SYM-007's two substantive sources are a salt-system
-retailer's blog and a pool service company's blog. SYM-004/005/006 lean on
-swimuniversity, aiper, inyopools, dogdayspools — all trade content. Only the CDC
-citations clear the stated bar.
+**Audit of the 13 finished articles, 44 citations total:**
 
-Pool chemistry has far thinner extension coverage than turfgrass does, so the
-lawn standard may not transfer wholesale. But the gap between the written rule
-and actual practice should be closed deliberately — either soften the rule for
-this niche, or go find the harder sources (NSPF/PHTA, county health department
-pool codes, Orenda's technical write-ups). SYM-007 handles it by attributing
-single-sourced claims in the body rather than stating them as fact.
+| Tier | Count | Share |
+|---|---|---|
+| 1 — gov / academic | 15 | 34% |
+| 2 — manufacturer / standards | 5 | 11% |
+| **3 — must be replaced** | **24** | **54%** |
+
+**Four articles have ZERO citable sources and are the priority:**
+- `problems/pool-stains-identification` — 0 of 5 survive
+- `equipment/pool-pump-not-turning-on` — 0 of 2
+- `equipment/pump-not-priming` — 0 of 2
+- (`problems/black-algae-in-pool` keeps only 1 of 5)
+
+Four are already clean: `chemistry/chlorine-basics`, `problems/green-pool-water`,
+`problems/cloudy-pool-water`, `guides/pool-opening-checklist`.
+
+**Do not just delete the Tier 3 citations.** Most support real claims in the
+body; stripping the source silently converts a sourced statement into an
+unsourced one, which is worse than the current state. Each one needs either a
+Tier 1/2 replacement found, or the claim rewritten as an explicit unknown.
+
+**Where to look for this niche** — the research plan follows from the rule:
+- **State and county health department pool codes.** Tier 1, legally binding on
+  chemical limits and drain rules, and essentially unused by competitors.
+- **CDC Model Aquatic Health Code** — already cited once, has far more in it.
+- **Manufacturer service bulletins** — Pentair, Hayward, Jandy, Waterco. Covers
+  the equipment articles, which are the worst-sourced cluster, and is the
+  standing differentiator for the 50 brand-code articles.
+- **University extension** — thinner for pools than turf, but non-zero.
 
 ## Convergence watch
 - EQP-003 (silent, won't start) vs **EQP-021** (hums, won't start) — EQP-003
@@ -154,9 +174,16 @@ publishable" framing. Currently the repo says one thing and the site does
 another.
 
 ## Next action
-**Research session — the tip bank is empty and blocks all writing.** Clear the
-four unsourced tips first. Then resolve the sourcing tension above, because it
-decides where future research even looks.
+**Research session. Two things now block writing, not one.**
+
+1. **Tip bank is empty** — zero assignable tips, so no article can be written.
+   Clear the four unsourced tips.
+2. **Re-source the four zero-source articles** under the new Tier rule, starting
+   with the equipment cluster via manufacturer service bulletins — that one push
+   fixes three articles and opens the brand-code work at the same time.
+
+Both are the same kind of task and should run in one session. Health-department
+pool codes are the highest-value unexplored vein for the problems cluster.
 
 **Then apply the two answered VERIFYs** (quick edits, citations already gathered)
 and **backfill `archetype:`** across the 12 earlier articles. Four unsourced

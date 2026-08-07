@@ -228,11 +228,53 @@ while doing it.
 When quoting a municipal figure, say it's fill-water total hardness and that
 the calcium reading will come in below it.
 
-### Sourcing
+### Sourcing — STANDING RULE, tightened
 
-Cite CDC, EPA, university extension programs, or manufacturer documentation.
 **Never invent a statistic, study, or citation.** If a claim cannot be verified,
 leave it out.
+
+Sources fall into three tiers. **Tier 1 and Tier 2 may be cited. Tier 3 may
+not.**
+
+**Tier 1 — government, public health, and academic.** Always preferred.
+- CDC (Healthy Swimming, MMWR, Model Aquatic Health Code)
+- EPA, WHO, USGS, NOAA, OSHA / NIOSH
+- University extension programs and any `.edu` publication
+- Peer-reviewed literature via NIH / PubMed
+- State and county health department pool codes — the most under-used Tier 1
+  source in this niche, and the one that carries actual legal weight on
+  chemical limits, drain requirements and barrier rules
+
+**Tier 2 — standards bodies and manufacturer technical documentation.**
+Citable, but attribute in the body where a claim rests on one of them alone.
+- PHTA / APSP standards, ANSI, NSF
+- Manufacturer service manuals and technical bulletins — Pentair, Hayward,
+  Jandy, Xylem, Waterco. **Service bulletins are the differentiator for the 50
+  brand-code articles and are still barely touched.**
+- Genuine technical write-ups from chemistry manufacturers (e.g. Orenda on LSI),
+  where the content is engineering rather than marketing
+
+**Tier 3 — do not cite.** Retailer blogs, pool service company blogs, content
+marketing, aggregators, forums, and AI-generated sites. Named examples already
+in the repo and due for replacement: swimuniversity, aiper, inyopools,
+dogdayspools, poolchecker, carefreepoolclub, discountsaltpool,
+abchomeandcommercial, scienceinsights, poolpumpfix, puritymap, aquatell,
+fibretechinc, oakpointtexas.
+
+Trade press (Aqua Magazine and similar) is Tier 3 for citation purposes. It is
+fine as a *lead* to follow toward a Tier 1 or Tier 2 source; it is not the
+source itself.
+
+**The practical consequence:** if the only support for a claim is Tier 3, the
+claim does not go in the article. Write the gap instead — say what is not
+established and why — the way the mustard-algae texture conflict and the
+black-algae cyanotoxin section already do. A stated unknown is worth more than
+a blog-sourced certainty, and it is the one thing scraped competitors never
+publish.
+
+Pool chemistry has thinner extension coverage than turfgrass does. That makes
+this rule harder to satisfy here than on the lawn site — it does not make it
+optional. It makes research slower and the result more defensible.
 
 ### Safety
 
