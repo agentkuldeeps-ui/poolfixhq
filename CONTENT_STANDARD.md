@@ -130,8 +130,29 @@ source before it appears in an article.
 figure, write `[VERIFY: what's needed]` and continue. An honest gap beats an
 invented number, always.
 
-**Sources requirement per article:** minimum two, at least one from Tier 1 or 2.
-Chemistry and safety content requires Tier 1 where a Tier 1 source exists.
+**Sources requirement per article:** minimum two, always.
+
+A Tier 1 or Tier 2 source is required **where one exists for the topic.** Many
+maintenance and cleaning subjects have no government or manufacturer literature
+behind them — no health agency publishes on wiping a scum ring off tile. If a
+genuine search turns up nothing at Tier 1 or 2, proceed on the best tiers
+available rather than stalling the article. Two conditions:
+
+- The search has to have actually happened. "Skip it" applies to a real absence,
+  not to an unchecked assumption. Record in the research file what you searched
+  and what wasn't there.
+- Say so in the article where it matters. If a claim rests only on Tier 3 or 4,
+  attribute it in the body rather than stating it as established fact.
+
+**Two exceptions where Tier 1 stays mandatory, no escape hatch:**
+
+- **Safety content (§7K)** and any health-risk claim anywhere in any article. If
+  no Tier 1 source addresses the pool case, write that plainly — say the
+  evidence doesn't cover it — rather than sourcing a health claim to a blog or
+  a chemical vendor. A wrong safety claim is the one error here that hurts
+  somebody.
+- **Chemistry values (§7D)** — target ranges, dosing, and sanitizer levels —
+  where a Tier 1 source exists.
 
 ---
 

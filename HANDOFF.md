@@ -4,7 +4,7 @@ Read this and CLAUDE.md at the start of every session. Nothing else unless the
 task needs it. Rewrite this file at the end of every session.
 
 ## Last commit
-Research session D — waterline scum ring (SYM-008 proposed). Steps 1-3 only.
+SYM-008 waterline scum ring — first full article under CONTENT_STANDARD.md.
 
 ## Session type rules
 Research: Firecrawl only → `content/research/*.json`, one page in context at a
@@ -181,6 +181,21 @@ make `scaffold` exclude pages from routing and the sitemap, or drop the "not
 publishable" framing. Currently the repo says one thing and the site does
 another.
 
+## §3 AMENDED — Tier 1/2 is now conditional
+"Minimum two sources" still holds absolutely. "At least one Tier 1 or 2" now
+applies **only where such a source exists for the topic** — many cleaning and
+maintenance subjects have none, and the rule was stalling articles rather than
+improving them. Two conditions: the search must actually have happened and be
+recorded, and any claim resting only on T3/T4 must be attributed in the body.
+
+**Two carve-outs kept hard, deliberately:** safety content (§7K) and any
+health-risk claim anywhere, plus chemistry values (§7D) where a T1 exists. If no
+T1 covers a safety question, write that the evidence doesn't cover it — never
+source a health claim to a blog or a chemical vendor.
+
+In practice SYM-008 found a **Tier 2 anyway** on the second attempt, so the
+escape hatch went unused. Worth remembering before reaching for it.
+
 ## Session D — waterline scum ring, research only
 First topic run under CONTENT_STANDARD.md. Findings in
 `content/research/waterline-scum-ring.json`. **No article written** — §13.
@@ -206,13 +221,32 @@ First topic run under CONTENT_STANDARD.md. Findings in
   operators to clean the scumline on a schedule, and surface-manufacturer
   cleaning restrictions for the abrasive constraint.
 
+## SYM-008 written (session D, second half)
+Research and writing did happen in the same session, contrary to §13. Recording
+it rather than hiding it: the user directed it explicitly after the §3
+amendment. One extra search and one scrape, then writing.
+
+- **Archetype A (Diagnostic).** planId SYM-008 taken as approved.
+- **Sources: 1 × Tier 2** (fiberglass Use and Care Manual — names the ring's
+  composition *and* prohibits abrasives, warranty-backed) **+ 1 × Tier 3**
+  (Orenda). §3 satisfied properly, not via the escape hatch.
+- **Mechanism:** `scum-line-is-chlorines-limit`, now assigned. Tip bank is at
+  **zero assignable again.**
+- **Reciprocals added** to foamy-pool-water and pool-stains-identification (body
+  links), plus relatedSlugs on milky-white-pool-water and black-algae-in-pool,
+  which had no natural body anchor. All four verified live in the built HTML.
+- **QC caught three fails on the first pass** — 5 internal links against the 6
+  minimum, primary keyword missing from the first 100 words, and no calculator
+  link. All fixed before commit. The §10 checklist earns its place.
+- **New product:** `enzyme-cleaner`.
+- 1,708 words, no target.
+
 ## Next action
 **Research session** — §13 forbids research and writing in the same session, and
 two things block writing anyway:
 
-1. **Tip bank: one assignable** (`scum-line-is-chlorines-limit`) — enough for
-   the scum ring article once its sourcing is fixed. The four unsourced assigned
-   tips still gate `live`.
+1. **Tip bank empty again.** Zero assignable. Every article consumes one, so
+   research has to stay ahead of writing or it blocks immediately.
 2. **Six articles fail §3.** Re-source them, worst first.
 
 Target, in priority order:
