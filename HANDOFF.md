@@ -4,7 +4,7 @@ Read this and CLAUDE.md at the start of every session. Nothing else unless the
 task needs it. Rewrite this file at the end of every session.
 
 ## Last commit
-CONTENT_STANDARD.md installed as the governing instruction file.
+Research session D — waterline scum ring (SYM-008 proposed). Steps 1-3 only.
 
 ## Session type rules
 Research: Firecrawl only → `content/research/*.json`, one page in context at a
@@ -181,12 +181,38 @@ make `scaffold` exclude pages from routing and the sitemap, or drop the "not
 publishable" framing. Currently the repo says one thing and the site does
 another.
 
+## Session D — waterline scum ring, research only
+First topic run under CONTENT_STANDARD.md. Findings in
+`content/research/waterline-scum-ring.json`. **No article written** — §13.
+
+- **Archetype: A (Diagnostic)**, not C (Procedural). Removal steps are short;
+  the is-it-scum-or-scale question is what carries the page, and the wrong call
+  puts an abrasive pad on a gelcoat.
+- **Cannibalisation: CLEAR.** But `foamy-pool-water` shares the exact inputs
+  (sunscreen, sweat, lotions) with a different output. Boundary and reciprocal
+  links are specified in the research file. That shared-cause framing is an
+  asset — no competitor connects the two.
+- **planId needed.** The roadmap row has a slug but no planId. **Proposing
+  SYM-008 — confirm before writing.**
+- **Mechanism found and verified (T3):** a scum line marks the limit of what
+  chlorine can oxidize, not a chlorine shortage. Synthetic bather products —
+  sunscreen, cosmetics, tanning oils — are the class chlorine handles worst, so
+  the ring persists at perfect FC and shocking it is the standard wrong answer.
+  Logged as `scum-line-is-chlorines-limit`, assignable.
+- **§3 NOT YET SATISFIED.** One Tier 3 source loaded; the rule needs two sources
+  with at least one Tier 1/2. **The article cannot be written until a T1/T2 is
+  loaded.** Targets named in the research file: the 2023 MAHC and its Annex
+  (huge PDFs — use maxPages, do not load whole), state pool codes requiring
+  operators to clean the scumline on a schedule, and surface-manufacturer
+  cleaning restrictions for the abrasive constraint.
+
 ## Next action
 **Research session** — §13 forbids research and writing in the same session, and
 two things block writing anyway:
 
-1. **Tip bank is empty.** Zero assignable tips, so no article can be written at
-   all. Clear the four unsourced ones.
+1. **Tip bank: one assignable** (`scum-line-is-chlorines-limit`) — enough for
+   the scum ring article once its sourcing is fixed. The four unsourced assigned
+   tips still gate `live`.
 2. **Six articles fail §3.** Re-source them, worst first.
 
 Target, in priority order:

@@ -7,6 +7,17 @@
   },
   "tips": [
     {
+      "id": "scum-line-is-chlorines-limit",
+      "mechanism": "A scum ring is not a sign of low chlorine — it is a visible readout of the contaminant class chlorine handles worst. Orenda separates natural organics (sweat, body oils, leaves), which chlorine oxidizes fairly easily, from synthetic bather products — sunscreen, cosmetics, tanning oils, deodorants, lotions, soaps — which it states are not easy for chlorine to oxidize, adding that where a scum line exists 'chlorine is falling short' and 'in some cases, chlorine is incapable of finishing the job.' So the ring can persist at textbook-perfect free chlorine, and the owner's instinct to shock it spends money and creates disinfection byproducts against the one thing extra chlorine is least able to remove. The ring comes off physically, or it gets broken down by something other than an oxidizer.",
+      "appliesTo": "Waterline scum ring, scum line, tile line, bather oils, sunscreen, chlorine demand, enzymes",
+      "state": "verified",
+      "sourceTier": 3,
+      "sourceUrl": "https://blog.orendatech.com/how-orenda-enzymes-actually-work",
+      "sourceTitle": "Orenda — How Swimming Pool Enzymes Work",
+      "vendorCaveat": "Orenda sells enzymes. Mechanism is sound and citable per §3; their '90% of oxidant demand' figure is a vendor claim and must be attributed or omitted.",
+      "assignedTo": null
+    },
+    {
       "id": "foam-is-a-calcium-readout",
       "mechanism": "Low calcium hardness does not cause foam, but it is what lets foam form easily and persist — typically at 150 ppm or below, with 200-300 ppm suppressing it. That makes persistent foam a free readout on the one water imbalance that hides in plain sight: low calcium hardness leaves the water looking sparkling clean rather than cloudy, so nothing about the pool's appearance warns you, while soft corrosive water quietly etches plaster and attacks metal fittings. Owners skim the foam, or wait for the algaecide to wear off, and never test the number the foam was pointing at. Foam that keeps coming back after the organics are oxidised is not a foam problem — it is a calcium hardness reading you have not taken.",
       "appliesTo": "Foamy pool water, foam vs bubbles, calcium hardness, soft water, corrosive water, plaster etching",

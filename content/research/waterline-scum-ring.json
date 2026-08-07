@@ -1,0 +1,120 @@
+{
+  "_doc": "Research for the waterline scum ring article. Session D, RESEARCH type per CONTENT_STANDARD.md §13. Writing sessions read this and do not fetch.",
+  "state": "INCOMPLETE — §3 minimum not yet met. See sourcingGap.",
+  "step1_interpretation": {
+    "keyword": "scum ring at the waterline",
+    "searchIntent": "Diagnostic with a procedural tail. The reader can see the ring and wants it gone, but the deciding question is what the ring is MADE of — the removal method and the safe tool both change with the answer.",
+    "archetype": "A — Diagnostic",
+    "archetypeJustification": "Considered C (Procedural) since the reader wants a cleaning method. Rejected: the removal steps are genuinely short, while the misidentification axis is load-bearing. A ring at the waterline can be oils (wipes off), calcium scale (does not), algae, or a stain in the surface — opposite treatments, and the wrong call means either scrubbing calcium with a degreaser forever or taking an abrasive pad to a gelcoat. §7A: 'the misidentification section usually carries the article.' It does here.",
+    "pillarOrSpoke": "spoke",
+    "linksUpTo": "no waterline pillar exists. Nearest parents are milky-white-pool-water (calcium/saturation) and pool-stains-identification (surface discoloration).",
+    "category": "problems",
+    "cluster": "symptoms",
+    "plannedSlug": "waterline-scum-ring",
+    "slugSource": "lib/symptoms.js line 31 — roadmap row exists as label+slug only",
+    "planIdNeeded": true,
+    "proposedPlanId": "SYM-008",
+    "note": "§2 Step 1: no planId exists for this row. Proposing SYM-008. Confirm before writing."
+  },
+  "step2_cannibalisation": {
+    "verdict": "CLEAR — no existing article competes.",
+    "method": "grepped all content/*/*.mdx for waterline, water line, scum, bathtub ring, oil, sunscreen, lotion",
+    "adjacenciesRequiringExplicitBoundaries": [
+      {
+        "article": "problems/foamy-pool-water",
+        "overlap": "SAME INPUTS, different output. Foam article already owns sunscreen, sweat, lotions, hair product, detergent as the organic load. Scum ring is that same load depositing at the waterline instead of foaming.",
+        "boundary": "Foam = organics lowering surface tension in the water column. Scum ring = organics adhering at the air/water interface. State the relationship explicitly and link BOTH ways (§5 reciprocal requirement). This shared-cause framing is an asset, not a problem — neither competitor page makes the connection."
+      },
+      {
+        "article": "problems/pool-stains-identification",
+        "overlap": "Already escalates 'hardened scale at the waterline' and owns stain-vs-not identification.",
+        "boundary": "Scum article owns the ORGANIC deposit and the is-it-scum-or-scale test. It hands off to stains for anything in the surface, and to milky-white for the saturation chemistry behind scale. Do not re-explain LSI."
+      },
+      {
+        "article": "problems/black-algae-in-pool",
+        "overlap": "names the waterline as a place black algae favors",
+        "boundary": "one line and a link; no real conflict"
+      }
+    ]
+  },
+  "step3_serpGap": {
+    "whoRanks": "TroubleFreePool (forum), abgal (AU vinyl liner maker), a Facebook group, an Amazon listing, YouTube, Lo-Chlor (chemical maker), Reddit, InyoPools, TileShop, CalSpas (hot tubs).",
+    "whatTheyAllDo": "Every ranking page is a cleaning-product pitch: here is a spray, a sponge, or a tile cleaner, scrub it. Several are literally product pages.",
+    "THE_GAP": "Not one of them explains WHY the ring forms at exactly the waterline, or that its composition decides the treatment. Two consequences nobody covers: (1) people scrub calcium scale with a degreaser indefinitely because it looks like scum; (2) melamine/abrasive pads and acidic tile cleaners are recommended without surface constraints, on vinyl liners and fiberglass gelcoat where they cause permanent damage. One YouTube title hedges '(Not for Minerals!)' — the closest anyone comes, and it is in a video title.",
+    "secondEdge": "The mechanism below reframes the whole problem: the ring is not a cleaning failure, it is a readout of a contaminant class chlorine handles badly. That reframing does not appear on page one at all."
+  },
+  "secondaryTerms": [
+    "pool scum line",
+    "waterline scum",
+    "scum ring pool",
+    "brown ring around pool",
+    "bathtub ring in pool",
+    "how to clean pool waterline tile",
+    "pool tile line cleaner",
+    "scum line fiberglass pool",
+    "remove scum line vinyl liner",
+    "greasy ring around pool"
+  ],
+  "paaHarvested": [
+    "How do I get rid of the scum line around my pool?",
+    "What is the best way to clean the brown ring around my pool?",
+    "How do you remove a scum ring from a fiberglass pool?",
+    "What causes a scum line in a pool?",
+    "Why does my pool have an oily film?",
+    "Will shocking remove the scum line?",
+    "Is the ring around my pool algae or calcium?"
+  ],
+  "step3_mechanism": {
+    "id": "scum-line-is-chlorines-limit",
+    "claim": "A scum ring marks the boundary of what chlorine can oxidize — it is not a sign of low chlorine.",
+    "detail": "Orenda distinguishes natural organics (leaves, body oils, mucus, sweat), which chlorine oxidizes relatively easily, from SYNTHETIC bather products — deodorants, soaps, perfumes, body lotions, cosmetics, tanning oils, sunscreen — which it explicitly says are 'not easy for chlorine to oxidize.' Their words on the tile line: 'If you have a scum line on there, chlorine is falling short of fully removing the oils and organics that created it. In some cases, chlorine is incapable of finishing the job.'",
+    "whyItMatters": "It inverts the standard response. An owner sees a ring, assumes dirty water, and shocks the pool. But the ring is made of the exact contaminant class extra chlorine is worst against, so shocking burns money and produces disinfection byproducts without touching it. The ring can sit there at textbook-perfect free chlorine.",
+    "supportingChemistry": "Enzymes break the carbon chains into CO2, which off-gasses, leaving residue chlorine CAN oxidize — effectively lowering the energy required. Enzymes do not address metals or inorganic ammonia.",
+    "sourceTier": 3,
+    "sourceUrl": "https://blog.orendatech.com/how-orenda-enzymes-actually-work",
+    "VENDOR_CAVEAT": "Orenda sells enzyme products and the article's conclusion is 'use enzymes'. §3 names Orenda as citable T3 for original chemistry work, and the oxidation-vs-enzyme mechanism is sound and chemically checkable. But the product conclusion is an interested one. Write the mechanism; do NOT write 'buy enzymes' in Orenda's voice. Their '90% of oxidant demand' figure is a vendor claim — attribute it or omit it, do not state it as fact.",
+    "followUpSource": "https://blog.orendatech.com/scum-lines-matter — dedicated scum-line article, NOT yet loaded. Load next research session before writing."
+  },
+  "sourcingGap": {
+    "blocking": true,
+    "issue": "§3 requires minimum two sources with at least one from Tier 1 or Tier 2. Currently loaded and citable: ONE Tier 3 (Orenda). That does not satisfy the rule.",
+    "doNotDo": "Do not cite the CDC healthy-swimming URLs already sitting in other articles' frontmatter — they were inherited, not loaded for this article, and §3 bans citing anything not actually loaded.",
+    "targets": [
+      {
+        "tier": 1,
+        "source": "CDC Model Aquatic Health Code, 2023 edition + Annex",
+        "urls": [
+          "https://stacks.cdc.gov/view/cdc/127806/cdc_127806_DS1.pdf",
+          "https://www.cdc.gov/model-aquatic-health-code/media/pdfs/2023-MAHC-ANNEX-508.pdf"
+        ],
+        "why": "Large PDFs — use pdfOptions.maxPages and search for scumline / tile line / cleaning frequency. The Annex snippet already surfaced language about pool water removing 'organic compounds', which is the principle underneath this article.",
+        "warning": "500+ page PDFs. Do not load whole. §13 caps one page in context."
+      },
+      {
+        "tier": 1,
+        "source": "State pool codes requiring operators to clean the scumline",
+        "note": "MN and IN codes appeared in the search. Commercial operators are required to do this on a schedule — a strong, unused angle: the pros treat it as scheduled maintenance, not an occasional scrub."
+      },
+      {
+        "tier": 2,
+        "source": "Pool surface manufacturer literature on cleaning restrictions for gelcoat and vinyl",
+        "why": "Needed for the abrasive-pad surface constraint, which §10 requires and every ranking page omits."
+      }
+    ]
+  },
+  "productSlotsLikelyNeeded": [
+    "enzyme-cleaner (new — constraint: breaks down oils and non-living organics; does nothing for metals, calcium or ammonia)",
+    "nylon-pool-brush (exists)",
+    "drop-test-kit (exists)",
+    "possibly a tile/waterline cleaner slot"
+  ],
+  "sourcesLoadedThisSession": [
+    {
+      "tier": 3,
+      "title": "Orenda — How Swimming Pool Enzymes Work",
+      "url": "https://blog.orendatech.com/how-orenda-enzymes-actually-work",
+      "loaded": true
+    }
+  ],
+  "sourcesSeenButNotCitable": "troublefreepool + reddit (forums — §3 bans citation and scraping; used only as snippet leads), abgal, lo-chlor, calspas, tileshop, Amazon listings (vendor/competitor content)"
+}
