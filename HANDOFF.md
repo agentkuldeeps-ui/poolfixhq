@@ -4,15 +4,15 @@ Read this and CLAUDE.md at the start of every session. Nothing else unless the
 task needs it. Rewrite this file at the end of every session.
 
 ## Last commit
-SYM-006 pool stains identification pillar.
+Research session C — foam sourced, CDC pool-vs-lake algae question resolved.
 
 ## Session type rules
 Research: Firecrawl only → `content/research/*.json`, one page in context at a
 time. Writing: repo only, no fetching — unknowns become `[VERIFY: …]`.
 Three articles per writing session, then stop.
 
-**Last session wrote SYM-004, SYM-005, SYM-006 — the limit. Next writing
-session starts fresh.**
+**Session C was a RESEARCH session** (writing limit of three was already hit by
+SYM-004/005/006). No article text was written or changed. Next session can write.
 
 ## State
 - **B1: 12 of 63 written** — SYM-001 … SYM-006, EQP-001, EQP-002, EQP-003,
@@ -36,18 +36,22 @@ session starts fresh.**
 
 ## Open [VERIFY]
 - `content/regional/texas.mdx` — swim-season length or water temperature
-  normals by TX region, from a citable climate or extension source.
-- `content/problems/black-algae-in-pool.mdx` — whether CDC or comparable says
-  anything specific about cyanobacteria in **chlorinated residential pools**.
-  Most cyanotoxin evidence is lakes. Section deliberately does not import that
-  warning.
-- `content/problems/mustard-algae-in-pool.mdx` — whether CDC says anything
-  specific about swimming with **visible algae**. Same treatment: the sourced
-  claim is that sanitation has failed, not that the algae is a hazard.
+  normals by TX region. **Still open.** Try NOAA or Texas A&M AgriLife.
 
-Three open VERIFYs is now a pattern, not an accident: all three are "does an
-authority say anything specific about X in a *residential pool*." Worth
-resolving as one research task rather than three.
+**Two VERIFYs are now ANSWERED but not yet applied to the articles** — the
+answers live in `content/research/cdc-pool-algae.json`. Applying them is a
+writing task, deliberately not done in a research session:
+
+- `black-algae-in-pool.mdx` — CDC MMWR 2009-2010 surveillance shows **all 11
+  confirmed-or-suspected cyanobacterial toxin outbreaks were in untreated water
+  (lakes); zero in treated venues (pools/hot tubs).** The article's existing
+  position was correct. Swap the [VERIFY] block for the citation — *and carry
+  the caveat*: CDC names residential backyard pools as a known barrier to
+  outbreak detection, so zero reported is not proof of safe. Do not upgrade
+  this into "CDC says pool black algae is harmless."
+- `mustard-algae-in-pool.mdx` — searched, **nothing found**. No CDC statement
+  on swimming with visible algae in a pool. Record the negative result and drop
+  the marker so it is not re-searched every session.
 
 ## Convergence watch
 - EQP-003 (silent, won't start) vs **EQP-021** (hums, won't start) — EQP-003
@@ -87,14 +91,18 @@ lands (SYM-004's stains slug did exactly this). Body prose must link only to
 live routes.
 
 ## tips.json
-**27 total, 8 verified**, 19 candidates. Verified: `carbonate-clouding`,
-`suction-side-never-drips`, `bearings-die-of-seal-leaks`,
-`thermal-overload-resets-itself`, `hottest-water-precipitates-first`,
-`surface-material-decides-diagnosis`, `pollen-is-hydrophobic`,
-`copper-stain-is-heater-autopsy`. Still assigned but unsourced:
-`dead-algae-turns-gray`, `total-only-strips-hide-zero-free`,
-`open-below-60-degrees`, `texas-hardness-inverts`. **Twelve articles finished,
-none publishable.**
+**28 total, 9 verified**, 19 candidates. **One assignable:
+`foam-is-a-calcium-readout`** (verified, unassigned) — the foam article's tip is
+ready. Newly verified this session: that one.
+
+Still assigned but unsourced — these gate `live` and were NOT touched this
+session: `dead-algae-turns-gray`, `total-only-strips-hide-zero-free`,
+`open-below-60-degrees`, `texas-hardness-inverts`. **Highest priority for the
+next research session.**
+
+**Twelve articles finished, none publishable.** The bank hit zero assignable
+tips before SYM-007 could start, which is what forced this research session.
+Do not let it reach zero again — one article written is one tip consumed.
 
 ## Schema note
 `title` caps at 90 chars and the build enforces it. Check title length when
@@ -108,12 +116,22 @@ publishable" framing. Currently the repo says one thing and the site does
 another.
 
 ## Next action
-**Dedicated research session, before B1 continues.** Tip sourcing has slipped
-seven sessions. Clear the four assigned-but-unsourced tips, resolve the three
-residential-pool VERIFYs as one task, then build toward 60 verified.
-**Manufacturer service bulletins first** — least picked-over vein in the niche
-and the differentiator for the 50 brand-code articles.
+**The foam article is unblocked and can be written now** — research is in
+`content/research/foam.json`, tip is `foam-is-a-calcium-readout`, roadmap slug
+is `foamy-pool-water` (match it or fix the roadmap in the same commit).
+`foam.json` records a real conflict between the two sources about whether
+phosphates or organics are the primary cause; write it as a conflict, house
+style, the way SYM-005 handled the texture disagreement.
 
-Then B1, three articles per writing session. For every equipment and brand-code
+While writing, also apply the two resolved VERIFYs above — they are quick edits
+with the citation already gathered.
+
+**Then another research session before B1 goes much further.** Four unsourced
+tips still gate every article going live, and the bank holds one assignable tip
+— enough for exactly one more article. **Manufacturer service bulletins first**
+— least picked-over vein in the niche and the differentiator for the 50
+brand-code articles.
+
+Three articles per writing session. For every equipment and brand-code
 article, ask whether it explains how to do the job **correctly**, not only how
 to diagnose it going wrong.

@@ -1,0 +1,66 @@
+{
+  "_doc": "Resolves the open [VERIFY] markers about what CDC actually says regarding algae/cyanobacteria in POOLS as opposed to lakes. Session C, research type. Writing sessions read this and do not fetch.",
+  "state": "resolved-with-caveat",
+  "primarySource": {
+    "title": "CDC MMWR — Recreational Water-Associated Disease Outbreaks, United States, 2009-2010",
+    "url": "https://www.cdc.gov/mmwr/preview/mmwrhtml/mm6301a2.htm",
+    "authors": "Hlavsa MC, Roberts VA, Kahler AM, Hilborn ED, Wade TJ, Backer LC, Yoder JS",
+    "published": "MMWR 2014;63(01):6-10",
+    "note": "Peer-reviewed CDC surveillance summary. Meets the CLAUDE.md sourcing bar (CDC)."
+  },
+  "theFinding": {
+    "headline": "CDC categorises recreational water as TREATED (pools, hot tubs) or UNTREATED (lakes, oceans), and its cyanobacterial-toxin outbreak data sits entirely in the untreated category.",
+    "hardNumbers": "In the 2009-2010 surveillance table, cyanobacterial toxin(s) as a CONFIRMED etiology: 0 outbreaks in treated water, 4 in untreated (38 cases, 1 hospitalisation). As a SUSPECTED etiology: 0 outbreaks in treated water, 7 in untreated (23 cases, 1 hospitalisation). So all 11 confirmed-or-suspected cyanobacterial toxin outbreaks were untreated water; zero were pools or hot tubs.",
+    "alsoUseful": "Of 24 untreated-water outbreaks, 11 (46%) were confirmed or suspected cyanobacterial. Of 57 treated-water outbreaks, the dominant cause was Cryptosporidium (24, 42%) -- a chlorine-tolerant parasite, not algae."
+  },
+  "theCaveatThatMustBeWritten": {
+    "critical": true,
+    "detail": "The report explicitly lists 'setting or venue of outbreak exposure (e.g., residential backyard pool)' as one of seven barriers to detecting, investigating and reporting outbreaks, and states outbreak counts 'are likely an underestimate of actual incidence.'",
+    "meaning": "Zero reported residential-pool cyanotoxin outbreaks is NOT evidence that residential pools are proven safe. It is partly an artefact of backyard pools being poorly surveilled -- a small family outbreak is exactly what this system misses.",
+    "handling": "Do not upgrade this into 'CDC says black algae in your pool is harmless.' The defensible claim is narrower: CDC's cyanotoxin outbreak data concerns untreated natural water, CDC publishes no pool-specific cyanotoxin warning, and residential pools are under-surveilled by CDC's own account."
+  },
+  "verifyResolutions": [
+    {
+      "file": "content/problems/black-algae-in-pool.mdx",
+      "question": "Does CDC or comparable say anything specific about cyanobacteria in chlorinated residential pools?",
+      "answer": "No pool-specific warning exists. But there is now something better than silence: CDC surveillance data showing all cyanobacterial toxin outbreaks fell in untreated water, plus CDC's own statement that residential pools are under-detected.",
+      "action": "The section as written is CORRECT and does not need its claim changed -- it already refuses to import the lake warning. Replace the [VERIFY] block with the citation and the caveat. Add the MMWR URL to frontmatter sources.",
+      "verdict": "article was right; upgrade from 'we could not find a source' to 'here is the surveillance data and its limitation'"
+    },
+    {
+      "file": "content/problems/mustard-algae-in-pool.mdx",
+      "question": "Does CDC say anything specific about swimming with VISIBLE ALGAE in a pool?",
+      "answer": "Not found. The MMWR addresses cyanotoxins and pathogens, not visible algae as such. No CDC statement located that says 'do not swim in a pool with visible algae.'",
+      "action": "Keep the article's existing position, which is already the honest one: the sourced concern is failed sanitation, not the algae itself. Reword the [VERIFY] into a plain statement that no pool-specific authority guidance was found, rather than leaving an open marker.",
+      "verdict": "unresolved by design -- record the negative result so it is not re-searched every session"
+    }
+  ],
+  "incidentalFindings": [
+    {
+      "finding": "Suspected chloramines: 2 treated-water outbreaks, 311 cases -- the largest single case count in the treated column.",
+      "useFor": "the planned chloramines article (strong chlorine smell / burning eyes). Chloramine exposure at pools is a real, CDC-documented outbreak cause, which is a stronger hook than the usual 'that smell is not chlorine' line."
+    },
+    {
+      "finding": "Suspected algaecide (copper): 1 untreated outbreak, 3 cases.",
+      "useFor": "SYM-006 stains and any copper-algaecide discussion. Minor but real."
+    },
+    {
+      "finding": "Cryptosporidium caused 24 of 57 treated-water outbreaks and is extremely chlorine-tolerant; CDC's Model Aquatic Health Code recommends UV or ozone as supplementary treatment at higher-risk venues.",
+      "useFor": "any article claiming chlorine handles everything. It does not handle crypto."
+    }
+  ],
+  "notResolvedThisSession": [
+    {
+      "gap": true,
+      "item": "content/regional/texas.mdx swim-season length / water temperature normals by TX region",
+      "status": "not searched -- ran out of session budget",
+      "next": "NOAA or Texas A&M AgriLife Extension are the likely citable sources"
+    },
+    {
+      "gap": true,
+      "item": "The four assigned-but-unsourced tips (dead-algae-turns-gray, total-only-strips-hide-zero-free, open-below-60-degrees, texas-hardness-inverts)",
+      "status": "not started -- ran out of session budget",
+      "next": "highest priority for the next research session; these gate every article going live"
+    }
+  ]
+}

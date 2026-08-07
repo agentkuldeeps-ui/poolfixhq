@@ -1,0 +1,100 @@
+{
+  "_doc": "Research for the foam article (roadmap slug: foamy-pool-water). Session C, research type. Writing sessions read this and do not fetch. Anything marked gap:true must be written as an explicit unknown, never estimated.",
+  "state": "usable-for-drafting",
+  "plannedSlug": "foamy-pool-water",
+  "slugWarning": "lib/symptoms.js roadmap says 'foamy-pool-water'. If the article ships under any other slug, fix the roadmap entry in the SAME commit or the homepage renders it as muted 'soon' text. This has happened 4 times already.",
+  "foamVsBubbles": {
+    "headline": "This is the misidentification angle and both sources support it. Foam and bubbles look similar and mean completely different things.",
+    "bubbles": "Air. Rise and dissipate, pop when touched, never last long. Typically from a salt chlorinator (benign) or an air leak on the suction side (not benign). Generally ignorable if the chlorinator is the source.",
+    "foam": "Organic. Dense, frothy, whitish, PERSISTS, and does not pop when touched. That 'doesn't pop' test is the cleanest field distinction found.",
+    "confidence": "high — stated independently by both sources"
+  },
+  "causes": [
+    {
+      "cause": "Accumulation of organics",
+      "detail": "Bather waste, sweat, personal care products, detergents. Oxidise (shock) to break them down. Non-chlorine shock is a suitable choice here since the need is oxidation, not sanitation.",
+      "source": "discountsaltpool",
+      "confidence": "high"
+    },
+    {
+      "cause": "Low calcium hardness",
+      "detail": "Does NOT cause foam, but makes it easier for foam to form and persist — typically at 150 ppm or less. Raising CH to 200-300 ppm suppresses foam and makes it dissipate faster. ABC gives the ideal range as 200-400 ppm and says below 150 ppm the water turns corrosive.",
+      "source": "both",
+      "confidence": "high — this is the tip",
+      "linkTo": "SYM-003 milky-white-pool-water owns calcium saturation; link there rather than re-explaining"
+    },
+    {
+      "cause": "Quat algaecides",
+      "detail": "Quaternary ammonium algaecides cause and amplify foaming. They are ALSO oxidised by free chlorine, so they deplete available FC while they foam. Overdosing any algaecide can foam. Algaecide-related foam usually clears on its own; skim to speed it up.",
+      "source": "both",
+      "confidence": "high",
+      "crossRef": "SYM-005 already tells readers algaecide is prevention-not-cure. This adds a second reason to be careful with the cheap ones."
+    },
+    {
+      "cause": "Early / incipient algae formation",
+      "detail": "As chlorine kills early algae, the dying algae releases compounds that LOWER THE WATER'S SURFACE TENSION, letting bubbles hold together as foam. Usually accompanied by rising chlorine demand and falling FC. Check phosphates; remove with a lanthanum-salts phosphate remover and clean the filter two days after treatment.",
+      "source": "discountsaltpool",
+      "confidence": "medium-high — mechanistically coherent and only one source states it. Worth writing, worth attributing."
+    },
+    {
+      "cause": "Air leak / low water level",
+      "detail": "Produces BUBBLES, not true foam — belongs in the misidentification section, not the treatment section. If the skimmer is less than half submerged it draws air. Otherwise suspect the pump suction side.",
+      "source": "abc",
+      "confidence": "high",
+      "linkTo": "EQP-001 pump-not-priming already owns suction-side air; route there"
+    }
+  ],
+  "numbers": {
+    "calciumHardnessTarget": "200-400 ppm (ABC). discountsaltpool says raise to 200-300 to suppress foam, and 150 ppm or less is where foam persists.",
+    "totalAlkalinity": "80-120 ppm (ABC)",
+    "pH": "7.4-7.6 (ABC)",
+    "caveat": "These are ABC's stated ranges. CDC home-pool guidance already cited across SYM-001/002/004/005 gives pH 7.0-7.8. Do not present ABC's tighter range as if it were the authority's."
+  },
+  "conflicts": [
+    {
+      "issue": "What is the PRIMARY cause of foam?",
+      "values": [
+        "ABC: 'Normally, foam comes from phosphates that have gotten into the water.'",
+        "discountsaltpool: 'The most prevalent cause of foam is an accumulation of organics' — phosphates appear only as a secondary check under early algae formation."
+      ],
+      "handling": "Write organics as the leading cause and phosphates as a contributing factor worth testing, and say the sources rank them differently. Do NOT open the article with 'foam is phosphates' — that is the weaker-sourced claim and it sends the reader shopping for a phosphate remover first.",
+      "housePrecedent": "Same treatment as the mustard-algae texture conflict in SYM-005: state the disagreement, then give the reader the test that settles it."
+    }
+  ],
+  "sourceReliability": [
+    {
+      "source": "discountsaltpool",
+      "note": "Stronger of the two. Mechanistic, gives numbers, distinguishes foam from bubbles cleanly, and is careful to say low CH does not CAUSE foam. Vendor (salt systems) but the foam content is not a product pitch."
+    },
+    {
+      "source": "abc",
+      "note": "Weaker. Service company with a call-a-pro CTA in every section. Contains at least one dubious claim — 'low calcium hardness lowers the water's alkalinity' — which is not how alkalinity works and should NOT be repeated. Also recommends drain-and-refill as the fix for high CH, which conflicts with the site's standing position that draining is a last resort. Use it for the air-leak/skimmer detail and for corroborating CH ranges, nothing else."
+    }
+  ],
+  "gaps": [
+    {
+      "gap": true,
+      "question": "Is there a CDC or comparable authority position on swimming in a foamy pool?",
+      "status": "not searched this session",
+      "handling": "If the article makes any safety claim, it needs its own source. ABC's 'you don't have to worry too much because it won't harm you' is a service company's reassurance, not an authority statement. Do not present it as one."
+    },
+    {
+      "gap": true,
+      "question": "Quantified surface-tension effect of dying algae",
+      "status": "mechanism stated by one source, no figure found",
+      "handling": "Write the mechanism, do not invent a number."
+    }
+  ],
+  "sources": [
+    {
+      "title": "Discount Salt Pool — Foam vs. Bubbles in Pool Water",
+      "url": "https://www.discountsaltpool.com/foam-bubbles-in-your-pool-water",
+      "scraped": "session C"
+    },
+    {
+      "title": "ABC Home & Commercial — Why Do I Have Foamy Pool Water?",
+      "url": "https://www.abchomeandcommercial.com/resources/foamy-pool-water/",
+      "scraped": "session C"
+    }
+  ]
+}
