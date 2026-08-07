@@ -7,6 +7,15 @@
   },
   "tips": [
     {
+      "id": "pollen-is-hydrophobic",
+      "mechanism": "Pollen grains carry a waxy, water-repellent outer coat — it is how they shed moisture in the wild. In a pool that property means pollen clumps and rides on the surface rather than dispersing through the water column, and it is why a skimmer lifts pollen out easily while a filter struggles with it once it sinks. Mustard algae does the opposite: disturb it and it disperses into the water as a plume, because it has no reason to repel water. That gives a reader an identification before touching a brush — riding on the surface in clumps and rafts is pollen; sitting on walls and floor in shaded patches is not.",
+      "appliesTo": "Yellow dust, mustard algae, pollen, surface film, skimming",
+      "state": "verified",
+      "sourceUrl": "https://www.dogdayspools.com/poolserviceblog/is-that-yellow-stuff-in-my-pool-mustard-algae-or-pollen",
+      "sourceTitle": "Dog Days Pools — Is That Yellow Stuff in My Pool Mustard Algae or Pollen?",
+      "assignedTo": "SYM-005"
+    },
+    {
       "id": "surface-material-decides-diagnosis",
       "mechanism": "Ask what the pool is made of before testing anything. Cyanobacteria needs microscopic surface texture to anchor its holdfasts; a smooth gelcoat or vinyl liner does not offer it. So black spots on a fiberglass pool are usually not algae at all — they are cobalt coming through the gelcoat from underneath, which is why they powder away under a brush and reappear in exactly the same place within days. Owners routinely spend months holding chlorine at 20-30 ppm against something that was never alive, and scratch the gelcoat with a stainless brush while doing it. The surface material narrows the diagnosis before a single test strip comes out of the bottle.",
       "appliesTo": "Black spots, black algae, cobalt spotting, fiberglass, gelcoat, vinyl liner",
