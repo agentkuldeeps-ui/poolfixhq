@@ -7,6 +7,17 @@
   },
   "tips": [
     {
+      "id": "gauge-direction-locates-the-restriction",
+      "mechanism": "Weak returns plus a HIGH filter pressure and weak returns plus a LOW filter pressure are two different faults with no causes in common, because a restriction before the impeller starves the pump and drops pressure while a restriction after it backs water up and raises pressure. Standing at the return jet both look identical. Pentair's own OptiFlo troubleshooting table is partitioned exactly this way — 'Low Flow, High Filter Pressure' gives dirty filter and restriction in the return line; 'Low Flow, Low Filter Pressure' gives clogged strainer or skimmer basket, clogged impeller, air leak in the suction line, and restriction in the suction line. Every consumer page flattens those six causes into one unordered list, which is the slowest possible way to work. One glance at the gauge eliminates half of them before you touch anything.",
+      "appliesTo": "Weak flow from returns, low pool flow, filter pressure, suction side restriction, clogged impeller, air leak",
+      "state": "verified",
+      "sourceTier": 2,
+      "sourceUrl": "https://www.pentair.com/content/dam/extranet/nam/pentair-pool/residential/pumps/optiflo/optiflo-owners-manual-english-spanish-french.pdf",
+      "sourceTitle": "Pentair OptiFlo Aboveground Pool Pump Owner's Manual",
+      "caveat": "Depends on a live gauge; a dead gauge reading zero is common. 'High'/'low' are relative to this system's clean-filter baseline, not an absolute psi.",
+      "assignedTo": null
+    },
+    {
       "id": "scum-line-is-chlorines-limit",
       "mechanism": "A scum ring is not a sign of low chlorine — it is a visible readout of the contaminant class chlorine handles worst. Orenda separates natural organics (sweat, body oils, leaves), which chlorine oxidizes fairly easily, from synthetic bather products — sunscreen, cosmetics, tanning oils, deodorants, lotions, soaps — which it states are not easy for chlorine to oxidize, adding that where a scum line exists 'chlorine is falling short' and 'in some cases, chlorine is incapable of finishing the job.' So the ring can persist at textbook-perfect free chlorine, and the owner's instinct to shock it spends money and creates disinfection byproducts against the one thing extra chlorine is least able to remove. The ring comes off physically, or it gets broken down by something other than an oxidizer.",
       "appliesTo": "Waterline scum ring, scum line, tile line, bather oils, sunscreen, chlorine demand, enzymes",

@@ -1,0 +1,94 @@
+{
+  "_doc": "Research for 'weak flow from the returns' (roadmap slug: low-pool-flow). Session E, RESEARCH type per CONTENT_STANDARD.md §13. Writing sessions read this and do not fetch.",
+  "state": "READY TO WRITE — §3 satisfied (2 sources, both Tier 2)",
+
+  "step1_interpretation": {
+    "keyword": "weak flow from the returns",
+    "searchIntent": "Diagnostic. The reader can see it and wants to know what is wrong.",
+    "archetype": "A — Diagnostic",
+    "archetypeJustification": "Considered C (Procedural) and rejected — there is no single job to perform, the whole value is working out which of several faults you have. §7A's misidentification section is literally the article here, except the confusion is not between look-alike deposits but between restrictions on opposite sides of the pump that produce the identical symptom.",
+    "pillarOrSpoke": "Effectively a router/mini-pillar for the flow subject. It triages and hands off.",
+    "category": "equipment",
+    "cluster": "equipment",
+    "plannedSlug": "low-pool-flow",
+    "slugSource": "lib/symptoms.js line 43",
+    "planIdNeeded": true,
+    "proposedPlanId": "EQP-004",
+    "note": "§2 Step 1: roadmap row has slug but no planId. Proposing EQP-004. Confirm before writing."
+  },
+
+  "step2_cannibalisation": {
+    "verdict": "PROCEED, but with a hard boundary written into the article. This is the tightest adjacency on the site so far — three equipment articles already touch flow restriction.",
+    "existingCoverage": [
+      {
+        "article": "equipment/pump-not-priming (EQP-001)",
+        "owns": "Pump cannot get water at all, or loses prime. Its 'Check in this order' already covers water level and valves, pump lid o-ring and basket, suction lines/unions/diverter, impeller and skimmer blockage, and check valve.",
+        "overlapRisk": "HIGH — four of those five are also low-flow causes.",
+        "boundary": "EQP-001 owns the pump that WILL NOT PRIME. This article owns the pump that IS primed and running normally but moves too little water. State that distinction in the opening. Where a suction-side check is identical, do NOT re-explain the procedure — one line and a link to EQP-001."
+      },
+      {
+        "article": "equipment/pool-pump-loud-noise (EQP-002)",
+        "owns": "Cavitation as a NOISE diagnosis. Already carries the note: 'Cavitation usually runs low pressure and weak returns; bearing noise doesn't change pressure at all.'",
+        "overlapRisk": "MEDIUM",
+        "boundary": "EQP-002 owns it when the complaint is sound. This owns it when the complaint is flow. Cross-link both ways — EQP-002's existing pressure-gauge note is already half this article's thesis and should point here."
+      },
+      {
+        "article": "equipment/high-filter-pressure (PLANNED, unwritten)",
+        "owns": "will own the high-pressure branch in depth",
+        "boundary": "CRITICAL. This article must route the high-pressure branch there rather than absorbing it, or the spoke has nothing left. Per §5, reference in prose without an anchor and leave a code comment with the intended slug.",
+        "intendedSlug": "equipment/high-filter-pressure"
+      }
+    ]
+  },
+
+  "step3_serpGap": {
+    "whoRanks": "TroubleFreePool and Reddit (forums, not citable), two YouTube videos, InyoPools DIY, bndpools, romanellipools, mavaquadoc forum, minibuckettest.",
+    "whatTheyAllDo": "Every page gives the same flat list — dirty filter, clogged basket, air leak — in no particular order and with no way to tell which one you have. The reader is left to check all of them.",
+    "THE_GAP": "Not one top result leads with the filter pressure gauge, and the gauge is what actually splits the diagnosis. Pentair's own troubleshooting table is organised exactly that way and the consumer pages flatten it into an undifferentiated list. Only one niche result (minibuckettest) even asks the question, framing it as an oddity — 'filter pressure low but water flow weak' — rather than as the primary diagnostic.",
+    "secondGap": "Nobody covers the case where nothing is wrong: a variable-speed pump running a long low-RPM cycle by design produces visibly lazy returns, and owners 'diagnose' a fault that is the pump doing its job."
+  },
+
+  "secondaryTerms": ["low pool flow", "weak return jets", "pool jets not working", "low water pressure pool jets", "poor pool circulation", "pool return jet weak", "no pressure from pool returns", "pool pump not circulating well", "weak flow one return"],
+  "paaHarvested": ["Why are my pool return jets weak?", "How do I increase water pressure in my pool jets?", "Why is my pool filter pressure low but flow weak?", "Can a dirty filter cause low flow?", "Why is only one return jet weak?", "How do I know if my impeller is clogged?", "Does a variable speed pump have weaker jets?"],
+
+  "step3_mechanism": {
+    "id": "gauge-direction-locates-the-restriction",
+    "claim": "The filter pressure gauge tells you which SIDE of the pump the restriction is on, because a restriction before the pump and a restriction after it move the gauge in opposite directions while producing the identical symptom at the returns.",
+    "detail": "A restriction upstream of the impeller starves the pump — less water reaching the filter means pressure DROPS. A restriction downstream backs water up — pressure RISES. Both look the same standing at the return jet. So 'weak returns' plus a HIGH gauge and 'weak returns' plus a LOW gauge are two different faults with no overlap in their cause lists.",
+    "sourceSupport": "Pentair's OptiFlo owner's manual organises its troubleshooting into two separate entries: 'Low Flow — High Filter Pressure' (causes: filter is dirty; restriction in return line) and 'Low Flow — Low Filter Pressure' (causes: strainer or skimmer basket clogged; clogged impeller; air leak in suction line; restriction in suction line). Six causes, cleanly partitioned by gauge direction, from the manufacturer.",
+    "whyItMatters": "It converts a six-item guess-and-check into one reading that eliminates half the list before you touch anything. Every ranking consumer page presents the same six causes as an unordered list, which is the slowest possible way to work.",
+    "sourceTier": 2,
+    "sourceUrl": "https://www.pentair.com/content/dam/extranet/nam/pentair-pool/residential/pumps/optiflo/optiflo-owners-manual-english-spanish-french.pdf",
+    "prerequisiteToState": "This depends on the gauge being alive. A dead gauge reading zero is common, and the site already makes that point in the pressure-gauge product constraint — reference it, do not re-argue it.",
+    "baselineCaveat": "'High' and 'low' are relative to THIS system's clean-filter baseline, not an absolute psi. If the owner never recorded a clean starting pressure, the direction of change is still usable but the magnitude is not. Say so."
+  },
+
+  "thirdBranch_nothingIsWrong": {
+    "why": "Neither the gauge-high nor gauge-low branch covers it, and no ranking page mentions it.",
+    "content": "A variable-speed pump run at low RPM for a long circulation cycle gives deliberately gentle returns. Pentair: 'running these pumps at a low flow rate (or speed) for a long period of time to circulate the chemicals and turn over the pool water is an effective way to circulate chemicals.' Their guidance is low speed for extended circulation, brief higher-speed intervals for surface movement and skimming.",
+    "readerAction": "Before diagnosing anything, check the programmed speed and what the schedule is doing right now. Weak-looking returns during a low-RPM block are the pump working as designed.",
+    "sourceTier": 2,
+    "sourceUrl": "https://www.pentair.com/en-us/pool-spa/education-support/professional-support/pool-and-spa-education/7-servicing-tips-for-variable-speed-pumps.html"
+  },
+
+  "otherUsableFromSources": [
+    "Pentair OptiFlo: 'The strainer basket in the pump should be inspected and cleaned twice each week.' — a manufacturer-stated frequency, better than the vague 'regularly' on competitor pages.",
+    "Pentair OptiFlo: 'It is essential that the suction line be free of air leaks and air traps.'",
+    "Pentair OptiFlo: 'Never run the pump dry. Running the pump dry may damage the seals and pump housing.' — SAFETY/equipment-damage line, §10.",
+    "Pentair VS tips: check the clearance between impeller and diffuser for debris buildup in the tight channel.",
+    "Pentair VS tips: clogged skimmer baskets create friction resulting in 'higher energy usage and costs' — the cost angle §8 wants."
+  ],
+
+  "sourcesLoadedThisSession": [
+    {"tier": 2, "title": "Pentair OptiFlo Aboveground Pool Pump Owner's Manual", "url": "https://www.pentair.com/content/dam/extranet/nam/pentair-pool/residential/pumps/optiflo/optiflo-owners-manual-english-spanish-french.pdf", "loaded": true, "note": "Loaded via WebFetch, not Firecrawl — Firecrawl was returning temporarily_unavailable. Content is a model-mediated extraction of the troubleshooting tables; the quoted cause/remedy strings are verbatim. Re-verify the exact wording against the PDF before publishing direct quotes."},
+    {"tier": 2, "title": "Pentair — 7 Servicing Tips For Variable Speed Pumps", "url": "https://www.pentair.com/en-us/pool-spa/education-support/professional-support/pool-and-spa-education/7-servicing-tips-for-variable-speed-pumps.html", "loaded": true, "note": "Same caveat — WebFetch extraction."}
+  ],
+
+  "sourcingNote": "Both sources are Tier 2 manufacturer primary literature, which also starts closing the site-wide Tier 2 gap (previously ONE manufacturer citation across 13 articles). The §3 escape hatch was not needed.",
+
+  "productSlotsLikelyNeeded": ["pressure-gauge (exists — central here)", "pump-lid-oring (exists)", "skimmer-sock (exists)", "possibly an impeller/seal kit — mechanical-seal-kit exists"],
+
+  "openVerify": [
+    "Exact verbatim wording of the OptiFlo troubleshooting table — extracted via WebFetch rather than a direct read. Confirm before publishing any string as a direct quote."
+  ]
+}

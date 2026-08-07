@@ -4,7 +4,7 @@ Read this and CLAUDE.md at the start of every session. Nothing else unless the
 task needs it. Rewrite this file at the end of every session.
 
 ## Last commit
-SYM-008 waterline scum ring — first full article under CONTENT_STANDARD.md.
+Research session E — weak flow from the returns (EQP-004 proposed). Steps 1-3.
 
 ## Session type rules
 Research: Firecrawl only → `content/research/*.json`, one page in context at a
@@ -241,12 +241,41 @@ amendment. One extra search and one scrape, then writing.
 - **New product:** `enzyme-cleaner`.
 - 1,708 words, no target.
 
+## Session E — weak flow from the returns, research only
+`content/research/low-pool-flow.json`. **No article written.**
+
+- **Archetype A (Diagnostic).** Proposing **EQP-004** — roadmap row has a slug
+  (`low-pool-flow`) but no planId. Confirm before writing.
+- **Cannibalisation: tightest on the site so far.** Three equipment articles
+  already touch flow restriction. Boundary that makes it work: **EQP-001 owns
+  the pump that will not prime; this owns the pump that IS primed and running
+  but moves too little water.** Where a suction-side check duplicates EQP-001,
+  link rather than re-explain. The unwritten `high-filter-pressure` spoke must
+  keep the high-pressure branch — this article routes to it, does not absorb it,
+  or that spoke has nothing left.
+- **Two Tier 2 sources, both Pentair.** That doubles the site's manufacturer
+  citations on its own (was one across 13 articles). §3's escape hatch not
+  needed.
+- **Mechanism: `gauge-direction-locates-the-restriction`** — verified,
+  assignable. Pentair's own troubleshooting table splits low flow by gauge
+  direction into six causes with no overlap; every consumer page flattens them
+  into one list. One reading eliminates half the list.
+- **Third branch nobody covers:** a variable-speed pump on a long low-RPM cycle
+  produces deliberately lazy returns and owners diagnose a fault that isn't one.
+
+**Sourcing caveat, recorded honestly:** Firecrawl returned
+`temporarily_unavailable` mid-session, so both sources were loaded via WebFetch
+instead. That returns a model-mediated extraction rather than raw page text. The
+cause/remedy strings look verbatim and are usable for structure, but
+**re-verify wording against the PDF before publishing any direct quote.** Logged
+as the file's one open [VERIFY].
+
 ## Next action
 **Research session** — §13 forbids research and writing in the same session, and
 two things block writing anyway:
 
-1. **Tip bank empty again.** Zero assignable. Every article consumes one, so
-   research has to stay ahead of writing or it blocks immediately.
+1. **Tip bank: one assignable** (`gauge-direction-locates-the-restriction`) —
+   enough for the weak-flow article and nothing beyond it.
 2. **Six articles fail §3.** Re-source them, worst first.
 
 Target, in priority order:
