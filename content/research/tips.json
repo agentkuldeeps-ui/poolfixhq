@@ -7,6 +7,18 @@
   },
   "tips": [
     {
+      "id": "salt-cell-bubbles-are-not-automatically-fine",
+      "mechanism": "The reassurance you find everywhere — 'you have a salt system, small bubbles from the returns are normal' — is not supported by manufacturer literature. Both the Hayward AquaRite and Pentair IntelliChlor manuals were checked directly and NEITHER describes visible bubbling at the return as a normal operating condition. What the manufacturers do document about gas from a salt cell is a hazard: Pentair warns never to operate the generator without proper flow or water circulation because 'a build-up of flammable gases will result in hazardous conditions', and separately that the power center must be wired to the load side of the timer so it can only run when the pump runs, or dangerous chlorine gas buildup can occur. That matters because bubbles frequently accompany poor flow — the exact condition being warned about. So the safe reading inverts the common one: bubbles plus a salt system is a reason to confirm flow is genuinely adequate and the flow switch is working, not a reason to stop looking.",
+      "appliesTo": "Air bubbles in returns, salt chlorine generator, salt cell, flow switch, low flow, gas build-up",
+      "state": "verified",
+      "sourceTier": 2,
+      "sourceUrl": "https://www.pentair.com/content/dam/extranet/nam/pentair-pool/residential/sanitizers/intellichlor/intellichlor-installation-users-guide-ic15-ic20-ic40-ic60.pdf",
+      "sourceTitle": "Pentair IntelliChlor Salt Chlorine Generator Installation and User's Guide",
+      "corroboratingUrl": "https://hayward.com/media/wysiwyg/pdf/aqua_rite_product_manual.pdf",
+      "caveat": "Loaded via WebFetch during a Firecrawl outage — confirm the two WARNING strings word-for-word against the PDF before quoting verbatim. The negative finding (no manual documents routine bubbling as normal) rests on two manuals; a third source could rebalance it.",
+      "assignedTo": null
+    },
+    {
       "id": "gauge-direction-locates-the-restriction",
       "mechanism": "Weak returns plus a HIGH filter pressure and weak returns plus a LOW filter pressure are two different faults with no causes in common, because a restriction before the impeller starves the pump and drops pressure while a restriction after it backs water up and raises pressure. Standing at the return jet both look identical. Pentair's own OptiFlo troubleshooting table is partitioned exactly this way — 'Low Flow, High Filter Pressure' gives dirty filter and restriction in the return line; 'Low Flow, Low Filter Pressure' gives clogged strainer or skimmer basket, clogged impeller, air leak in the suction line, and restriction in the suction line. Every consumer page flattens those six causes into one unordered list, which is the slowest possible way to work. One glance at the gauge eliminates half of them before you touch anything.",
       "appliesTo": "Weak flow from returns, low pool flow, filter pressure, suction side restriction, clogged impeller, air leak",

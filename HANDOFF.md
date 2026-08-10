@@ -4,7 +4,7 @@ Read this and CLAUDE.md at the start of every session. Nothing else unless the
 task needs it. Rewrite this file at the end of every session.
 
 ## Last commit
-EQP-004 weak flow from the returns.
+Research session F — air bubbles in the returns (EQP-005 proposed).
 
 ## Session type rules
 Research: Firecrawl only → `content/research/*.json`, one page in context at a
@@ -286,6 +286,32 @@ as the file's one open [VERIFY].
   table rather than quoting it, which contains the risk — but the six causes are
   the article's backbone, so this is worth clearing.
 - Tip bank back to **zero assignable**.
+
+## Session F — air bubbles in the returns, research only
+`content/research/air-in-pool-lines.json`. **No article written.**
+
+- **§2 cannibalisation check triggered a genuine stop.** EQP-001 pump-not-priming
+  has 38 air-leak mentions and its whole five-step procedure IS suction-side
+  leak diagnosis. Escalated to the user rather than writing a competing page;
+  **narrow angle approved.**
+- **Agreed boundary:** EQP-001 owns the pump that won't prime and the entire
+  leak-finding procedure. EQP-005 owns the pump that primes and runs fine and
+  still pushes bubbles — its job is deciding whether it's a leak at all, then
+  routing. **Hard rule: EQP-005 must not reproduce the five-step procedure.**
+  If the draft starts explaining how to test the lid o-ring, the boundary failed.
+- **Proposing EQP-005.** Confirm before writing.
+- **Two Tier 2 sources** (Pentair IntelliChlor, Hayward AquaRite). Manufacturer
+  citations would go 3 → 5.
+- **The finding inverts the consensus.** Every ranking page and most forums say
+  'salt system, bubbles are normal, ignore it.' I checked both manuals directly:
+  **neither documents visible bubbling as a normal operating condition.** What
+  they do document is a hazard — Pentair warns that running the cell without
+  proper flow causes 'a build-up of flammable gases'. Since bubbles often
+  accompany poor flow, the reassurance points away from the exact thing the
+  manufacturer warns about. Logged as
+  `salt-cell-bubbles-are-not-automatically-fine`, assignable.
+- **Two open [VERIFY]s** recorded: confirm the Pentair WARNING strings verbatim
+  against the PDF, and note the negative finding rests on two manuals.
 
 ## Next action
 **Research session** — §13 forbids research and writing in the same session, and
