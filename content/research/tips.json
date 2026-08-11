@@ -16,7 +16,7 @@
       "sourceTitle": "Pentair IntelliChlor Salt Chlorine Generator Installation and User's Guide",
       "corroboratingUrl": "https://hayward.com/media/wysiwyg/pdf/aqua_rite_product_manual.pdf",
       "caveat": "Loaded via WebFetch during a Firecrawl outage — confirm the two WARNING strings word-for-word against the PDF before quoting verbatim. The negative finding (no manual documents routine bubbling as normal) rests on two manuals; a third source could rebalance it.",
-      "assignedTo": null
+      "assignedTo": "EQP-005"
     },
     {
       "id": "gauge-direction-locates-the-restriction",

@@ -4,7 +4,7 @@ Read this and CLAUDE.md at the start of every session. Nothing else unless the
 task needs it. Rewrite this file at the end of every session.
 
 ## Last commit
-Research session F — air bubbles in the returns (EQP-005 proposed).
+EQP-005 air bubbles in the returns.
 
 ## Session type rules
 Research: Firecrawl only → `content/research/*.json`, one page in context at a
@@ -312,6 +312,24 @@ as the file's one open [VERIFY].
   `salt-cell-bubbles-are-not-automatically-fine`, assignable.
 - **Two open [VERIFY]s** recorded: confirm the Pentair WARNING strings verbatim
   against the PDF, and note the negative finding rests on two manuals.
+
+## EQP-005 written
+1,580 words, archetype A, planId EQP-005.
+
+- **Boundary held.** The article forks in its first section: pump won't hold
+  prime → routed entirely to EQP-001, "ignore the rest of this page". It does
+  not reproduce the five-step procedure.
+- **Two Tier 2 sources.** Manufacturer citations now 5 site-wide.
+- **Reciprocals** added to EQP-001, EQP-004 and EQP-002. All verified live.
+- **QC caught two fails before commit:** primary keyword absent from every H2,
+  and — worse — **no `<UncommonTip>` block at all.** The frontmatter named a tip
+  but the body never rendered one, so §6 was silently unmet and the build does
+  not catch it. Both fixed.
+
+**ADD A BUILD CHECK:** `uncommonTip` in frontmatter with no `<UncommonTip>` in
+the body should fail the build. It passed cleanly here while violating §6, and
+that is the second class of silent failure after the roadmap-slug trap. The
+rendered-HTML grep caught it only because I was looking.
 
 ## Next action
 **Research session** — §13 forbids research and writing in the same session, and
