@@ -7,6 +7,17 @@
   },
   "tips": [
     {
+      "id": "high-pressure-can-be-a-sizing-problem",
+      "mechanism": "Filter pressure that stays high after a genuinely proper clean may not be dirt at all. Hayward's own support material says that if pressure continues to run high with reduced flow, 'the pump may be moving more water than the filter is designed to handle,' and tells you to check the flow ratings of both. That reframes the whole problem: pressure is a function of flow rate through the media as much as of how loaded the media is, so a pump oversized for its filter produces high pressure on day one with spotless sand. The owner reads the universal advice — high pressure means dirty, so clean it — cleans it, watches the needle barely move, and cleans it again. No schedule fixes a sizing mismatch. It is also the mirror image of the other common mistake: people buy a bigger pump to cure weak flow, and a bigger pump is exactly what causes this.",
+      "appliesTo": "High filter pressure, backwash, filter sizing, pump flow rate, reduced flow",
+      "state": "verified",
+      "sourceTier": 2,
+      "sourceUrl": "https://www.hayward.com/knowledge-base/why-does-my-filter-run-at-a-high-filter-pressure-and-has-reduced-water-flow-to-the-pool/",
+      "sourceTitle": "Hayward — Why does my filter run at a high filter pressure and has reduced water flow to the pool",
+      "caveat": "Loaded via WebFetch during a Firecrawl outage; confirm wording before quoting verbatim.",
+      "assignedTo": "EQP-006"
+    },
+    {
       "id": "salt-cell-bubbles-are-not-automatically-fine",
       "mechanism": "The reassurance you find everywhere — 'you have a salt system, small bubbles from the returns are normal' — is not supported by manufacturer literature. Both the Hayward AquaRite and Pentair IntelliChlor manuals were checked directly and NEITHER describes visible bubbling at the return as a normal operating condition. What the manufacturers do document about gas from a salt cell is a hazard: Pentair warns never to operate the generator without proper flow or water circulation because 'a build-up of flammable gases will result in hazardous conditions', and separately that the power center must be wired to the load side of the timer so it can only run when the pump runs, or dangerous chlorine gas buildup can occur. That matters because bubbles frequently accompany poor flow — the exact condition being warned about. So the safe reading inverts the common one: bubbles plus a salt system is a reason to confirm flow is genuinely adequate and the flow switch is working, not a reason to stop looking.",
       "appliesTo": "Air bubbles in returns, salt chlorine generator, salt cell, flow switch, low flow, gas build-up",

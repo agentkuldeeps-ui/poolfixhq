@@ -4,7 +4,28 @@ Read this and CLAUDE.md at the start of every session. Nothing else unless the
 task needs it. Rewrite this file at the end of every session.
 
 ## Last commit
-EQP-005 air bubbles in the returns.
+EQP-006 high filter pressure.
+
+## ⚠ DEPLOY IS BROKEN — READ FIRST
+**poolfixhq.com is serving a stale build.** Last live commit is `8d27169`
+(EQP-004). Everything after it — EQP-005, EQP-006 — is in `origin/main` but has
+never been built by Vercel, so those URLs 404 and their homepage entries still
+render as "soon".
+
+Verified not our fault: files are in `origin/main`, and a clean
+`NODE_ENV=production` build passes locally (34 pages, 606 link instances, 0
+broken). An empty commit (`f7b47bf`) was pushed to re-trigger the webhook and
+changed nothing, which rules out a missed hook.
+
+Project is **vercel.com/tets2/poolfixhq**. Vercel CLI is installed at
+`/tmp/vc/node_modules/.bin/vercel` but **not authenticated** — needs
+`vercel login` (interactive) or a `--token`. Next step is to read the failing
+deployment's build log. Suspect a missing env var: `.env.local` holds
+`NEXT_PUBLIC_SITE_URL` and `NEXT_PUBLIC_AMAZON_TAG` and never leaves the local
+machine.
+
+**Do not write more articles expecting them to appear live until this is
+fixed.**
 
 ## Session type rules
 Research: Firecrawl only → `content/research/*.json`, one page in context at a
@@ -330,6 +351,27 @@ as the file's one open [VERIFY].
 the body should fail the build. It passed cleanly here while violating §6, and
 that is the second class of silent failure after the roadmap-slug trap. The
 rendered-HTML grep caught it only because I was looking.
+
+## EQP-006 written
+1,300 words, archetype A, planId EQP-006. The spoke EQP-004 reserved.
+
+- **Boundary closed properly.** EQP-004's placeholder code comment has been
+  replaced with a real link, and the reciprocal added. That pattern works —
+  reserve with a comment, redeem when the spoke lands.
+- **Two Tier 2 sources**, both Hayward. Manufacturer citations now **7**.
+- **A real conflict written as a conflict:** Hayward's support site says
+  backwash at 8-10 psi over clean; Hayward's own S200 manual says 6-8 psi. Same
+  manufacturer, two documents. The article states both, refuses to pick, and
+  redirects to the point both share — the threshold is measured from YOUR clean
+  baseline, which is the thing nobody records.
+- **Mechanism:** high pressure can be a pump/filter sizing mismatch, so cleaning
+  never fixes it. Mirrors EQP-004's "a bigger pump won't fix weak flow" — same
+  wrong purchase behind two opposite symptoms.
+- **Safety block is Tier 2 verbatim** — "violent separation of pump and/or
+  filter components". Not boilerplate; high pressure is exactly when people open
+  a filter.
+- **QC caught three before commit:** keyword absent from every H2, an unused
+  product left in frontmatter, and in-body links at the bare minimum. All fixed.
 
 ## Next action
 **Research session** — §13 forbids research and writing in the same session, and

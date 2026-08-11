@@ -1,0 +1,95 @@
+{
+  "_doc": "Research for 'filter pressure is high' (roadmap slug: high-filter-pressure). Session G. Writing sessions read this and do not fetch.",
+  "state": "READY — §3 satisfied (2 sources, both Tier 2)",
+  "step1": {
+    "keyword": "filter pressure is high",
+    "intent": "Diagnostic",
+    "archetype": "A — Diagnostic",
+    "category": "equipment",
+    "cluster": "equipment",
+    "plannedSlug": "high-filter-pressure",
+    "proposedPlanId": "EQP-006",
+    "planIdNeeded": true,
+    "pillarOrSpoke": "spoke of EQP-004"
+  },
+  "step2_cannibalisation": {
+    "verdict": "CLEAR — boundary was pre-agreed when EQP-004 was written.",
+    "evidence": "low-pool-flow.mdx line 147 carries the code comment: '{/* spoke: equipment/high-filter-pressure — link this when it lands */}'. EQP-004 gives high pressure exactly two paragraphs (dirty filter, restricted return line) and deliberately routes depth here.",
+    "boundary": {
+      "EQP-004 owns": "weak flow as the presenting symptom, with the gauge as router.",
+      "EQP-006 owns": "high pressure as the presenting symptom, in depth — the clean baseline, the backwash threshold, pressure that will NOT come down after cleaning, media condition, sizing, and the safety of opening a pressurised vessel.",
+      "action": "When EQP-006 lands, replace the code comment in EQP-004 with a real link and add the reciprocal."
+    },
+    "otherAdjacency": "problems/cloudy-pool-water discusses filtration but owns clarity, not the filter itself. One link, no conflict."
+  },
+  "step3_serpGap": {
+    "note": "SERP not separately harvested this session — went straight to manufacturer literature, which is where the differentiating material was. Consumer pages on this keyword universally say 'backwash at 8-10 psi over clean' and stop there.",
+    "THE_GAP": "Nobody covers the case where cleaning does NOT bring pressure down, and nobody mentions that high pressure can be a pump/filter sizing mismatch rather than dirt. Hayward says it in one line on their own support site and it appears nowhere in consumer content."
+  },
+  "conflict_MUST_BE_WRITTEN": {
+    "issue": "Hayward states two different backwash thresholds in two of its own documents.",
+    "values": [
+      "Hayward knowledge base: 'When the filter pressure rises 8-10 PSI over the clean starting pressure, it is time to backwash or clean the filter'",
+      "Hayward S200 sand filter owner's manual: backwash when 'the pressure gauge reading is 6-8 PSI (0.41-0.55 BAR) higher than the initial \"clean\" pressure'"
+    ],
+    "handling": "Write it as a conflict, house style. Same manufacturer, two numbers. The useful conclusion is the one both agree on: the threshold is measured from THIS system's clean starting pressure, so the baseline matters more than which rule of thumb you use. Do not silently pick one."
+  },
+  "mechanism": {
+    "id": "high-pressure-can-be-a-sizing-problem",
+    "claim": "Filter pressure that stays high after a proper clean may not be dirt at all — the pump can be moving more water than the filter is rated to handle.",
+    "sourceQuote": "Hayward: 'If the filter pressure continues to run high with reduced water flow to the pool, the pump may be moving more water than the filter is designed to handle. Check the flow ratings of both the pump and filter to ensure they are sized correctly.'",
+    "whyItMatters": "It inverts the standard response. Pressure high, so clean it more often; still high, so clean it again. If the cause is flow rate exceeding the filter's design, no cleaning schedule fixes it and the owner is on a treadmill. It also pairs with the point EQP-004 makes from the other side — a bigger pump does not fix weak flow, and here a bigger pump is what CAUSED the high pressure.",
+    "sourceTier": 2,
+    "sourceUrl": "https://www.hayward.com/knowledge-base/why-does-my-filter-run-at-a-high-filter-pressure-and-has-reduced-water-flow-to-the-pool/"
+  },
+  "otherCauses_fromHayward": [
+    {
+      "cause": "Dirty filter",
+      "detail": "the common case; backwash or clean at the threshold above"
+    },
+    {
+      "cause": "Algae clogging the filter",
+      "detail": "Hayward: 'If there is algae in the pool, it maybe clogging the filter, keeping the pressure high.' The filter cannot eliminate algae — chemistry does. Cross-link to green-pool-water."
+    },
+    {
+      "cause": "Improper sizing",
+      "detail": "the mechanism above"
+    },
+    {
+      "cause": "Blocked or plugged return line",
+      "detail": "Hayward routes this to a dealer"
+    }
+  ],
+  "safety_REQUIRED_verbatim": {
+    "tier": 2,
+    "source": "Hayward S200 Series High Rate Sand Filter Owner's Manual",
+    "quotes": [
+      "Hazardous Pressure. Pool and spa water circulation systems operate under hazardous pressure during start up, normal operation, and after pump shut off.",
+      "Before servicing pool and spa water circulation system, all system and pump controls must be in off position and filter manual air relief valve must be in open position.",
+      "Failure to follow safety and operation instructions could result in violent separation of pump and/or filter components.",
+      "Do not operate pool and spa circulation system unless filter access dome is fully engaged in the filter upper body."
+    ],
+    "airRelief": "Before starting system pump, fully open filter manual air relief valve. Do not close filter manual air relief valve until a steady stream of water (not air or air and water) is discharged.",
+    "handling": "§10 requires this and it must not be softened. 'Violent separation' is a real injury mechanism, not boilerplate. This is the single most important thing on the page for a reader who is about to open a filter because the pressure is high."
+  },
+  "backwashProcedure": "Hayward S200: 'Stop the pump, set valve to BACKWASH. Start pump and backwash approximately 2 minutes or less...until water in sight glass is clear. Proceed to RINSE.'",
+  "sandMedia": "S200 uses High Rate Sand No. 22 Silica Sand (.45mm-.55mm), 200 lbs, sand surface about 6 inches from the top of the tank. Model-specific — do not generalise to other filters.",
+  "sourcesLoaded": [
+    {
+      "tier": 2,
+      "title": "Hayward — Why does my filter run at a high filter pressure and has reduced water flow to the pool",
+      "url": "https://www.hayward.com/knowledge-base/why-does-my-filter-run-at-a-high-filter-pressure-and-has-reduced-water-flow-to-the-pool/",
+      "loaded": true
+    },
+    {
+      "tier": 2,
+      "title": "Hayward S200 Series High Rate Sand Filter Owner's Manual (IS200 Rev C)",
+      "url": "https://hayward.com/media/akeneo_connector/asset_files/I/S/IS200_RevC_bb42.pdf",
+      "loaded": true
+    }
+  ],
+  "sourcingNote": "Both Tier 2. Site-wide manufacturer citations would go 5 → 7. Loaded via WebFetch (Firecrawl unavailable) — model-mediated extraction, so confirm the safety quotes against the PDF before publishing verbatim.",
+  "openVerify": [
+    "Confirm the four safety quotes and both PSI thresholds word-for-word against the source documents before treating them as direct quotes."
+  ]
+}
