@@ -4,7 +4,7 @@ Read this and CLAUDE.md at the start of every session. Nothing else unless the
 task needs it. Rewrite this file at the end of every session.
 
 ## Last commit
-EQP-007 heater will not fire.
+EQP-008 salt cell throwing an error.
 
 ## ⚠ DEPLOY IS BROKEN — READ FIRST
 **poolfixhq.com is serving a stale build.** Last live commit is `8d27169`
@@ -394,6 +394,27 @@ deliberately does NOT decode the fault codes. Each code gets its own article.
   H2. Both fixed pre-commit.
 - **Raypak's own troubleshooting page is cookie-gated** and could not be read.
   A fuller Raypak source is still worth adding — logged in the research file.
+
+## EQP-008 written
+1,321 words, archetype A, planId EQP-008. **PILLAR for salt-system brand codes.**
+
+- **Boundary held vs EQP-005**, which has 24 salt-cell mentions but all about
+  bubbles and gas. EQP-008 owns the indicators; EQP-005 keeps the gas hazard.
+  Shared component (flow switch) split: EQP-008 owns "No Flow" as an error
+  state, EQP-005 owns the consequence.
+- **Two Tier 2 sources**, both Hayward. Manufacturer citations now **11**.
+- **Mechanism:** "Inspect Cell" carries two unrelated messages on one light —
+  Hayward's manual says it means *either* reduced efficiency *or* the 500-hour
+  reminder. Owners read it as a death sentence and buy the most expensive
+  consumable on the pool. The light says look; it doesn't say what you'll find.
+- **Second nothing-is-wrong branch:** stops generating below 50°F by design.
+  Same shape as EQP-004's variable-speed branch — worth watching that this
+  doesn't become a formula.
+- **Safety block** covers muriatic acid cell cleaning: 4:1 water to acid, ALWAYS
+  ADD ACID TO WATER, gloves and eye protection.
+- **QC caught two:** in-body links at 4 vs the 6 minimum, and salt dosing
+  discussed without routing to the volume calculator (§10 violation). Both fixed.
+- **Equipment cluster is now 8 of 9** — only "Cleaner stopped moving" remains.
 
 ## Next action
 **Research session** — §13 forbids research and writing in the same session, and

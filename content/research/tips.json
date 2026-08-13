@@ -7,6 +7,18 @@
   },
   "tips": [
     {
+      "id": "inspect-cell-is-a-timer-not-a-diagnosis",
+      "mechanism": "The 'Inspect Cell' indicator is two different messages sharing one light, and one of them is just a calendar. Hayward's own manual says a flashing indicator 'signifies that either the cell efficiency is reduced or that it is time for regularly scheduled cell inspection', and their cleaning guide describes it as 'a built-in reminder to inspect and clean the cell every 500 hrs'. So the light people read as 'your cell is dying' fires on elapsed hours regardless of the cell's actual condition. A replacement cell is among the most expensive consumables on a pool, which makes this one of the costliest misreadings in salt-pool ownership. The light means look at the cell. It does not tell you what you will find when you do.",
+      "appliesTo": "Salt cell errors, Inspect Cell light, cell cleaning, cell replacement, AquaRite, salt chlorine generator",
+      "state": "verified",
+      "sourceTier": 2,
+      "sourceUrl": "https://hayward.com/media/wysiwyg/pdf/aqua_rite_product_manual.pdf",
+      "sourceTitle": "Hayward Aqua Rite Operation and Installation Manual",
+      "corroboratingUrl": "https://www.hayward.com/blog/post/how-to-clean-your-hayward-salt-chlorinator-turbo-cell",
+      "caveat": "Extracted via WebFetch during a Firecrawl outage; confirm wording before quoting verbatim.",
+      "assignedTo": "EQP-008"
+    },
+    {
       "id": "heater-lockout-is-often-a-filter-problem",
       "mechanism": "A heater that will not fire is often reporting a flow problem rather than a heater fault, and the filter is usually what caused it. The heater cannot light until its water pressure switch proves adequate flow. Hayward's commissioning instruction for the Universal H-Series is to set flow rates above minimum 'accounting for a dirty filter' — the design assumption being that flow falls as the filter loads. So a system commissioned with only marginal headroom passes on a clean filter and drops below the heater's minimum as the filter nears its backwash point. That produces the exact pattern owners misread as a flaky heater: reliable right after a backwash, increasingly unreliable over the following weeks, perfect again after the next clean. The fault is upstream of the heater entirely.",
       "appliesTo": "Heater will not fire, no heat, water pressure switch, low flow, dirty filter, intermittent heater",

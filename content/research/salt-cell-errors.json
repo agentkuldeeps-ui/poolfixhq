@@ -1,0 +1,87 @@
+{
+  "_doc": "Research for 'salt cell throwing an error' (roadmap slug: salt-cell-errors). Session I.",
+  "state": "READY — §3 satisfied (2 sources, both Tier 2)",
+  "step1": {
+    "keyword": "salt cell throwing an error",
+    "intent": "Diagnostic",
+    "archetype": "A — Diagnostic",
+    "category": "equipment",
+    "cluster": "equipment",
+    "plannedSlug": "salt-cell-errors",
+    "proposedPlanId": "EQP-008",
+    "planIdNeeded": true,
+    "pillarOrSpoke": "PILLAR for salt-system brand codes (§7B). Owns what each indicator means generically and routes model-specific codes to spokes."
+  },
+  "step2_cannibalisation": {
+    "verdict": "CLEAR, with one boundary to hold.",
+    "finding": "EQP-005 air-in-pool-lines has 24 salt-cell mentions, but all of them are about BUBBLES and gas — the flammable-gas warning, the wiring requirement, the flow switch as interlock. It contains nothing about indicator lights, salt readings, cell cleaning or cell life.",
+    "boundary": {
+      "EQP-005 owns": "bubbles at the returns, and the gas hazard when a cell runs without flow",
+      "EQP-008 owns": "the indicators and what they mean — Check Salt, Inspect Cell, No Flow, Generating — plus salt levels, cell cleaning and cell life",
+      "sharedComponent": "the flow switch appears in both. EQP-008 owns 'No Flow' as an ERROR STATE; EQP-005 owns the gas consequence. Cross-link, do not repeat the warning in full."
+    }
+  },
+  "sources": [
+    {
+      "tier": 2,
+      "title": "Hayward Aqua Rite Electronic Chlorine Generator Operation and Installation Manual",
+      "url": "https://hayward.com/media/wysiwyg/pdf/aqua_rite_product_manual.pdf",
+      "loaded": true,
+      "quotes": {
+        "saltLevel": "The ideal salt level is between 2700-3400 ppm (parts per million) with 3200 ppm being optimal.",
+        "checkSalt": "When flashing, the salt level is low (below 2700 ppm) and Aqua Rite is generating at low efficiency. When illuminated steady, the salt level is too low and Aqua Rite has shut down.",
+        "inspectCell": "A flashing indicator signifies that either the cell efficiency is reduced or that it is time for regularly scheduled cell inspection.",
+        "noFlow": "When illuminated, the flow switch has detected no water flowing and the Aqua Rite has stopped generating chlorine.",
+        "generating": "This LED is on steady during normal operation. When flashing, the pool water is too hot or cold to operate.",
+        "coldCutoff": "The Aqua Rite automatically stops generating when the pool water temperatures drops below 50ºF.",
+        "instantSalinity": "The Instant Salinity display is the measured salt level of the pool water at that moment."
+      }
+    },
+    {
+      "tier": 2,
+      "title": "Hayward — How to Clean Your Hayward Salt Chlorinator Turbo Cell",
+      "url": "https://www.hayward.com/blog/post/how-to-clean-your-hayward-salt-chlorinator-turbo-cell",
+      "loaded": true,
+      "quotes": {
+        "interval": "inspect your TurboCell approximately every 3 months of operation, or 500 hours, and clean the cell if necessary",
+        "reminder": "a built-in reminder to inspect and clean the cell every 500 hrs",
+        "ratio": "mix a 4:1 solution of water to muriatic acid (one gallon of water to one quart of acid)",
+        "acidRule": "ALWAYS ADD ACID TO WATER – NEVER ADD WATER TO ACID",
+        "ppe": "Be sure to wear rubber gloves and appropriate eye protection",
+        "soak": "Fill the Turbo Cell to the top with the solution and let soak for 15 minutes",
+        "scale": "scale lessens the effectiveness and life span of the salt cell"
+      }
+    }
+  ],
+  "mechanism": {
+    "id": "inspect-cell-is-a-timer-not-a-diagnosis",
+    "claim": "The 'Inspect Cell' light is two entirely different messages sharing one indicator, and one of them is just a calendar.",
+    "sourceQuote": "Hayward: 'A flashing indicator signifies that either the cell efficiency is reduced or that it is time for regularly scheduled cell inspection.' Their cleaning guide describes it as 'a built-in reminder to inspect and clean the cell every 500 hrs'.",
+    "whyItMatters": "Owners read Inspect Cell as 'the cell is failing'. It can mean that — or it can mean 500 hours have elapsed, fired on a timer, with a perfectly healthy cell. A replacement TurboCell is one of the most expensive consumables on a pool, so the misreading is costly. The light tells you to LOOK. It does not tell you what you will find.",
+    "howToTellApart": "Inspect and clean the cell first, then clear the reminder and watch whether it returns early. Scale on the plates explains reduced efficiency; a clean cell that still flags points at genuine wear.",
+    "sourceTier": 2
+  },
+  "secondBranch_nothingIsWrong": {
+    "detail": "Hayward: the unit 'automatically stops generating when the pool water temperatures drops below 50ºF', and a flashing Generating LED means water is too hot or cold to operate.",
+    "why": "A cell that stops producing in spring or fall is often behaving exactly as designed. Same shape as the variable-speed-pump branch in EQP-004 — a correct behaviour misread as a fault."
+  },
+  "saltNumbers": {
+    "ideal": "2700-3400 ppm, 3200 optimal",
+    "checkSaltFlashing": "below 2700 ppm, low efficiency",
+    "checkSaltSteady": "shut down",
+    "caveat": "These are Hayward AquaRite figures. Do NOT present them as universal across brands — other systems specify different ranges. Say whose numbers they are."
+  },
+  "safety_REQUIRED": {
+    "why": "§10 mandates a safety block for muriatic acid and chemical mixing.",
+    "mustInclude": [
+      "ALWAYS ADD ACID TO WATER, never water to acid",
+      "rubber gloves and eye protection",
+      "4:1 water to acid per Hayward",
+      "cell cleaning involves acid — this is the one owner-serviceable step here and it needs the full warning"
+    ]
+  },
+  "openVerify": [
+    "All quotes via WebFetch during Firecrawl outage — confirm before publishing verbatim.",
+    "The AquaRite Troubleshooting Guide PDF (TSG-AQR159d) was blocked by a provenance requirement this session. Worth loading later for the fuller code list."
+  ]
+}
