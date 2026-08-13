@@ -7,6 +7,17 @@
   },
   "tips": [
     {
+      "id": "cleaner-shoes-are-surface-specific",
+      "mechanism": "A suction cleaner's traction comes from replaceable 'shoes', and the correct shoe is chosen by what your pool is made of. Hayward specifies standard or slotted shoes for plaster and Pebble-Tec, cork for vinyl and fiberglass, and ceramic for tile. Fit the wrong ones and the cleaner slips, stalls or spins in place — which looks exactly like a failed drivetrain or a flow problem, and gets diagnosed as one. The failure typically appears after a resurface, after buying a used cleaner, or after fitting a generic replacement part, none of which present as a parts-compatibility issue. It is also among the cheapest things on the fault list, so it is worth ruling out before anything is dismantled.",
+      "appliesTo": "Pool cleaner not moving, suction cleaner, traction, shoes, tyres, pool surface material",
+      "state": "verified",
+      "sourceTier": 2,
+      "sourceUrl": "https://www.hayward.com/knowledge-base/why-doesnt-my-cleaner-move/",
+      "sourceTitle": "Hayward — Cleaner doesn't move",
+      "caveat": "Extracted via WebFetch during a Firecrawl outage; confirm wording before quoting verbatim.",
+      "assignedTo": "EQP-009"
+    },
+    {
       "id": "inspect-cell-is-a-timer-not-a-diagnosis",
       "mechanism": "The 'Inspect Cell' indicator is two different messages sharing one light, and one of them is just a calendar. Hayward's own manual says a flashing indicator 'signifies that either the cell efficiency is reduced or that it is time for regularly scheduled cell inspection', and their cleaning guide describes it as 'a built-in reminder to inspect and clean the cell every 500 hrs'. So the light people read as 'your cell is dying' fires on elapsed hours regardless of the cell's actual condition. A replacement cell is among the most expensive consumables on a pool, which makes this one of the costliest misreadings in salt-pool ownership. The light means look at the cell. It does not tell you what you will find when you do.",
       "appliesTo": "Salt cell errors, Inspect Cell light, cell cleaning, cell replacement, AquaRite, salt chlorine generator",

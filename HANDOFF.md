@@ -4,7 +4,7 @@ Read this and CLAUDE.md at the start of every session. Nothing else unless the
 task needs it. Rewrite this file at the end of every session.
 
 ## Last commit
-EQP-008 salt cell throwing an error.
+EQP-009 cleaner stopped moving. **EQUIPMENT CLUSTER COMPLETE — 9 of 9.**
 
 ## ⚠ DEPLOY IS BROKEN — READ FIRST
 **poolfixhq.com is serving a stale build.** Last live commit is `8d27169`
@@ -415,6 +415,38 @@ deliberately does NOT decode the fault codes. Each code gets its own article.
 - **QC caught two:** in-body links at 4 vs the 6 minimum, and salt dosing
   discussed without routing to the volume calculator (§10 violation). Both fixed.
 - **Equipment cluster is now 8 of 9** — only "Cleaner stopped moving" remains.
+
+## EQP-009 written — equipment cluster finished
+1,470 words, archetype A, planId EQP-009.
+
+- **The gap is demonstrable rather than asserted.** Hayward's suction-side fault
+  list and Polaris's pressure-side list for the same complaint share **zero**
+  causes. Both are printed side by side; the reader sees immediately why generic
+  advice fails.
+- **Mechanism deliberately NOT flow.** "It's really a flow problem" had carried
+  EQP-004, EQP-006 and EQP-007 and was becoming a formula (§12). Chose the
+  surface-specific shoes instead — standard/slotted for plaster and Pebble-Tec,
+  cork for vinyl and fiberglass, ceramic for tile.
+- **Surface material is now a site motif, not a formula** — four instances with
+  four different mechanisms: black algae holdfasts (SYM-004), abrasives on
+  gelcoat (SYM-008), brush choice, and now cleaner traction. Worth keeping
+  deliberate.
+- **Two Tier 2 sources.** Manufacturer citations now **13**.
+- **New product:** `cleaner-shoes`.
+- **QC caught three:** in-body links at 3 against the 6 minimum, keyword absent
+  from every H2, and — third time — **a product declared in frontmatter with no
+  block in the body.** That mismatch has now occurred in EQP-005, EQP-006 and
+  EQP-009. The build check proposed below is overdue.
+- **Two open [VERIFY]s, both honest gaps:** no Tier 2 source loaded for robotic
+  cleaners (section says so and stops), and entrapment/drain-cover standards not
+  sourced to Tier 1, so the safety block states the precaution without inventing
+  specifics.
+
+## BUILD CHECK STILL NEEDED (raised 3× now)
+Fail the build when frontmatter declares something the body never renders —
+`uncommonTip` with no `<UncommonTip>`, or a `products` entry with no matching
+`<ProductBlock>`. Both have shipped silently past a green build. Same file that
+already validates frontmatter. Pair it with the roadmap-slug check.
 
 ## Next action
 **Research session** — §13 forbids research and writing in the same session, and

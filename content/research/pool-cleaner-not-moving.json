@@ -1,0 +1,75 @@
+{
+  "_doc": "Research for 'cleaner stopped moving' (roadmap slug: pool-cleaner-not-moving). Session J. Completes the equipment cluster.",
+  "state": "READY — §3 satisfied (2 sources, both Tier 2)",
+  "step1": {
+    "keyword": "cleaner stopped moving",
+    "intent": "Diagnostic",
+    "archetype": "A — Diagnostic",
+    "category": "equipment",
+    "cluster": "equipment",
+    "plannedSlug": "pool-cleaner-not-moving",
+    "proposedPlanId": "EQP-009",
+    "planIdNeeded": true,
+    "note": "Completes equipment 9/9."
+  },
+  "step2_cannibalisation": {
+    "verdict": "CLEAR — no cleaner coverage anywhere.",
+    "adjacency": "Suction cleaners depend on pump flow, so EQP-004 and EQP-006 are upstream. Link, but do NOT make flow the headline — that framing has now carried EQP-004, EQP-006 and EQP-007 and is at risk of becoming a formula (§12)."
+  },
+  "THE_GAP": {
+    "finding": "The two manufacturer troubleshooting lists for 'cleaner not moving' have ZERO causes in common, because they describe different machines.",
+    "suctionSide_Hayward": [
+      "enough water flow past the turbine",
+      "measure vacuum in the hose — 1 inch of vacuum per section of hose",
+      "with a flow gauge, adjust so the reading is at least halfway between maximum and minimum",
+      "shoes worn, or the wrong shoes for the pool surface",
+      "obstruction between the bearings and turbine, via the consumer inspection plate",
+      "drivetrain wear — rock the pods by hand; more than 1/4 inch of play means parts need replacing"
+    ],
+    "pressureSide_Polaris": [
+      "feed hose within six inches of the farthest point of the pool",
+      "brass insert on the single side wheel come loose",
+      "thrust jet position — factory setting is 7 o'clock",
+      "drive chain disengaged",
+      "back-up valve cycling — lift it out and watch the jet",
+      "wheel RPM should be 30-36"
+    ],
+    "conclusion": "Generic 'pool cleaner not moving' advice is close to useless because it cannot know which machine you own. Leading with the type split is the article, and it is demonstrable rather than asserted — the two lists can sit side by side."
+  },
+  "mechanism": {
+    "id": "cleaner-shoes-are-surface-specific",
+    "claim": "A suction cleaner's traction comes from replaceable shoes matched to your pool's surface material, and the wrong ones look exactly like a broken cleaner.",
+    "sourceQuote": "Hayward: 'The right shoes are standard/slotted for plaster and Pebble-Tec; cork for vinyl and fiberglass; and ceramic for tile.'",
+    "whyItMatters": "Nothing about a cleaner that slips, stalls or spins suggests a consumable traction part chosen by surface type. Owners diagnose the drivetrain, the flow, the hose. The failure appears after a resurface, after buying a used cleaner, or after a generic replacement part — none of which look like a parts-compatibility problem. It is also cheap to fix relative to everything else on the list.",
+    "siteMotif": "This is the fourth distinct instance of surface material deciding the correct answer — after black algae holdfasts (SYM-004), abrasives on gelcoat (SYM-008), and brush choice. Different mechanism each time, same underlying lesson. Worth keeping as a motif rather than a formula."
+  },
+  "sources": [
+    {
+      "tier": 2,
+      "title": "Hayward — Cleaner doesn't move",
+      "url": "https://www.hayward.com/knowledge-base/why-doesnt-my-cleaner-move/",
+      "loaded": true,
+      "covers": "suction-side"
+    },
+    {
+      "tier": 2,
+      "title": "Polaris — Vac Sweep 3900 Sport Not Moving",
+      "url": "https://www.polarispool.com/en/support/troubleshooting-faqs/troubleshooting/vac-sweep-3900-sport-not-moving",
+      "loaded": true,
+      "covers": "pressure-side"
+    }
+  ],
+  "gap_robotic": {
+    "note": "Neither source covers robotic cleaners. Robots are independent of the pool's pump and filter entirely — a robot that stops is an electrical/onboard problem, not a pool-system one. State that boundary but do NOT invent robotic diagnostics; no Tier 2 robotic source was loaded this session.",
+    "openVerify": true
+  },
+  "safety": {
+    "sourced": false,
+    "position": "No Tier 1/2 safety source was loaded for cleaners this session. Keep the safety block to defensible generics — isolate power before servicing a robotic unit, and treat a damaged or missing main drain cover as a stop condition — and mark the suction-entrapment specifics [VERIFY] rather than asserting standards we have not read. §3's safety carve-out means health/injury claims need Tier 1 where it exists."
+  },
+  "openVerify": [
+    "All quotes via WebFetch during Firecrawl outage — confirm before publishing verbatim.",
+    "Robotic cleaner diagnostics: no Tier 2 source loaded.",
+    "Suction entrapment / drain cover standards: not sourced. Do not state specifics until a Tier 1 source is read."
+  ]
+}
