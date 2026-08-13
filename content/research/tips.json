@@ -7,6 +7,17 @@
   },
   "tips": [
     {
+      "id": "heater-lockout-is-often-a-filter-problem",
+      "mechanism": "A heater that will not fire is often reporting a flow problem rather than a heater fault, and the filter is usually what caused it. The heater cannot light until its water pressure switch proves adequate flow. Hayward's commissioning instruction for the Universal H-Series is to set flow rates above minimum 'accounting for a dirty filter' — the design assumption being that flow falls as the filter loads. So a system commissioned with only marginal headroom passes on a clean filter and drops below the heater's minimum as the filter nears its backwash point. That produces the exact pattern owners misread as a flaky heater: reliable right after a backwash, increasingly unreliable over the following weeks, perfect again after the next clean. The fault is upstream of the heater entirely.",
+      "appliesTo": "Heater will not fire, no heat, water pressure switch, low flow, dirty filter, intermittent heater",
+      "state": "verified",
+      "sourceTier": 2,
+      "sourceUrl": "https://hayward.com/media/wysiwyg/pdf/heaters/uhs-qrg.pdf",
+      "sourceTitle": "Hayward Universal H-Series Quick Reference Guide",
+      "caveat": "Extracted via WebFetch during a Firecrawl outage; confirm wording before quoting verbatim.",
+      "assignedTo": "EQP-007"
+    },
+    {
       "id": "high-pressure-can-be-a-sizing-problem",
       "mechanism": "Filter pressure that stays high after a genuinely proper clean may not be dirt at all. Hayward's own support material says that if pressure continues to run high with reduced flow, 'the pump may be moving more water than the filter is designed to handle,' and tells you to check the flow ratings of both. That reframes the whole problem: pressure is a function of flow rate through the media as much as of how loaded the media is, so a pump oversized for its filter produces high pressure on day one with spotless sand. The owner reads the universal advice — high pressure means dirty, so clean it — cleans it, watches the needle barely move, and cleans it again. No schedule fixes a sizing mismatch. It is also the mirror image of the other common mistake: people buy a bigger pump to cure weak flow, and a bigger pump is exactly what causes this.",
       "appliesTo": "High filter pressure, backwash, filter sizing, pump flow rate, reduced flow",

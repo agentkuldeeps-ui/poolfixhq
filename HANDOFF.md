@@ -4,7 +4,7 @@ Read this and CLAUDE.md at the start of every session. Nothing else unless the
 task needs it. Rewrite this file at the end of every session.
 
 ## Last commit
-EQP-006 high filter pressure.
+EQP-007 heater will not fire.
 
 ## ⚠ DEPLOY IS BROKEN — READ FIRST
 **poolfixhq.com is serving a stale build.** Last live commit is `8d27169`
@@ -372,6 +372,28 @@ rendered-HTML grep caught it only because I was looking.
   a filter.
 - **QC caught three before commit:** keyword absent from every H2, an unused
   product left in frontmatter, and in-body links at the bare minimum. All fixed.
+
+## EQP-007 written
+1,313 words, archetype A, planId EQP-007. **This is the PILLAR for the heater
+brand-code rows (§7B)** — it owns the general prerequisite sequence and
+deliberately does NOT decode the fault codes. Each code gets its own article.
+
+- **Two Tier 2 sources** (Hayward UHS Quick Reference Guide, Raypak start-up
+  points). Manufacturer citations now **9**.
+- **Mechanism:** the heater's flow prerequisite makes it a filter symptom.
+  Hayward's commissioning instruction is to set flow above minimum "accounting
+  for a dirty filter" — so thin headroom passes clean and fails as the filter
+  loads, producing the intermittent pattern owners misread as a flaky heater.
+  Connects EQP-006 → EQP-004 → EQP-007 into one causal chain.
+- **Model families named** (H150FD…H500FD) per §7B.
+- **Safety block is the strictest yet** and draws the owner/technician line
+  explicitly: check flow, filter, valves, thermostat, gas shutoff position —
+  never open the gas train, never bypass a switch.
+- **Reciprocals** to EQP-006, EQP-004, SYM-006. All verified in built HTML.
+- **QC caught two:** links one short of the 6 minimum, keyword absent from every
+  H2. Both fixed pre-commit.
+- **Raypak's own troubleshooting page is cookie-gated** and could not be read.
+  A fuller Raypak source is still worth adding — logged in the research file.
 
 ## Next action
 **Research session** — §13 forbids research and writing in the same session, and
