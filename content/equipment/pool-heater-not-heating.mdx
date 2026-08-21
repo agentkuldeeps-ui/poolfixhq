@@ -12,7 +12,7 @@ quickAnswer: "A pool heater refuses to light when one of its prerequisites isn't
 metaDescription: "A pool heater that won't fire is usually reporting a flow problem, not a heater fault. What to check, in order, and where owner troubleshooting stops."
 datePublished: 2026-08-07
 dateModified: 2026-08-07
-status: scaffold
+status: live
 sources:
   - title: "Hayward Universal H-Series Quick Reference Guide"
     url: https://hayward.com/media/wysiwyg/pdf/heaters/uhs-qrg.pdf
@@ -129,9 +129,16 @@ of that, it's a technician's job to clear it, not yours.
   — from taking heat that nothing is carrying away.
 
   Now the part that isn't obvious. Hayward's commissioning instruction for the
-  Universal H-Series is to set flow rates above the minimum **"accounting for a
-  dirty filter."** Read that again: the design assumption is that flow *falls* as
-  the filter loads, and the installer is supposed to leave headroom for it.
+  Universal H-Series is: **"To preserve heat exchanger, set flow rates above
+  minimum (accounting for a dirty filter)."** Read that again: the design
+  assumption is that flow *falls* as the filter loads, and the installer is
+  supposed to leave headroom for it — to protect the heat exchanger.
+
+  Their published minimums make it concrete: **20 GPM** for the H150FD and
+  H200FD, **25 GPM** for the H250FD and H300FD, **30 GPM** for the H350FD and
+  H400FD, and **40 GPM** for the H500FD, with a maximum of 125 GPM across the
+  range. A system with only a few GPM of headroom over its model's minimum is
+  the one that starts dropping out mid-season.
 
   When that headroom is thin — a marginal pump, long plumbing, an undersized
   filter — the system passes on a clean filter and drops below the heater's
@@ -146,17 +153,16 @@ of that, it's a technician's job to clear it, not yours.
   The test costs nothing: note your filter pressure when the heater misbehaves,
   and note it again right after a clean. If the failures track the filter, stop
   looking at the heater.
-
-  [VERIFY: Hayward wording extracted via WebFetch during a Firecrawl outage.
-  Confirm against the source before quoting verbatim.]
 </UncommonTip>
 
 ## Fault codes, and why they're their own articles
 
 Modern heaters display a code rather than simply refusing. Hayward's Universal
 H-Series — the H150FD, H200FD, H250FD, H300FD, H350FD, H400FD and H500FD —
-shows a set that includes conditions tied to the water pressure switch, the vent
-pressure switch and the temperature limit switch, among others.
+shows a defined set. `LO` covers the water pressure switch, vent pressure switch
+or temperature limit switch; `IF` is ignition failure; `IO` an open igniter
+circuit; `AO` and `AC` the blower vacuum switch open and closed; `HS` maximum
+return water temperature exceeded or a rapid temperature rise.
 
 Those codes are specific enough that decoding them properly means naming exact
 model families and what each unit is sensing when it trips, which is more than

@@ -210,27 +210,54 @@ comment says so. Rendering was never the gate; indexing is.
 this mechanism, not a bug. Nothing to fix in code; the fix is setting articles
 `live` as they qualify.
 
-### Publish-readiness audit (all 20 articles)
+### Publish-readiness audit — UPDATED after source verification
 Criteria: verified uncommonTip + zero banned-tier sources + at least one Tier
 1/2 + two or more sources + no open [VERIFY].
 
-**4 passed and are now `status: live`:** `pool-pump-loud-noise`,
-`cloudy-pool-water`, `milky-white-pool-water`, `waterline-scum-ring`.
+**9 now live** (was 4): `pool-pump-loud-noise`, `cloudy-pool-water`,
+`milky-white-pool-water`, `waterline-scum-ring`, plus the five cleared by
+verification — `low-pool-flow`, `high-filter-pressure`, `air-in-pool-lines`,
+`pool-heater-not-heating`, `salt-cell-errors`.
 
-**16 blocked, by reason:**
-- **Open [VERIFY] only** (otherwise clean) — every article written this session:
-  `low-pool-flow`, `high-filter-pressure`, `air-in-pool-lines`,
-  `pool-heater-not-heating`, `salt-cell-errors`, `pool-cleaner-not-moving`.
-  These clear the moment the WebFetch-extracted quotes are confirmed against
-  their PDFs. **Highest-value unblock: one focused session clears six articles.**
-- **Banned-tier sources** — `black-algae-in-pool` (4), `pool-stains-identification`
-  (4, and no T1/2 at all), `mustard-algae-in-pool` (3), `texas` (3),
-  `foamy-pool-water` (2), `pool-pump-not-turning-on` (1).
-- **No Tier 1/2 source** — `pump-not-priming`, `pool-pump-not-turning-on`,
-  `pool-stains-identification`.
-- **Unverified tip** — `chlorine-basics`, `green-pool-water`,
-  `pool-opening-checklist`, `texas` (the four assigned-but-unsourced tips).
-- **Under two sources** — `pool-opening-checklist` (1).
+**Verification session (Firecrawl restored).** Re-pulled every source as raw
+PDF/HTML rather than WebFetch summaries. Results:
+
+- **All quotes confirmed verbatim** in EQP-005, EQP-006, EQP-007, EQP-008.
+- **ONE REAL ERROR FOUND AND FIXED.** EQP-008 said the Check Salt light flashes
+  "below 2,700 ppm". The AquaRite manual gives 2,700-3,400 as the *ideal band*
+  and separately lists the indicator coming on **below 2,400 ppm**. Corrected,
+  and the article now explains the distinction rather than repeating the common
+  misquote. **This is exactly what the [VERIFY] markers existed to catch.**
+- **Material additions from the raw sources**, none of which the summaries had:
+  - EQP-007: Hayward's per-model minimum flow rates (20/25/30/40 GPM by model
+    family, 125 GPM max) and the full purpose clause — "To preserve heat
+    exchanger, set flow rates above minimum (accounting for a dirty filter)".
+    Plus the real diagnostic code meanings (LO, IF, IO, AO, AC, HS).
+  - EQP-006: **the pressure gauge has movable green and red arrows** and
+    Hayward's start-up step is to "line up green arrow on gauge to clean
+    pressure". The manufacturer built a baseline recorder into the instrument —
+    which is the article's whole thesis, now with the manufacturer behind it.
+    Also: never exceed 50 psi, never purge with compressed air ("can cause
+    components to explode"), always stop the pump before moving the valve.
+  - EQP-008: acid washing is the manual's **last** step (look → flush → scrape
+    with plastic or wood, never metal → acid only in severe cases), the cell has
+    a self-cleaning function, and steady Inspect Cell means output has stopped.
+  - EQP-005: the extra sentence — the unit "should never be energized when the
+    pool pump is OFF and water is not flowing through the unit."
+- **EQP-004** softened: the gauge split is confirmed verbatim, but PDF table
+  extraction could not cleanly resolve which row the basket cause sits in, so
+  the enumeration no longer claims an exact partition count.
+
+**4 [VERIFY] markers remain**, none from this batch:
+`pool-cleaner-not-moving` (2 — no robotic source, entrapment standards not
+sourced), `black-algae-in-pool`, `mustard-algae-in-pool`, `texas`.
+
+**11 still blocked from live**, by reason: banned-tier sources
+(`black-algae-in-pool`, `pool-stains-identification`, `mustard-algae-in-pool`,
+`texas`, `foamy-pool-water`, `pool-pump-not-turning-on`); no Tier 1/2
+(`pump-not-priming`, `pool-pump-not-turning-on`, `pool-stains-identification`);
+unverified tip (`chlorine-basics`, `green-pool-water`, `pool-opening-checklist`,
+`texas`); under two sources (`pool-opening-checklist`).
 
 ### The other three GSC issues need no code change
 - **Page with redirect (3)** — `http://poolfixhq.com/`, `http://www.poolfixhq.com/`,

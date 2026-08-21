@@ -8,11 +8,11 @@ archetype: Diagnostic
 primaryKeyword: salt cell throwing an error
 uncommonTip: inspect-cell-is-a-timer-not-a-diagnosis
 category: equipment
-quickAnswer: "Most salt cell indicators report a condition, not a failure. On a Hayward AquaRite, Check Salt means salt is below 2,700 ppm, No Flow means the flow switch sees no water, and a flashing Generating light means the water is too hot or cold. Inspect Cell is the one that costs people money — it can mean reduced cell efficiency, or simply that 500 hours have elapsed. Clean the cell and re-check before you replace anything."
+quickAnswer: "Most salt cell indicators report a condition, not a failure. On a Hayward AquaRite, Check Salt means salt has fallen low, No Flow means the flow switch sees no water, and a flashing Generating light means the water is too hot or cold. Inspect Cell is the one that costs people money — flashing, it means either reduced cell efficiency or simply that a scheduled inspection is due. Clean the cell and re-check before you replace anything."
 metaDescription: "Salt cell errors usually report a condition, not a dead cell. What Check Salt, No Flow and Inspect Cell mean, and why Inspect Cell is often just a timer."
 datePublished: 2026-08-07
 dateModified: 2026-08-07
-status: scaffold
+status: live
 sources:
   - title: "Hayward Aqua Rite Electronic Chlorine Generator Operation and Installation Manual"
     url: https://hayward.com/media/wysiwyg/pdf/aqua_rite_product_manual.pdf
@@ -62,17 +62,24 @@ than as universal.
 |---|---|
 | **Power** | The unit has input power |
 | **Generating** | Steady during normal operation. **Flashing: water is too hot or cold to operate** |
-| **Check Salt** | **Flashing:** salt is low, below 2,700 ppm, generating at low efficiency. **Steady:** salt too low, unit has shut down |
-| **Inspect Cell** | Flashing means *either* cell efficiency is reduced *or* it's time for scheduled inspection |
+| **Check Salt** | Salt has fallen low and output suffers. The manual gives the ideal band as 2,700–3,400 ppm, and separately lists the indicator coming on below 2,400 ppm — see the note under the table |
+| **Inspect Cell** | **Flashing:** *either* cell efficiency is reduced *or* a scheduled inspection is due. **Steady:** efficiency greatly reduced and the unit has stopped producing chlorine |
 | **No Flow** | The flow switch has detected no water flowing; the unit has stopped generating |
 
-Read that Inspect Cell row again — it's doing two jobs, and that matters more
+Read that Inspect Cell row again — flashing does two jobs, and that matters more
 than anything else on this page.
+
+One honest wrinkle on Check Salt: the manual gives the ideal band as 2,700–3,400
+ppm, and elsewhere lists the indicator as coming on below **2,400** ppm. Those
+aren't contradictory — one is the target range, the other is where the light
+trips — but plenty of write-ups quote 2,700 as the trigger. Treat 2,700 as the
+bottom of where you want to be, not as the alarm point.
 
 ## Salt, and why you should test before adding
 
-Hayward's ideal range is **2,700–3,400 ppm, with 3,200 optimal.** Below 2,700 the
-Check Salt light flashes and output drops; lower still and the unit stops.
+Hayward's ideal range is **2,700–3,400 ppm, with 3,200 optimal.** Below that band
+output drops, and lower still the unit stops. The manual also notes a high salt
+level can shut the unit down and starts tasting salty around 3,500–4,000 ppm.
 
 The important habit: **test independently before adding salt.** The number on the
 display is what the system measures, and a scaled or aging cell can measure
@@ -145,8 +152,6 @@ supplement rather than assume the pool is fine until it warms up.
   something different — and *that's* the point at which replacement is a real
   conversation.
 
-  [VERIFY: Hayward wording extracted via WebFetch during a Firecrawl outage.
-  Confirm against the source before quoting verbatim.]
 </UncommonTip>
 
 ## Cleaning the cell
@@ -155,12 +160,26 @@ Only if inspection finds scale. Hayward's own interval is roughly every three
 months of operation or 500 hours, and the instruction is to clean *if necessary*
 — not on schedule regardless.
 
+**Acid is the last step, not the first.** The manual's order is: look inside for
+scale; if you see none, reinstall. If you do, flush it with a high-pressure
+garden hose. If that fails, scrape with **a plastic or wood tool — never metal,
+which scratches the coating off the plates.** Acid washing is reserved for
+"severe cases where flushing and scraping will not remove the majority of
+deposits."
+
+The cell also has a self-cleaning function built into its control logic, which
+is why routine acid soaking is unnecessary on a pool whose chemistry is in
+range. Scale on the plates usually means calcium is high — often just old water.
+
 <SafetyWarning>
   Cell cleaning uses muriatic acid, and this is the one genuinely
   owner-serviceable step on this page.
 
   Hayward's ratio is **4:1 water to acid** — one gallon of water to one quart of
-  acid. Fill the cell and soak about 15 minutes.
+  muriatic acid, mixed in a clean plastic container. The solution should reach
+  only the top of the cell so the wire harness compartment is **not** submerged.
+  Soak a few minutes, then rinse with a high-pressure hose and repeat if deposits
+  remain.
 
   **ALWAYS ADD ACID TO WATER — NEVER ADD WATER TO ACID.** Adding water to acid
   can cause it to spit violently.
@@ -173,10 +192,9 @@ months of operation or 500 hours, and the instruction is to clean *if necessary*
   to hand to a technician. It's cheap work.
 </SafetyWarning>
 
-Don't over-clean. Acid removes scale, and Hayward notes that scale "lessens the
-effectiveness and life span of the salt cell" — but repeated soaking of a cell
-that didn't need it works on the plates as well as the deposits. Inspect, then
-decide.
+Don't over-clean. Acid removes scale, but repeated soaking of a cell that didn't
+need it works on the plates as well as the deposits — which is exactly why the
+manual puts it last. Inspect, then decide.
 
 ## Why it comes back
 
