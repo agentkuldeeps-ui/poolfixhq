@@ -195,12 +195,54 @@ SYM-004 failed on title (102). SYM-007 failed on metaDescription (156 — by one
 character). Check all three at draft time; the failure surfaces as a wall of
 export errors across every page, not a clear message about the one file.
 
-## Live vs scaffold — unresolved
-`status: scaffold` does **not** gate public rendering. Every article is live and
-indexable at poolfixhq.com right now, open `[VERIFY]` markers included. Either
-make `scaffold` exclude pages from routing and the sitemap, or drop the "not
-publishable" framing. Currently the repo says one thing and the site does
-another.
+## Live vs scaffold — RESOLVED, and my earlier note here was WRONG
+I previously wrote in this file that `status: scaffold` "does not gate public
+rendering" and called it an inconsistency. That was half wrong and it should not
+have stood. The truth, from `lib/seo.js:88`:
+
+    noindex: article.status !== 'live'
+
+A scaffold article **renders but is noindex,follow**, and is excluded from the
+sitemap. That is the review gate working exactly as designed, and the code
+comment says so. Rendering was never the gate; indexing is.
+
+**Google Search Console confirms it.** "Excluded by 'noindex' tag — 13 pages" is
+this mechanism, not a bug. Nothing to fix in code; the fix is setting articles
+`live` as they qualify.
+
+### Publish-readiness audit (all 20 articles)
+Criteria: verified uncommonTip + zero banned-tier sources + at least one Tier
+1/2 + two or more sources + no open [VERIFY].
+
+**4 passed and are now `status: live`:** `pool-pump-loud-noise`,
+`cloudy-pool-water`, `milky-white-pool-water`, `waterline-scum-ring`.
+
+**16 blocked, by reason:**
+- **Open [VERIFY] only** (otherwise clean) — every article written this session:
+  `low-pool-flow`, `high-filter-pressure`, `air-in-pool-lines`,
+  `pool-heater-not-heating`, `salt-cell-errors`, `pool-cleaner-not-moving`.
+  These clear the moment the WebFetch-extracted quotes are confirmed against
+  their PDFs. **Highest-value unblock: one focused session clears six articles.**
+- **Banned-tier sources** — `black-algae-in-pool` (4), `pool-stains-identification`
+  (4, and no T1/2 at all), `mustard-algae-in-pool` (3), `texas` (3),
+  `foamy-pool-water` (2), `pool-pump-not-turning-on` (1).
+- **No Tier 1/2 source** — `pump-not-priming`, `pool-pump-not-turning-on`,
+  `pool-stains-identification`.
+- **Unverified tip** — `chlorine-basics`, `green-pool-water`,
+  `pool-opening-checklist`, `texas` (the four assigned-but-unsourced tips).
+- **Under two sources** — `pool-opening-checklist` (1).
+
+### The other three GSC issues need no code change
+- **Page with redirect (3)** — `http://poolfixhq.com/`, `http://www.poolfixhq.com/`,
+  `https://www.poolfixhq.com/`. These are correct http→https and www→non-www
+  redirects. GSC lists them informationally. **Do not "fix" these.**
+- **Duplicate without user-selected canonical (1)** — `/affiliate-disclosure`.
+  Checked: the page emits a correct self-canonical
+  (`https://poolfixhq.com/affiliate-disclosure`), and every static and tool route
+  passes an explicit `path` to `buildMetadata`. Last crawled Aug 13; likely a
+  www/http variant deduped before the redirect settled. Re-inspect and request
+  validation rather than changing code.
+- **Crawled - currently not indexed (1)** — normal for a young site.
 
 ## §3 AMENDED — Tier 1/2 is now conditional
 "Minimum two sources" still holds absolutely. "At least one Tier 1 or 2" now
