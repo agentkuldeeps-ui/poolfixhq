@@ -138,17 +138,51 @@ assuming they carry across the range.
 
 ## Robotic cleaners
 
-Neither manufacturer source here covers robots, and we're not going to improvise
-diagnostics for a machine we haven't got documentation on.
+Start with the boundary, because it eliminates most of what you'll read
+elsewhere: a robot is self-contained. Its own motor, its own filter, its own
+power supply. Your pump, filter pressure, valve positions and water chemistry
+have no bearing on whether it moves. Nothing above this section applies to it.
 
-What can be said with confidence is the boundary: a robot is self-contained. It
-has its own motor, its own filter and its own power supply, so your pump, filter
-pressure, valve positions and water chemistry have no bearing on whether it
-moves. If a robot has stopped, the fault is in the unit, its cable or its power
-supply — and the checks in the rest of this article don't apply to it.
+The manufacturers' own lists are short, and two of the steps are things most
+owners never try.
 
-[VERIFY: no Tier 2 robotic cleaner source loaded. Add manufacturer
-documentation before expanding this section.]
+**Isolate the fault before you buy anything.** Maytronics gives a test for
+Dolphin units that tells you *which* component died. Disconnect the blue cable
+from the power supply, plug the supply into a working outlet, and switch it on
+with the cable still disconnected. If it powers up and stays on, the supply is
+fine — Maytronics' conclusion is that "there may be an issue with the Dolphin's
+cable or motor unit." If it won't power up alone, the supply is the fault. Their
+note on that outcome is worth reading before you order parts: *"We cannot
+complete Power Supply repairs."*
+
+**Try a different outlet.** It sounds beneath mentioning, and it is step one in
+Maytronics' own procedure — plug into a different outlet "to verify that the
+issue isn't with the electrical outlet," and remove any extension lead. These
+supplies run on GFCI circuits that trip for reasons unrelated to the robot.
+
+**Check the impeller.** The single most-cited cause across both manufacturers.
+Pentair's Prowler manual lists "impeller blocked" as the first possible cause of
+"motor not working," and their support guidance is blunter still: if the cleaner
+has trouble moving, cleaning the impeller should always be the first step.
+Maytronics adds a safety instruction that matters — **use a Phillips
+screwdriver, not a power drill.**
+
+**Inspect both cables for damage.** The thin robot cable and the mains lead.
+Maytronics' instruction if you find cuts, kinks or fraying is to stop and
+contact a dealer rather than repair it, which is the right call on a mains-side
+component that lives in water.
+
+**Turn it over and rotate the brushes by hand.** Maytronics: check "the tracks,
+brushes, and every nook and cranny for any obstructions or visible damage," and
+listen for strange noises while you do. Pentair lists worn tracks as a cause of
+a cleaner that circles instead of covering the pool.
+
+**If it won't sink**, that is a different fault with a specific fix. Pentair:
+turn the cleaner upside down under water to release trapped air, wash the
+cartridge, and clear the inlet flap in the bottom lid.
+
+Those are Maytronics and Pentair procedures. Check yours against its own manual
+— robot troubleshooting is more model-specific than any other cleaner type.
 
 <UncommonTip>
   **A suction cleaner's grip is a consumable part, and the right one depends on
@@ -201,11 +235,22 @@ follows.
   rather than at the unit, and never open a power supply.
 
   **Never run a suction cleaner on a pool with a damaged, loose or missing main
-  drain cover, and don't remove a cover to improve suction.** Those covers are
-  safety components.
+  drain cover, and don't remove a cover to improve suction.** This is not our
+  caution. CPSC's Pool Safely campaign states it directly: "never enter a pool
+  or spa that has a loose, broken or missing drain cover," because "children's
+  hair, limbs, jewelry or bathing suits can get stuck in a drain or suction
+  opening."
 
-  [VERIFY: entrapment standards and drain cover requirements not yet sourced to
-  Tier 1. Confirm before stating specifics.]
+  Anti-entrapment drain covers are federally regulated under the Virginia Graeme
+  Baker Pool and Spa Safety Act, codified at 16 C.F.R. part 1450. CPSC's
+  guidance on replacing one is equally direct: **do not remove a drain cover
+  yourself.** "It is essential that any replacement or retrofit of a drain cover
+  be performed by a qualified professional. Do not remove a drain cover without
+  having a replacement in hand and a qualified professional ready to install
+  it."
+
+  A suction cleaner is the one accessory that deliberately increases
+  suction-side demand, which is exactly why this belongs on this page.
 </SafetyWarning>
 
 ## When to stop and call someone
