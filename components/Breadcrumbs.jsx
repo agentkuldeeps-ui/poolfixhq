@@ -1,27 +1,28 @@
 import Link from 'next/link'
 
 /**
- * Visible breadcrumb trail. Pair with <JsonLd> BreadcrumbList so the markup and
- * the structured data never drift apart -- both take the same `items` array.
+ * Visible breadcrumbs. The matching BreadcrumbList JSON-LD is emitted
+ * separately by each route from the SAME array, so the visible trail and the
+ * structured one can never disagree -- Google checks that they match.
  *
- * items: [{ name, href }] -- last item is the current page and is not a link.
+ * The last crumb is the current page: not a link, and marked aria-current.
  */
 export default function Breadcrumbs({ items = [] }) {
   if (items.length < 2) return null
 
   return (
-    <nav aria-label="Breadcrumb" className="mb-6">
-      <ol className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-slate-500">
-        {items.map((item, index) => {
-          const isLast = index === items.length - 1
+    <nav aria-label="Breadcrumb" className="mb-4">
+      <ol className="flex flex-wrap items-center gap-x-1.5 gap-y-1 text-sm text-slate-500">
+        {items.map((item, i) => {
+          const last = i === items.length - 1
           return (
-            <li key={item.href} className="flex items-center gap-2">
-              {index > 0 && (
-                <span aria-hidden="true" className="text-slate-300">
-                  /
-                </span>
+            <li key={item.href} className="flex items-center gap-1.5">
+              {i > 0 && (
+                <svg aria-hidden="true" viewBox="0 0 24 24" className="h-3 w-3 shrink-0 text-slate-300" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M9 6l6 6-6 6" />
+                </svg>
               )}
-              {isLast ? (
+              {last ? (
                 <span aria-current="page" className="font-medium text-slate-700">
                   {item.name}
                 </span>

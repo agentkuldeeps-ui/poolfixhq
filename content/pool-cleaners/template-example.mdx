@@ -1,0 +1,140 @@
+---
+title: "Template: How a Review Page Is Built"
+seoTitle: "Review Template — PoolFixHQ"
+slug: template-example
+type: review
+category: pool-cleaners
+subcategory: robotic-inground
+primaryKeyword: pool review template
+metaDescription: "Reference page showing every block a PoolFixHQ review uses, in order, with notes on what each one is for. Not a real product review."
+answer: "This is a template, not a product review. It exists so the review layout can be checked end to end, and so a writer can see every available block in the order a real review uses them."
+author: poolfixhq-editorial
+datePublished: 2026-09-07
+dateModified: 2026-09-07
+status: scaffold
+techNote: template-blocks-in-order
+products:
+  - name: Example Cleaner (template placeholder)
+    brand: Example Brand
+    model: TEMPLATE-000
+    price_tier: mid
+    rating: 4.0
+    bestFor: Showing what the "best for" line looks like when it is filled in.
+    notFor: Anyone looking for an actual product recommendation on this page.
+    specs:
+      Cycle time: 90 minutes
+      Filtration: Top-load basket
+      Cable length: 60 ft
+pool_type: inground
+sanitizer: both
+filter_type: any
+surface: any
+gallons: any
+sources:
+  - title: "CPSC — Pool and Spa Drain Covers"
+    url: https://www.cpsc.gov/Business--Manufacturing/Business-Education/Business-Guidance/Pool-and-Spa-Drain-Covers
+    publisher: US Consumer Product Safety Commission
+faqs:
+  - q: "Is this a real product review?"
+    a: "No. It is a template kept at status scaffold so it is noindex and excluded from the sitemap. It exists to prove the layout renders and to show a writer every block in order."
+  - q: "How do I start a real review from this?"
+    a: "Copy this file into the right category folder, rename the slug, replace the frontmatter with real values, and set status to live once it passes the build. The schema is documented in CLAUDE.md."
+---
+
+## What this page is
+
+This file is a working reference. It is `status: scaffold`, which means it is
+`noindex, follow` and excluded from the sitemap, so it can live in the repo
+without ever being published.
+
+Every block below is one a real review can use. They are shown in the order a
+review should use them, because the order is part of the argument: conclusion
+first, reasoning second.
+
+<KeyTakeaways points={[
+  'The verdict goes at the top. Readers and answer engines both want it there.',
+  'Specs come from the manufacturer document, never the retailer listing.',
+  'The cons column is what makes the pros column believable.',
+  'Every affiliate link needs the disclosure above it, and the build enforces that.',
+]} />
+
+<TableOfContents />
+
+## The verdict box
+
+The conclusion, before the reasoning. A reader who reads only this box should
+have the answer, and an answer engine that lifts only this box should quote us
+correctly.
+
+<VerdictBox />
+
+## Specifications
+
+Manufacturer figures only. Where a retailer listing and a manual disagree, the
+manual is right and the listing gets ignored — that gap is most of the reason
+this site exists.
+
+<SpecTable
+  specs={[
+    { label: 'Cycle time', value: '90 minutes', note: 'Manufacturer stated, single standard cycle.' },
+    { label: 'Filtration', value: 'Top-load basket' },
+    { label: 'Cable length', value: '60 ft', note: 'Measure against pool length plus your deck standing position.' },
+  ]}
+  source={{ title: 'Manufacturer specification sheet' }}
+/>
+
+## Performance against the category criteria
+
+A real review works through the criteria published on the category hub, in
+order, one heading each. Every product in a category is judged on that same
+list, which is what makes the scores comparable rather than decorative.
+
+<ProsCons
+  pros={[
+    'A specific, checkable strength — not "good build quality".',
+    'Something the spec sheet reveals that the listing does not mention.',
+  ]}
+  cons={[
+    'A drawback that would genuinely stop someone buying.',
+    'Who this is the wrong product for, stated plainly.',
+  ]}
+/>
+
+<TechNote>
+  **The tech note is the differentiator.** Every competing review of a product
+  says roughly the same things. This block is where the page says the thing the
+  others do not know: why a part actually fails, what a specification means in
+  practice, or the compatibility trap that costs people money.
+
+  It has to be mechanistic rather than an opinion. "We liked the handle" is not
+  a tech note. "The impeller is press-fit, so a jam usually means a new wet end
+  rather than a cleanout" is.
+
+  The build enforces one per page and rejects a `techNote` slug that another
+  live page already used — if it has been said here before, it is not uncommon
+  any more.
+</TechNote>
+
+## How it compares
+
+<ComparisonTable
+  title="Compare"
+  columns={[
+    { key: 'brand', label: 'Brand' },
+    { key: 'model', label: 'Model' },
+  ]}
+/>
+
+## Where to buy
+
+<AffiliateDisclosure />
+
+<AffiliateButton name="Example Cleaner" />
+
+The button above renders as "Link pending" because this template has no ASIN.
+That is deliberate: a product whose ASIN is not confirmed shows an obvious gap
+rather than a dead link.
+
+<FAQ />
+
+<Sources />

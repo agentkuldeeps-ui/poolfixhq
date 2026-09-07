@@ -1,40 +1,40 @@
-# poolfixhq.com
+# PoolFixHQ
 
-Pool problem diagnosis, repair guides, and product reviews.
-Next.js 14 (App Router) + Tailwind + MDX. Deploys to Vercel from `main`.
-
-## Setup
+Pool product reviews. Static Next.js, MDX content, schema-validated
+frontmatter, three build-time checkers.
 
 ```bash
 npm install
-cp .env.example .env.local   # then fill in your Amazon tag
-npm run dev
+npm run dev      # localhost:3000
+npm run build    # next build + links + SEO + Amazon compliance
 ```
 
-## Commands
+`npm run build` fails on any check failure. That is deliberate.
 
-```bash
-npm run dev      # http://localhost:3000
-npm run build    # production build — must pass before committing
-npm start        # serve the production build
-```
+## Docs
+
+- **`CLAUDE.md`** — how the codebase works. Read first.
+- **`REVIEW_STANDARD.md`** — how a page gets written, and the intake format.
 
 ## Environment
 
-| Variable | Description |
-|---|---|
-| `NEXT_PUBLIC_AMAZON_TAG` | Amazon Associates tracking tag |
-| `NEXT_PUBLIC_SITE_URL` | Canonical origin, no trailing slash |
+```
+NEXT_PUBLIC_SITE_URL=https://poolfixhq.com
+NEXT_PUBLIC_AMAZON_TAG=yourtag-20
+```
 
-Set both in Vercel → Project → Settings → Environment Variables.
+`NEXT_PUBLIC_AMAZON_TAG` has a deliberately fake fallback. The compliance
+checker fails the build if that fallback reaches a rendered link, so an
+untagged affiliate link cannot ship.
 
-## Adding an article
+## Before publishing anything
 
-Drop an MDX file in `content/<category>/<slug>.mdx` with valid frontmatter. The
-route, sitemap entry, RSS item, and hub card generate themselves. The build
-fails loudly if the frontmatter is wrong.
+1. Set `NEXT_PUBLIC_AMAZON_TAG`.
+2. Add a real author to `lib/authors.js` and remove `placeholder: true`. Read
+   the comment block at the top of that file first — every field must be true.
 
-## Read this first
+## History
 
-**[CLAUDE.md](./CLAUDE.md)** is the source of truth for the content schema, the
-MDX components, the design system, and the conventions this repo enforces.
+Rebuilt from scratch 2026-09-07. The previous diagnostic-content site is at
+the `pre-rebuild-2026-09-07` tag and on the `archive/diagnostic-content`
+branch.

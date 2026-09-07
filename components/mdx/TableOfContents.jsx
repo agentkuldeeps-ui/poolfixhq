@@ -1,40 +1,36 @@
+import Link from 'next/link'
+
 /**
- * TableOfContents -- auto-generated from the article's H2s.
+ * Table of contents, built from the H2s and H3s parsed out of the MDX at
+ * build time (lib/content.js extractHeadings). Ids mirror rehype-slug, so the
+ * anchors always resolve.
  *
- * Headings are parsed out of the raw MDX in lib/content.js and bound into this
- * component by MdxRenderer, so authors just drop <TableOfContents /> after the
- * QuickAnswer and never maintain a list by hand. Ids come from rehype-slug.
+ * Static links, no JavaScript, no scroll-spy. A scroll-spy TOC would mean
+ * shipping client JS on every article for a highlight effect, which is a poor
+ * trade on a site whose Core Web Vitals margin is its main technical
+ * advantage.
  *
- * Renders nothing when an article has fewer than three H2s -- a two-item TOC is
- * noise.
- *
- * Hidden on lg and up: ArticlePage renders a sticky "On this page" rail in the
- * left gutter at that breakpoint, and two tables of contents on one page is
- * clutter. This inline version is the mobile fallback.
+ * Jump links also give answer engines an outline of the page and give Google
+ * candidate "jump to" sitelinks.
  */
-export default function TableOfContents({ headings = [], minHeadings = 3 }) {
-  if (!headings || headings.length < minHeadings) return null
+export default function TableOfContents({ headings = [], title = 'On this page' }) {
+  const items = headings.filter((h) => h.level === 2)
+  if (items.length < 3) return null
 
   return (
-    <nav
-      aria-labelledby="toc-heading"
-      className="not-prose my-6 rounded-xl border border-slate-200 bg-slate-50 p-5 lg:hidden"
-    >
-      <p id="toc-heading" className="mb-3 text-sm font-bold uppercase tracking-widest text-pool-800">
-        Jump to Section
-      </p>
-      <ol className="space-y-2">
-        {headings.map((heading, index) => (
-          <li key={heading.id} className="flex gap-3 text-[15px] leading-snug">
-            <span aria-hidden="true" className="font-semibold text-pool-400 tabular-nums">
-              {index + 1}.
+    <nav aria-labelledby="toc-heading" className="my-6 rounded-xl border border-slate-200 bg-white p-5">
+      <h2 id="toc-heading" className="mb-3 text-[11px] font-bold uppercase tracking-widest text-pool-700">
+        {title}
+      </h2>
+      <ol className="space-y-1.5">
+        {items.map((h, i) => (
+          <li key={h.id} className="flex gap-3 text-[15px] leading-snug">
+            <span className="shrink-0 font-mono text-xs text-slate-300">
+              {String(i + 1).padStart(2, '0')}
             </span>
-            <a
-              href={`#${heading.id}`}
-              className="text-pool-700 underline decoration-pool-200 underline-offset-2 hover:decoration-pool-700"
-            >
-              {heading.text}
-            </a>
+            <Link href={`#${h.id}`} className="text-pool-800 hover:text-accent-700 hover:underline">
+              {h.text}
+            </Link>
           </li>
         ))}
       </ol>

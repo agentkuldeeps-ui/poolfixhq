@@ -1,19 +1,25 @@
 /**
- * Renders a JSON-LD block. Next.js recommends a plain <script> with
- * dangerouslySetInnerHTML for structured data in the App Router; the content is
- * generated from our own data, never user input.
+ * Renders one or many JSON-LD nodes.
+ *
+ * Each node gets its own <script> tag rather than being merged into a @graph.
+ * Both are valid; separate tags are easier to read in view-source and a
+ * malformed node fails alone instead of taking the whole graph with it.
+ *
+ * `null` entries are filtered out, so a builder that declines to emit
+ * something (personSchema for a placeholder author, faqSchema with no FAQs)
+ * can simply return null and callers need no guards.
  */
 export default function JsonLd({ data }) {
-  if (!data) return null
-  const payload = Array.isArray(data) ? data : [data]
+  const nodes = (Array.isArray(data) ? data : [data]).filter(Boolean)
+  if (!nodes.length) return null
 
   return (
     <>
-      {payload.map((item, index) => (
+      {nodes.map((node, i) => (
         <script
-          key={index}
+          key={i}
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(item).replace(/</g, '\\u003c') }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(node) }}
         />
       ))}
     </>

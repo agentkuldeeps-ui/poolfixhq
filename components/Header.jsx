@@ -1,21 +1,27 @@
 import Link from 'next/link'
-import { categoriesByNavGroup, categories } from '@/lib/categories'
+import { categoriesByNavGroup } from '@/lib/taxonomy'
 
 /**
- * Sticky site header. Deliberately CSS-only -- no JS, no client component, no
- * hydration cost. Both the category dropdown and the mobile menu are <details>
- * elements, which are keyboard accessible and work with JS disabled.
+ * Sticky header. Deliberately CSS-only -- no client component, no hydration
+ * cost. The dropdown and the mobile menu are both <details>, which is
+ * keyboard accessible and works with JavaScript disabled.
  *
  * Thirteen categories will not fit a flat bar, so they live behind
- * "Categories" grouped by navGroup. The mobile menu lists them flat under
- * their group headings, because a nested disclosure inside a disclosure is
- * worse than a slightly long menu.
+ * "Categories" grouped by navGroup.
  */
 const SECONDARY = [
-  { href: '/product-reviews/best-of', label: 'Best Of' },
-  { href: '/product-reviews/comparisons', label: 'Comparisons' },
-  { href: '/tools', label: 'Calculators' },
+  { href: '/reviews/best-of', label: 'Best Of' },
+  { href: '/reviews/comparisons', label: 'Comparisons' },
+  { href: '/how-we-test', label: 'How We Test' },
 ]
+
+function Chevron({ className = '' }) {
+  return (
+    <svg aria-hidden="true" viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M6 9l6 6 6-6" />
+    </svg>
+  )
+}
 
 export default function Header() {
   return (
@@ -28,10 +34,7 @@ export default function Header() {
       </a>
 
       <div className="container-page flex h-16 items-center justify-between gap-4">
-        <Link
-          href="/"
-          className="flex items-center gap-2 text-lg font-extrabold tracking-tight text-pool-900"
-        >
+        <Link href="/" className="flex shrink-0 items-center gap-2 text-lg font-extrabold tracking-tight text-pool-900">
           <svg aria-hidden="true" viewBox="0 0 24 24" className="h-7 w-7 text-pool-600" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M2 16c2.5 0 2.5-2 5-2s2.5 2 5 2 2.5-2 5-2 2.5 2 5 2" />
             <path d="M2 20c2.5 0 2.5-2 5-2s2.5 2 5 2 2.5-2 5-2 2.5 2 5 2" />
@@ -46,13 +49,11 @@ export default function Header() {
               <details className="group/cat relative">
                 <summary className="flex cursor-pointer list-none items-center gap-1.5 rounded-md px-3 py-2 text-[15px] font-semibold text-slate-700 hover:bg-pool-50 hover:text-pool-800 [&::-webkit-details-marker]:hidden">
                   Categories
-                  <svg aria-hidden="true" viewBox="0 0 24 24" className="h-3.5 w-3.5 transition-transform group-open/cat:rotate-180" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M6 9l6 6 6-6" />
-                  </svg>
+                  <Chevron className="h-3.5 w-3.5 transition-transform group-open/cat:rotate-180" />
                 </summary>
 
-                <div className="absolute left-0 top-11 w-[46rem] rounded-xl border border-slate-200 bg-white p-5 shadow-lg">
-                  <div className="grid grid-cols-3 gap-x-6 gap-y-1">
+                <div className="absolute left-0 top-11 w-[44rem] rounded-xl border border-slate-200 bg-white p-5 shadow-lg">
+                  <div className="grid grid-cols-3 gap-x-6">
                     {categoriesByNavGroup.map(({ group, items }) => (
                       <div key={group}>
                         <p className="border-b border-slate-100 pb-1.5 text-[11px] font-bold uppercase tracking-widest text-pool-600">
@@ -75,13 +76,10 @@ export default function Header() {
                   </div>
 
                   <Link
-                    href="/product-reviews"
+                    href="/reviews"
                     className="mt-3 inline-flex items-center gap-1.5 border-t border-slate-100 pt-3 text-sm font-semibold text-accent-700 hover:underline"
                   >
-                    All product reviews
-                    <svg aria-hidden="true" viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M5 12h14M13 6l6 6-6 6" />
-                    </svg>
+                    All reviews &rarr;
                   </Link>
                 </div>
               </details>
@@ -99,13 +97,6 @@ export default function Header() {
             ))}
           </ul>
         </nav>
-
-        <Link
-          href="/pool-repair"
-          className="hidden shrink-0 rounded-lg bg-accent-700 px-4 py-2 text-sm font-semibold text-white hover:bg-accent-800 sm:inline-block"
-        >
-          Find a Pro
-        </Link>
 
         <details className="group relative md:hidden">
           <summary
@@ -130,10 +121,7 @@ export default function Header() {
                 <ul>
                   {items.map((c) => (
                     <li key={c.slug}>
-                      <Link
-                        href={`/${c.slug}`}
-                        className="block rounded-md px-3 py-2 text-[15px] font-medium text-slate-700 hover:bg-pool-50"
-                      >
+                      <Link href={`/${c.slug}`} className="block rounded-md px-3 py-2 text-[15px] font-medium text-slate-700 hover:bg-pool-50">
                         {c.label}
                       </Link>
                     </li>
@@ -141,7 +129,6 @@ export default function Header() {
                 </ul>
               </div>
             ))}
-
             <ul className="mt-1 border-t border-slate-100 pt-1">
               {SECONDARY.map((item) => (
                 <li key={item.href}>
@@ -150,11 +137,6 @@ export default function Header() {
                   </Link>
                 </li>
               ))}
-              <li>
-                <Link href="/pool-repair" className="block rounded-md px-3 py-2.5 font-semibold text-accent-700 hover:bg-accent-50">
-                  Find a Pro
-                </Link>
-              </li>
             </ul>
           </nav>
         </details>
@@ -162,6 +144,3 @@ export default function Header() {
     </header>
   )
 }
-
-/** Exported for the sitemap and any nav-coverage check. */
-export const navCategorySlugs = categories.map((c) => c.slug)

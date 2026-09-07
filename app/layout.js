@@ -3,27 +3,37 @@ import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import JsonLd from '@/components/JsonLd'
 import { site } from '@/lib/site'
+import { buildMetadata } from '@/lib/seo'
 import { websiteSchema } from '@/lib/schema'
 
+/**
+ * Root metadata. `title.template` is the ONLY place the site name gets
+ * appended to a page title -- lib/seo.js returns bare titles so this runs
+ * exactly once. See the note in lib/seo.js before changing either.
+ */
 export const metadata = {
-  metadataBase: new URL(site.url),
+  ...buildMetadata({
+    title: `${site.name} — ${site.tagline}`,
+    description: site.description,
+    path: '/',
+  }),
   title: {
     default: `${site.name} — ${site.tagline}`,
     template: `%s | ${site.name}`,
   },
-  description: site.description,
   applicationName: site.name,
+  authors: [{ name: site.publisher.name, url: site.url }],
+  creator: site.publisher.name,
+  publisher: site.publisher.name,
+  formatDetection: { telephone: false, address: false, email: false },
+  icons: {
+    icon: '/favicon.ico',
+    apple: '/apple-touch-icon.png',
+  },
   alternates: {
-    canonical: '/',
+    canonical: site.url,
     types: { 'application/rss+xml': `${site.url}/feed.xml` },
   },
-  openGraph: {
-    type: 'website',
-    siteName: site.name,
-    locale: site.locale,
-  },
-  twitter: { card: 'summary_large_image', site: site.twitter },
-  formatDetection: { telephone: false },
 }
 
 export const viewport = {
@@ -34,9 +44,12 @@ export const viewport = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en-US">
       <body className="flex min-h-screen flex-col">
+        {/* Organization + WebSite, emitted once for the whole site. Page-level
+            schema is added by each route on top of this. */}
         <JsonLd data={websiteSchema()} />
+
         <Header />
         <main id="main" className="flex-1">
           {children}

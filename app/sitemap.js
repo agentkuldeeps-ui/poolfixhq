@@ -1,69 +1,76 @@
-import { categories } from '@/lib/categories'
-import { getAllArticles } from '@/lib/content'
-import { tools } from '@/lib/tools'
+import { categories, reviewIndexes, compatBrands } from '@/lib/taxonomy'
+import { getLiveArticles } from '@/lib/content'
+import { publishedAuthors } from '@/lib/authors'
 import { absoluteUrl } from '@/lib/site'
 
 /**
- * Dynamic sitemap. Next serves this at /sitemap.xml.
+ * Dynamic sitemap, served at /sitemap.xml.
  *
- * Excluded on purpose: any article still marked `status: scaffold`, and any
- * tool still marked `planned` (empty shell). If it is not indexable, it does
- * not belong in the sitemap -- listing a noindex URL is a crawl-budget leak
- * and a Search Console warning.
+ * Excluded on purpose:
+ *   - any article still at `status: scaffold`
+ *   - any author still flagged `placeholder`
  *
- * Both exclusions read the same status field that drives the page's robots
- * meta tag, so the sitemap and the meta tag cannot drift apart.
+ * Both exclusions read the exact same field that drives the page's robots
+ * meta tag, so the sitemap and the meta tag cannot drift apart. Listing a
+ * noindex URL is a crawl-budget leak and a Search Console warning.
  */
 export default function sitemap() {
   const now = new Date().toISOString().slice(0, 10)
+  const live = getLiveArticles()
 
   const staticPages = [
-    { path: '/', priority: 1, changeFrequency: 'weekly' },
-    { path: '/product-reviews', priority: 0.9, changeFrequency: 'weekly' },
-    { path: '/product-reviews/best-of', priority: 0.8, changeFrequency: 'weekly' },
-    { path: '/product-reviews/comparisons', priority: 0.8, changeFrequency: 'weekly' },
-    { path: '/product-reviews/individual-reviews', priority: 0.8, changeFrequency: 'weekly' },
-    { path: '/brands', priority: 0.7, changeFrequency: 'monthly' },
-    { path: '/tools', priority: 0.7, changeFrequency: 'monthly' },
-    { path: '/pool-repair', priority: 0.6, changeFrequency: 'monthly' },
-    { path: '/about', priority: 0.4, changeFrequency: 'yearly' },
+    { path: '/', priority: 1.0, changeFrequency: 'weekly' },
+    { path: '/reviews', priority: 0.9, changeFrequency: 'weekly' },
+    { path: '/brands', priority: 0.6, changeFrequency: 'monthly' },
+    { path: '/how-we-test', priority: 0.7, changeFrequency: 'yearly' },
+    { path: '/about', priority: 0.5, changeFrequency: 'yearly' },
     { path: '/editorial-policy', priority: 0.4, changeFrequency: 'yearly' },
-    { path: '/affiliate-disclosure', priority: 0.3, changeFrequency: 'yearly' },
+    { path: '/affiliate-disclosure', priority: 0.4, changeFrequency: 'yearly' },
     { path: '/privacy-policy', priority: 0.3, changeFrequency: 'yearly' },
     { path: '/terms', priority: 0.3, changeFrequency: 'yearly' },
   ]
 
   return [
-    ...staticPages.map((page) => ({
-      url: absoluteUrl(page.path),
+    ...staticPages.map((p) => ({
+      url: absoluteUrl(p.path),
       lastModified: now,
-      changeFrequency: page.changeFrequency,
-      priority: page.priority,
+      changeFrequency: p.changeFrequency,
+      priority: p.priority,
     })),
 
-    ...categories.map((category) => ({
-      url: absoluteUrl(`/${category.slug}`),
+    ...reviewIndexes.map((i) => ({
+      url: absoluteUrl(`/reviews/${i.slug}`),
       lastModified: now,
       changeFrequency: 'weekly',
       priority: 0.8,
     })),
 
-    ...getAllArticles()
-      .filter((article) => article.status === 'live')
-      .map((article) => ({
-      url: absoluteUrl(article.href),
-        lastModified: article.dateModified,
-        changeFrequency: 'monthly',
-        priority: article.featured ? 0.9 : 0.7,
-      })),
+    ...categories.map((c) => ({
+      url: absoluteUrl(`/${c.slug}`),
+      lastModified: now,
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    })),
 
-    ...tools
-      .filter((tool) => tool.status !== 'planned')
-      .map((tool) => ({
-        url: absoluteUrl(`/tools/${tool.slug}`),
-        lastModified: now,
-        changeFrequency: 'monthly',
-        priority: 0.6,
-      })),
+    ...compatBrands.map((b) => ({
+      url: absoluteUrl(`/brands/${b.slug}`),
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.5,
+    })),
+
+    ...publishedAuthors.map((a) => ({
+      url: absoluteUrl(`/authors/${a.slug}`),
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.5,
+    })),
+
+    ...live.map((a) => ({
+      url: absoluteUrl(a.href),
+      lastModified: a.dateModified,
+      changeFrequency: 'monthly',
+      priority: a.featured ? 0.9 : 0.7,
+    })),
   ]
 }

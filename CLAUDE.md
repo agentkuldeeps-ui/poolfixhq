@@ -1,8 +1,22 @@
 # CLAUDE.md — poolfixhq.com
 
-Source of truth for how this codebase works. Read this before touching anything.
-Where this file and any other instruction disagree on a technical detail, **this
-file wins**.
+Source of truth for how this codebase works. Read this before touching
+anything. Where this file and any other instruction disagree on a technical
+detail, **this file wins**.
+
+`REVIEW_STANDARD.md` covers how a page gets written. This file covers how the
+machine works.
+
+---
+
+## What this site is
+
+An Amazon Associates product-review site for swimming pool equipment and
+chemicals, aimed at US residential pool owners. Thirteen product categories,
+four page types, no editorial/diagnostic content.
+
+Built 2026-09-07 as a clean rebuild. The previous diagnostic site is on the
+`archive/diagnostic-content` branch and at the `pre-rebuild-2026-09-07` tag.
 
 ---
 
@@ -10,44 +24,36 @@ file wins**.
 
 | Thing | Choice | Why |
 |---|---|---|
-| Framework | Next.js 14.2, App Router | Static export of every route, no server needed |
-| Styling | Tailwind 3.4 + `@tailwindcss/typography` | No component library, no runtime CSS-in-JS |
-| Content | MDX via `next-mdx-remote@6/rsc` + `gray-matter` | Server-rendered at build time; **zero client JS for article bodies** |
+| Framework | Next.js 14.2, App Router | Every route static or SSG; no server needed |
+| Styling | Tailwind 3.4 + typography plugin | No component library, no runtime CSS-in-JS |
+| Content | MDX via `next-mdx-remote/rsc` + `gray-matter` | Compiled server-side; **zero client JS for article bodies** |
 | Host | Vercel, auto-deploy from `main` | |
 | Language | Plain JavaScript + JSX. No TypeScript. | `pageExtensions` is `['js','jsx']` |
 
-**Why not Contentlayer:** it is effectively unmaintained and pins peer versions
-that fight Next 14+. `next-mdx-remote/rsc` does the same job with a schema
-validator we control (`lib/content.js`). Do not migrate to Contentlayer.
+Every route in the build output must be `○ (Static)` or `● (SSG)`. **If a
+change turns a route dynamic, that is a bug** — a client component or a
+request-time API crept in.
 
-Article bodies compile on the server and ship as HTML. Every route in the build
-output is `○ (Static)` or `● (SSG)`. **If a change turns a route dynamic, that is
-a bug** — it means a client component or a request-time API crept in.
+There is exactly **one client component on the site**:
+`components/mdx/ComparisonTable.jsx`, which needs state for the filter bar. It
+renders the full unfiltered table server-side first, so crawlers and answer
+engines see every row in the initial HTML.
 
 ---
 
 ## Commands
 
 ```bash
-npm run dev          # localhost:3000
-npm run build        # next build + check:links + check:compliance. MUST pass before any commit
-npm run check:links  # internal link checker (needs a build first)
-npm start            # serve the production build locally
+npm run dev              # localhost:3000
+npm run build            # next build + all three checks. MUST pass before any commit
+npm run check            # all three checks (needs a build first)
+npm run check:links      # internal links
+npm run check:seo        # titles, headings, canonical, alt, schema, answer blocks
+npm run check:compliance # Amazon Associates rules
 ```
 
-`npm run build` runs `scripts/check-links.mjs` after `next build` and **fails
-the build if any internal href has no matching route**. It scans the rendered
-HTML in `.next/server/app`, not the source — most hrefs here are built at
-render time (`/${category.slug}`, `article.href`), so a static scan of the JSX
-would miss them. Add a broken link and the build tells you the href and which
-page it came from.
-
-Copy `.env.example` to `.env.local` before running anything.
-
-| Env var | Purpose |
-|---|---|
-| `NEXT_PUBLIC_AMAZON_TAG` | Associates tag appended to every product link |
-| `NEXT_PUBLIC_SITE_URL` | Canonical origin, no trailing slash. Drives canonicals, OG, sitemap, RSS |
+`npm run build` fails on any check failure. That is the point — every rule
+below is enforced by a script, not by memory.
 
 ---
 
@@ -57,374 +63,233 @@ Copy `.env.example` to `.env.local` before running anything.
 app/
   <category>/page.js          13 category hubs, 4-line wrappers over CategoryHub
   <category>/[slug]/page.js   review / roundup / comparison pages
-  product-reviews/            best-of | comparisons | individual-reviews
-  brands/[brand]/             shop by brand system (compat tag)
-  tools/[slug]/               calculators -- UNCHANGED by the conversion
-  pool-repair/                lead-gen -- UNCHANGED by the conversion
-content/<category>/*.mdx      one file per review. Folder must match frontmatter category
-lib/categories.js             THE taxonomy: 13 categories, subcategories, cross-cut tags
-lib/symptoms.js               symptom -> product map (homepage differentiator)
-lib/frontmatter.js            schema, validation, compliance failures
-scripts/check-links.mjs       every internal href must resolve
-scripts/check-compliance.mjs  Associates rules, fails the build
-archive/                      the retired diagnostic content standard and research
+  reviews/                    listing hub + best-of | comparisons | all
+  brands/[brand]/             shop by brand system (the compat tag)
+  authors/[slug]/             author bio pages -- the E-E-A-T layer
+  how-we-test/                the method page. Linked from every hub
+  sitemap.js robots.js        generated, read the same status field
+  feed.xml/ llms.txt/         route handlers
+components/
+  mdx/                        the review kit, bound in mdx/index.js
+lib/
+  taxonomy.js                 THE taxonomy: categories, subcategories, tags, criteria
+  frontmatter.js              schema, validation, compliance failures
+  content.js                  MDX loading, derived fields
+  authors.js                  author entities. READ THE WARNING AT THE TOP
+  schema.js                   JSON-LD builders
+  seo.js                      the single buildMetadata()
+  site.js                     identity, amazonTag, feature flags
+content/<category>/*.mdx      one file per page. Folder must match frontmatter
+scripts/                      the three checkers + route scaffold
 ```
 
-Full article history before the conversion lives on the
-`archive/diagnostic-content` branch. Nothing was deleted, only removed from
-`main`.
+`scripts/scaffold.mjs` regenerates the 13 category route pairs from
+`lib/taxonomy.js`. Run it after adding a category; it skips existing files
+unless you pass `--force`.
 
 ---
 
 ## Content model
 
-Three page types, set by `type` in frontmatter:
+Four page types, set by `type`:
 
-| `type` | What it is | Schema.org | Lives at |
+| `type` | What it is | Schema.org | Word floor |
 |---|---|---|---|
-| `review` | One product, in depth | `Product` + `Review` | `/product-reviews/individual-reviews` |
-| `roundup` | Best-of for a category or subcategory | `ItemList` | `/product-reviews/best-of` |
-| `comparison` | Head-to-head, two products | `Product` ×2 | `/product-reviews/comparisons` |
+| `review` | One product, in depth | `Product` + `Review` | 900 |
+| `roundup` | Best-of for a category | `ItemList` | 1200 |
+| `comparison` | Head-to-head, two products | `Product` ×2 | 900 |
+| `guide` | Buying guide, no single product | `WebPage` | 800 |
 
-**Never emit `AggregateRating`.** We do not aggregate third-party ratings, and
-claiming to is a structured-data violation.
+**Never emit `AggregateRating`.** We do not aggregate third-party ratings and
+claiming to is a structured-data violation. `check-seo.mjs` fails the build if
+it appears. Our own score goes in `Review.reviewRating`.
 
-### Frontmatter schema — enforced at build time
+**Never emit `offers` with a price.** We have no live price feed.
 
-`lib/frontmatter.js` is the authority. **Unknown keys fail the build**, so a
-typo cannot silently do nothing.
+### Frontmatter
+
+`lib/frontmatter.js` is the authority. **Unknown keys fail the build** — a
+typo'd field that silently does nothing is the worst failure mode a content
+schema can have, because it looks like it worked.
 
 ```yaml
-title:            # <= 90 chars
+title:            # <= 70 chars
 seoTitle:         # optional, <= 60. Add one whenever title > 60
 slug:             # must match the filename
-type:             # review | roundup | comparison
-category:         # must match the folder, must exist in lib/categories.js
+type:             # review | roundup | comparison | guide
+category:         # must match the folder
 subcategory:      # optional, validated against that category's list
-primaryKeyword:   # the query someone types, NOT an internal label
-quickAnswer:      # >= 40 chars
-metaDescription:  # <= 155 chars
-status:           # scaffold | live   -- scaffold is noindex,follow
+primaryKeyword:   # the query someone types. Not an internal label
+metaDescription:  # 70-155 chars
+answer:           # 40-320 chars. THE most important field -- see below
+author:           # must exist in lib/authors.js
+reviewedBy:       # optional, must be a DIFFERENT person from author
 datePublished:
 dateModified:
-updated:          # optional, set by the freshness sweep
+status:           # scaffold | live   -- scaffold is noindex,follow
 techNote:         # optional slug; if set, the body MUST render <TechNote>
 products:
   - name:         # required
     asin:         # optional, but must be 10 uppercase alphanumeric if present
-    brand:
+    brand: model:
     compat:       # hayward | pentair | jandy | polaris | dolphin | intex | bestway | n/a
     badge:        # roundups: best-overall | best-budget | best-premium | also-great
-    rating:       # 0-5
+    rating:       # 0-5, one decimal
     price_tier:   # budget | mid | premium   -- NEVER a dollar figure
+    bestFor: notFor:
+    specs: {}     # label -> value
+    fits: {}      # per-product override of the pool tags
 pool_type:        # inground | above-ground | both
 sanitizer:        # chlorine | salt | both
 filter_type:      # cartridge | sand | de | any
+surface:          # plaster | vinyl | fiberglass | tile | any
 gallons:          # lt10k | 10-20k | 20-35k | 35k+ | any
 winner:           # true puts this on the homepage Top Picks strip
-sources:          # required. Real URLs only, structurally validated
-faqs:
-relatedSlugs:
-featured:
+sources:          # required. Real URLs, structurally validated
+faqs:             # each answer >= 40 chars
+relatedSlugs: featured:
 ```
 
-The four filter tags (`pool_type`, `sanitizer`, `filter_type`, `gallons`) drive
-the "Your pool" filter bar on comparison tables. `gallons` bands match the
-volume calculator's output exactly, so the calculator can hand off to
-"products sized for this."
+### The `answer` field
 
-### Build-time QC — two severities
+The single highest-leverage field on the page. It is rendered as the first
+block after the H1, named in the `speakable` selector in JSON-LD, used as the
+RSS summary, used as the card excerpt in every listing, and written into
+`llms.txt`. One source, five consumers.
 
-`fail` throws and breaks the build. `warn` prints and continues.
-
-**Always a failure, at any status** — these are compliance, not craft:
-
-- any dollar figure, in frontmatter or body (`price_tier` instead)
-- a malformed ASIN
-- `winner: true` with no products
-- an invented or placeholder citation URL
-
-**Failure at `status: live`, warning at `scaffold`:**
-
-- fewer than 600 words (Amazon's original-content rule, and it will not rank)
-- a review or comparison with no products declared
-- `techNote` declared but `<TechNote>` never rendered
-- an Amazon link with no `<AffiliateDisclosure />` above it
-- a comparison with fewer than two products
-- a roundup without exactly one `best-overall`
-- a chemical category, or any `<SafetyWarning>`, with no source
-- primary keyword missing from the title
-
-**Cross-file, live pages only:** two individual reviews of the same ASIN is a
-hard failure. That is the cannibalisation case — it splits the ranking.
-
-### primaryKeyword must be a real query
-
-The single most expensive mistake made on the previous version of this site:
-six of nine live articles targeted an internal UI label ("filter pressure is
-high") instead of the query people type ("high pool filter pressure"). The
-label belongs in `lib/symptoms.js`, where a human reads it. The keyword belongs
-in frontmatter, where Google reads it. They are rarely the same string.
-
-### Sourcing
-
-Manufacturer documentation is the spine of a review: the spec sheet and the
-manual, not the Amazon listing. Amazon copy is marketing and is frequently
-wrong about specifications.
-
-- **Chemical claims** — dosing, concentrations, what a product treats — come
-  from the product label or SDS. Never state that a chemical treats a condition
-  beyond its label.
-- **Health claims** need CDC, EPA, a state health department or a university
-  extension service. Not a pool blog.
-- **Never copy Amazon reviews.** Synthesise owner-reported themes in your own
-  words and say that is what they are.
-- Hazmat shipping limits (cal-hypo, muriatic acid) are described as "check
-  availability in your state" — never as a stock or price claim.
-
-### Safety
-
-Gas, electrical and structural work is licensed work. Say so and stop.
-`<SafetyWarning>` requires a real source.
+It must **state the conclusion with no preamble.** The build rejects an answer
+starting "Here's what we found" or "In this review we'll look at" — that is
+worthless to an answer engine and to a reader.
 
 ---
 
-## Products and affiliate links
+## The three checkers
 
-**Amazon Associates. The rules below are hard constraints, enforced by
-`scripts/check-compliance.mjs`, which fails the build.**
+### check-links.mjs
+Every internal href must resolve to a route that the build actually produced.
+Routes are derived from the build output, so adding a route never means
+editing this script. `/_next/*` is ignored — those are hashed build assets,
+not routes.
 
-1. **No prices, ever.** Not in frontmatter, not in prose, not in a component.
-   We are not pulling live pricing from Amazon's API, so any price we print is
-   one we typed once and will not maintain. Stale prices are the most common
-   Associates violation. Use `price_tier: budget | mid | premium`.
-2. **No discount, sale or stock claims.** Same reason, and they age faster.
-3. **Disclosure above the first affiliate link on every page**, plus the
-   standing paragraph in the footer.
-4. **Every Amazon link carries `tag=`, `rel="sponsored nofollow"`, and opens in
-   a new tab.** No shorteners, no cloaking — the check rejects `amzn.to`.
-5. **No affiliate links in RSS or email.** The feed is checked.
-6. **No Amazon-hosted images yet.** Hotlinking `m.media-amazon.com` needs
-   Creators API access, which requires **10 qualifying sales in a rolling
-   30-day window** (PA-API v5 was retired 15 May 2026). Until then: manufacturer
-   press images, own photos, or the illustrated placeholder. The
-   `remotePatterns` entry in `next.config.mjs` stays so the switch is one line.
-7. **Link the variant you actually recommend.** Onsite commission applies only
-   to the exact ASIN linked — the 50 lb pail, not the 5 lb tub.
-8. **Original commentary on every page.** A spec dump is not allowed under the
-   agreement and would not rank anyway. The 600-word floor enforces the shape
-   of this, not the substance; the substance is your job.
+### check-seo.mjs
+Against rendered HTML, because that is what a crawler sees.
 
-## MDX components
+**Failures:** missing or duplicate `<title>`, missing or duplicate meta
+description, zero or multiple `<h1>`, missing canonical on an indexable page,
+`<img>` with no `alt`, `og:image` pointing at a file that does not exist in
+`/public`, malformed JSON-LD, any `AggregateRating`.
 
-Available inside any MDX file with no import. Bound in `components/mdx/index.js`.
+**Warnings:** title or description length, heading-level jumps, a content page
+with no `.answer-block`, and every E-E-A-T gap in `lib/authors.js`.
 
-| Component | Notes |
-|---|---|
-| `<QuickAnswer />` | Falls back to the `quickAnswer` frontmatter. Pass children to override. |
-| `<Callout variant="research\|warning\|bottomline">` | `research` = cited fact, `warning` = damage risk, `bottomline` = the verdict. |
-| `<SafetyWarning>` | Chemical hazards only. `role="alert"`. Mandatory — see above. |
-| `<TableOfContents />` | Auto from H2s. Renders nothing under 3 headings. |
-| `<ProductBlock id="…" />` | CTA at top **and** bottom, by design. |
-| `<ComparisonTable ids="a, b" />` | Comma-separated string, **not** an array. Horizontal scroll on mobile; scroll region is focusable and labelled. |
-| `<UncommonTip>` | The one mechanism per article. Prose as children; the `uncommonTip` frontmatter id enforces no-reuse. |
-| `<FAQ />` | Renders the `faqs` frontmatter block. Same data drives FAQPage schema, so they can't drift. |
-| `<Sources />` | Renders the `sources` frontmatter block. Links are followed, not nofollowed. |
-| `<LeadFormCTA />` | Links to `/pool-repair`. Never inline a second form. |
-| `<RelatedPosts />` | 3-card grid. Auto-appended at the end of every article unless the MDX already places it. |
+### check-compliance.mjs
+Amazon Associates rules, against both source and rendered HTML.
 
-`QuickAnswer`, `TableOfContents`, and `RelatedPosts` get article context injected
-by `mdxComponents()` so authors write them bare. Props written in MDX still win.
+**All failures:**
+1. **Any dollar figure**, anywhere — content, components, frontmatter. We have
+   no live price feed, so a published price is one we typed once and will not
+   maintain. Stale prices are the most common Associates violation. Use
+   `price_tier`.
+2. **Discount or stock claims** — "20% off", "in stock", "only 3 left".
+3. **An Amazon link without `tag=`** (earns nothing) or without
+   `rel="sponsored nofollow"`.
+4. **A shortened link** — `amzn.to`, `bit.ly`. Cloaking is prohibited.
+5. **Amazon-hosted images.** Hotlinking `m.media-amazon.com` requires Creators
+   API access: **10 qualifying sales in a rolling 30-day window**. PA-API v5
+   retired 15 May 2026. `next.config.mjs` already lists the hosts so the
+   switch is one line, and `features.amazonImages` is the flag.
+6. **An affiliate link in `feed.xml` or `llms.txt`.** Syndicated output gets
+   republished where we do not control it.
+7. **A page linking to Amazon with no visible disclosure.**
 
-### No JS expressions in MDX
-
-`next-mdx-remote` v6 strips JavaScript expressions from MDX by default
-(`blockDangerousJS`). That is the fix for the RCE advisory against v5, and we
-leave it **on**: content files have no business executing JavaScript, and this
-site's MDX is increasingly written by agents.
-
-Practical consequence: `{expression}` and array/object props like
-`ids={[...]}` silently evaluate to nothing — **no error, just a missing
-component**. Any component that needs a list takes a comma-separated string
-instead (see `parseIds` in `ComparisonTable.jsx`). Follow that pattern for new
-components. Do not "fix" this by setting `blockDangerousJS: false`.
-
-Heading ids come from `rehype-slug`; `slugifyHeading()` in `lib/content.js`
-mirrors its algorithm so TOC anchors always resolve. **Change one, change both.**
+`components/mdx/AffiliateButton.jsx` is the only component permitted to emit
+an Amazon link, and it makes 1, 3 and 4 structurally true.
 
 ---
 
-## SEO
+## E-E-A-T
 
-- **Metadata**: every page goes through `buildMetadata()` in `lib/seo.js` —
-  canonical, Open Graph, Twitter card, robots. Do not hand-roll a `metadata`
-  export on a new page; call the helper.
-- **Title composition happens in ONE place**: `title.template` in
-  `app/layout.js` (`%s | PoolFixHQ`). `buildMetadata()` returns a bare title and
-  lets the template append the brand. **Never append `| PoolFixHQ` in
-  `buildMetadata()`** — doing so double-suffixes every inner page
-  (`Pool Problems | PoolFixHQ | PoolFixHQ`). The homepage passes
-  `{ absolute: title }` to opt out. OG/Twitter bypass the template, so they use
-  an explicitly composed `socialTitle`.
-- **Never add a page to `robots.txt` `disallow` to keep it out of the index.**
-  A blocked page can't be crawled, so its robots meta tag is never read.
-  Control indexability per page via `noindex` / `nofollow` on `buildMetadata()`.
-- **JSON-LD**: builders in `lib/schema.js`, rendered by `<JsonLd>`.
-  - Every article: `Article` + `BreadcrumbList` + `FAQPage`
-  - Hubs: `CollectionPage` + `BreadcrumbList`
-  - Root layout: `WebSite` + `Organization`
-- **FAQPage** comes only from the explicit `faqs` frontmatter block. Deriving
-  it from question-shaped H2s is gone — guessing which headings were questions
-  produced entries whose "answer" was whatever paragraph happened to follow.
-  Worth knowing this is close to inert: Google restricted FAQ rich results to
-  government and health sites in 2023. It's emitted because it correctly
-  describes the page, not because it will render.
-- **Breadcrumbs**: `<Breadcrumbs items>` and `breadcrumbSchema(items)` take the
-  same array. Always pass both the same variable so they cannot drift.
-- **sitemap.xml** excludes `/pool-repair` and any tool with
-  `status: 'planned'`. If it is not indexable, it is not in the sitemap.
-- **/feed.xml** is RSS 2.0, `force-static`, built from all articles.
+`lib/authors.js` carries a hard rule in a comment block. It is the most
+important comment in the repo:
+
+> **Every field must be true.** Do not invent a person, a certification, a job
+> title, an employer, a number of years, or a number of pools serviced.
+
+`placeholder: true` on an author means:
+- their bio page is **noindex**
+- **no Person schema** is emitted for them anywhere
+- the build warns
+
+The structure is complete and the site builds, but nothing is asserted about
+someone who does not exist. Remove the flag only when every field under it is
+verifiable.
+
+**This is the single biggest gap on the site right now**, and it is not a code
+problem — it needs a real named person.
+
+Everything else in the layer is built: `AuthorByline` (author, reviewer, last
+updated, reading time), `/authors/[slug]`, `Person` + `hasCredential` schema,
+`/how-we-test`, and per-category `buyingCriteria` published *before* any
+product is scored against them, which is what makes a rating auditable.
 
 ---
 
-## Homepage
+## AEO and GEO
 
-Section order is the argument. A visitor arrives mid-problem, on a phone, next
-to a green pool.
+- **`.answer-block`** on every content page, named in `speakable` JSON-LD.
+- **`FAQPage`** built from the same `faqs` array the page renders, so visible
+  text and structured data always match. 40-char floor per answer.
+- **`llms.txt`** at `/llms.txt` — generated, states what we do and explicitly
+  what we do **not** claim, so a model that reads it is less likely to
+  attribute something false to us.
+- **AI crawlers are allowed** in `robots.js`, named individually. This is a
+  deliberate trade documented in that file: an engine that cannot read the
+  page cannot cite it. Reverse it only as a business decision.
+- Real `<table>` markup for specs, real headings, real lists. Answer engines
+  parse structure; a styled `<div>` grid is invisible to them.
 
-1. `Hero` — "What's Wrong With Your Pool? Here's What Fixes It." + 4 cards
-2. `SymptomIndex` — the long tail: symptom -> the product that fixes it
-3. `TopPicks` — #1 pick per high-volume category, from `winner: true`
-4. `SeasonalBlock` — what to buy this month, from `lib/seasonal.js`
-5. `ToolsStrip` — calculators, which feed sized recommendations
-6. `BrandChips` — shop by the brand already on the equipment pad
-7. `EmailCapture` — flag-gated until wired
-8. `RepairCTA` — monetize what DIY did not solve
-9. `TransparencyNote` — how we get paid, before the footer
-
-`TrustStrip` is deliberately NOT rendered: every stat in it was an unverified
-placeholder, and an unsubstantiated credibility claim is worse than none. Fill
-`lib/authors.js` with real credentials first.
-
-`TopPicks` renders nothing until a page carries `winner: true`, so the homepage
-degrades cleanly while the catalog fills.
-
-**The symptom index is the differentiator. Do not turn it into a department
-menu.** Several rows deliberately talk the reader out of a purchase ("clean it
-before you replace it", "not more shock"). That is the reason symptom traffic
-converts here and not on a catalog. Keep it.
-
-Every homepage section is a server component. The page ships no client JS of
-its own. Check the build output before adding anything.
+---
 
 ## Design system
 
-Strict two colors plus neutrals. Defined in `tailwind.config.js`.
+Tailwind tokens in `tailwind.config.js`.
 
-- `pool-*` — deep pool blue. **Primary.** Structure, headings, links, trust.
-- `accent-*` — warm orange. **CTAs only.** Never body text, never structure.
-- `slate-*` — neutrals.
+- **`pool`** — primary, deep blue. Structure, headers, links. `pool-700`
+  (#0C4E6E) is the brand anchor.
+- **`accent`** — warm orange. **CTAs and affiliate buttons only.** Never body
+  text, never structure. If everything is accent, the buy button stops reading
+  as the buy button.
+- **`verdict`** — good/bad/warn. Used by `RatingBadge`, `ProsCons` and
+  `SafetyWarning` only, so "good" and "bad" look identical everywhere.
 
-Do not add a third hue. Use `.btn-primary` (accent) and `.btn-secondary` (pool
-outline) from `globals.css` rather than restyling buttons per page.
-
-⚠️ **Dark backgrounds need an explicit heading colour.** The base layer in
-`globals.css` paints every `h1`–`h4` `text-pool-900`. On a `pool-800` section
-that renders navy-on-navy — invisible, and it still passes a build and any
-markup-level check. Any heading on a dark background must set `text-white`
-itself. This shipped once already; check dark sections in a real screenshot,
-not just in the HTML.
-
-Mobile-first. The header nav is a CSS-only `<details>` menu — **no client
-components in the shell**, which is why First Load JS is ~87 kB shared and the
-site should beat WordPress competitors on Core Web Vitals. Keep it that way:
-before adding `'use client'` anywhere, check whether CSS can do it.
-
-Accessibility is not optional: visible `:focus-visible` rings globally, a skip
-link, `prefers-reduced-motion` honored, labelled scroll regions on tables.
+Components in `app/globals.css`: `.container-page`, `.btn-primary`,
+`.btn-secondary`, `.card`, `.eyebrow`, `.link-inline`, `.answer-block`.
 
 ---
 
 ## Adding things
 
-**A new article** → create `content/<category>/<slug>.mdx` with valid
-frontmatter. The route, sitemap entry, RSS item, and hub card all appear
-automatically. Nothing else to register.
+**A category:** add to `lib/taxonomy.js` (with `buyingCriteria` — not
+optional), run `node scripts/scaffold.mjs`, build.
 
-**A new product** → add an entry to `lib/products.js`, reference it by id.
+**An author:** add to `lib/authors.js`. Do not remove `placeholder` until
+every field is verifiable.
 
-**A new state** → add to `lib/states.js`, then add
-`content/regional/<slug>.mdx`. Listed-but-unwritten states render as "Coming
-soon"; the page only exists once the MDX does.
+**A review:** see `REVIEW_STANDARD.md`. Copy
+`content/pool-cleaners/template-example.mdx`, which is a working reference at
+`status: scaffold` showing every block in order.
 
-**A new calculator** → add to `lib/tools.js`, build the component under
-`components/tools/`, mount it in `app/tools/[slug]/page.js` in place of the
-placeholder, and flip `status` off `'planned'` to make it indexable.
-
-**A new category** → this is a schema change. Ask first. It touches
-`lib/categories.js`, a `content/` folder, and an `app/` directory.
+**A component that renders an Amazon link:** don't. Use `AffiliateButton`.
 
 ---
 
-## Known TODOs
+## Known gaps
 
-- `/pool-repair` is a **shell**: no `action`, submit disabled, page `noindex`.
-  Setup steps are in the file header. A honeypot field is already in place.
-- `/tools/*` are shells, all `status: 'planned'` and therefore `noindex`.
-- `content/**` files are placeholder scaffolds that exercise every component.
-  Replace them; do not ship them.
-- `lib/products.js` holds 3 placeholder entries with fake ASINs.
-- `lib/authors.js` is entirely placeholder. Homepage trust strip renders
-  `UNVERIFIED` tags until each point is substantiated and flipped to
-  `verified: true`.
-- `features.emailCapture` is off; `<EmailCapture>` needs a provider and a POST
-  handler before it renders.
-- ~20 of the 24 symptoms in `lib/symptoms.js` have no article yet and render
-  as muted "soon" text.
-- `/privacy-policy` and `/terms` are outlines, not legal documents. Get counsel
-  before collecting a single lead.
-- Missing assets referenced by metadata: `/public/og-default.png` (1200×630) and
-  `/public/logo.png`.
-
----
-
-## Session discipline
-
-**Never research and write in the same session.** Firecrawl and article writing
-compete for the same budget, and the writing loses.
-
-- **Research sessions** — Firecrawl only. Scrape, extract the mechanism, append
-  to `content/research/*.json`, move on. Never hold more than one scraped page
-  in context. Target 8–12 verified tips, then push and stop.
-- **Writing sessions** — repo only. No web fetching. A fact you don't have
-  becomes `[VERIFY: what's needed]` and you continue; verification is a research
-  session's job. **Three articles per session**, then build, update HANDOFF.md,
-  push, stop. If you're running low mid-article, finish that article properly —
-  never start a fourth to fill space.
-
-**`HANDOFF.md` is the session boundary.** Read it and this file at the start of
-every session; read nothing else unless the task needs it. Rewrite it at the
-end. Under 40 lines.
-
-**`content/research/tips.json` is the tip bank's source of truth**, not the
-spreadsheet. A tip is `candidate` until confirmed against a readable source with
-the URL logged.
-
-**A candidate tip may be assigned and written against while the article is
-`status: scaffold`. Verification gates `live`, not writing.** Otherwise every
-writing session blocks on a research session, which is the interleaving that
-caused the context problem in the first place. Sourcing a candidate is a
-research-session job; it must be done before the article flips to `live`, and
-not before.
-
-The candidate/verified split exists to stop *invented* mechanisms that sound
-plausible — not to re-litigate standard practice. Judge accordingly.
-
-## Working rules
-
-- **Always run `npm run build` and confirm it passes before committing.**
-- Never commit or push on a failed build. Report the error instead.
-- If a build error survives three attempts, stop and report. Do not start
-  rewriting unrelated files.
-- Ask before structural decisions: new routes, new dependencies, changes to the
-  frontmatter schema.
+1. **No real author.** Everything else in the E-E-A-T layer is waiting on it.
+2. **`NEXT_PUBLIC_AMAZON_TAG` is unset.** The fallback is a deliberately fake
+   value and `check-compliance.mjs` fails the build if it reaches a rendered
+   link, so this cannot ship silently.
+3. **No product content.** Categories are complete and hubs are useful without
+   it, but nothing is published.
+4. **No product images.** Blocked on Creators API access. `SpecTable` and
+   `VerdictBox` already handle the no-image case.

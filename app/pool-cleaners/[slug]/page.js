@@ -17,7 +17,7 @@ export function generateMetadata({ params }) {
   return article ? articleMetadata(article) : {}
 }
 
-export default function ReviewRoute({ params }) {
+export default function Page({ params }) {
   const article = getArticle(CATEGORY, params.slug)
   if (!article) notFound()
   return <ArticlePage article={article} />

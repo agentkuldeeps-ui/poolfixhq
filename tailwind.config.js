@@ -10,6 +10,7 @@ module.exports = {
     extend: {
       colors: {
         // PRIMARY -- deep pool blue. Structure, headers, links, trust.
+        // 700 (#0C4E6E) is the brand anchor.
         pool: {
           50: '#EFF8FC',
           100: '#D8EDF7',
@@ -23,7 +24,9 @@ module.exports = {
           900: '#083247',
           950: '#05202E',
         },
-        // ACCENT -- warm. CTAs only. Never used for body text or structure.
+        // ACCENT -- warm. CTAs and affiliate buttons ONLY.
+        // Never body text, never structure. If everything is accent,
+        // nothing is, and the buy button stops reading as the buy button.
         accent: {
           50: '#FFF6ED',
           100: '#FFEAD5',
@@ -36,9 +39,29 @@ module.exports = {
           800: '#952F12',
           900: '#792912',
         },
+        // VERDICT -- used by rating badges and pros/cons only, so a
+        // "good" and a "bad" always look the same everywhere on the site.
+        verdict: {
+          good: '#15803D',
+          goodBg: '#F0FDF4',
+          bad: '#B91C1C',
+          badBg: '#FEF2F2',
+          warn: '#A16207',
+          warnBg: '#FEFCE8',
+        },
       },
       fontFamily: {
-        sans: ['var(--font-sans)', 'ui-sans-serif', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
+        sans: [
+          'var(--font-sans)',
+          'ui-sans-serif',
+          'system-ui',
+          '-apple-system',
+          'Segoe UI',
+          'Roboto',
+          'Helvetica Neue',
+          'Arial',
+          'sans-serif',
+        ],
       },
       maxWidth: {
         prose: '68ch',
@@ -54,9 +77,14 @@ module.exports = {
             '--tw-prose-quote-borders': theme('colors.pool.200'),
             '--tw-prose-bullets': theme('colors.pool.300'),
             '--tw-prose-counters': theme('colors.pool.600'),
+            '--tw-prose-th-borders': theme('colors.slate.300'),
+            '--tw-prose-td-borders': theme('colors.slate.200'),
             maxWidth: 'none',
             a: { textUnderlineOffset: '3px' },
             'h2 a, h3 a': { textDecoration: 'none' },
+            // Wide spec tables must scroll inside themselves rather than
+            // forcing the page to scroll sideways on a phone.
+            table: { display: 'block', overflowX: 'auto', whiteSpace: 'nowrap' },
           },
         },
       }),

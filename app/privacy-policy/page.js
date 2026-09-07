@@ -1,51 +1,100 @@
+import Link from 'next/link'
 import ProsePage from '@/components/ProsePage'
+import { site } from '@/lib/site'
 import { buildMetadata } from '@/lib/seo'
 
 export const metadata = buildMetadata({
   title: 'Privacy Policy',
-  description: 'What data PoolFixHQ collects, why, and how to have it removed.',
+  description: 'What PoolFixHQ collects, what it does not, and how affiliate links work.',
   path: '/privacy-policy',
 })
 
+/**
+ * Written to describe what this site ACTUALLY does today: a static site with
+ * no accounts, no forms and no first-party analytics.
+ *
+ * If analytics, a newsletter or any form is added later, this page must be
+ * updated in the same commit. A privacy policy describing data collection
+ * that does not happen is almost as bad as one omitting collection that does.
+ */
 export default function PrivacyPolicyPage() {
   return (
     <ProsePage
+      eyebrow="Legal"
       title="Privacy Policy"
-      description="What we collect and what we do with it."
-      path="/privacy-policy"
-      updated="2026-08-05"
+      description="What we collect, which is very little."
+      updated="2026-09-07"
     >
+      <h2>The short version</h2>
+
       <p>
-        <strong>
-          Placeholder scaffold. This is not legal advice and is not a finished policy — have a
-          lawyer produce the real thing before you collect a single lead.
-        </strong>{' '}
-        The headings below cover what a policy for this site needs to address.
+        {site.name} is a static website. We do not ask for your name, email address or any other
+        personal information, we do not have accounts, and we do not run advertising networks.
       </p>
 
-      <h2>Information we collect</h2>
-      <p>Placeholder: form submissions, analytics, cookies, server logs.</p>
+      <h2>What we collect directly</h2>
 
-      <h2>How we use it</h2>
-      <p>Placeholder: matching repair requests to professionals, site analytics, email.</p>
-
-      <h2>Who we share it with</h2>
       <p>
-        Placeholder: repair professionals receiving lead details, analytics providers, email
-        provider, hosting.
+        Nothing. There are no forms, no sign-ups and no first-party tracking cookies on this site
+        at present. If that changes, this page will be updated before the change ships.
       </p>
 
-      <h2>Cookies and tracking</h2>
-      <p>Placeholder: analytics cookies, affiliate attribution cookies set by Amazon.</p>
+      <h2>What our host collects</h2>
 
-      <h2>Your rights</h2>
-      <p>Placeholder: access, correction, deletion, opt-out. Address GDPR and CCPA/CPRA if in scope.</p>
+      <p>
+        This site is served by a hosting provider that keeps standard server logs — IP address,
+        user agent, requested URL, timestamp — for security and to keep the service running. That
+        is ordinary infrastructure logging and we do not use it to build a profile of you.
+      </p>
+
+      <h2>Affiliate links</h2>
+
+      <p>
+        Links to Amazon carry a tracking identifier so Amazon can attribute a purchase to this
+        site. Following one takes you to Amazon, where <strong>Amazon&rsquo;s</strong> privacy
+        policy and cookies apply, not ours. We receive aggregate earnings reports; we do not
+        receive your name, address or payment details, and we cannot see what any individual
+        person bought.
+      </p>
+
+      <p>
+        See the <Link href="/affiliate-disclosure">affiliate disclosure</Link> for how this works
+        commercially.
+      </p>
+
+      <h2>Other outbound links</h2>
+
+      <p>
+        We link to manufacturer documentation and public-health sources. Those sites have their own
+        privacy practices and we are not responsible for them.
+      </p>
 
       <h2>Children</h2>
-      <p>Placeholder: the site is not directed to children under 13.</p>
+
+      <p>
+        This site is intended for adults maintaining a swimming pool. We do not knowingly collect
+        information from children.
+      </p>
+
+      <h2>Your rights</h2>
+
+      <p>
+        Depending on where you live, you may have rights to access or delete personal data a site
+        holds about you. Since we do not collect any, there is generally nothing for us to return
+        or erase — but if you believe otherwise, write to us and we will look into it.
+      </p>
+
+      <h2>Changes</h2>
+
+      <p>
+        Material changes will be reflected in the last-reviewed date at the bottom of this page.
+      </p>
 
       <h2>Contact</h2>
-      <p>Placeholder: a real monitored address for privacy requests.</p>
+
+      <p>
+        <a href={`mailto:${site.publisher.email}`}>{site.publisher.email}</a>
+      </p>
     </ProsePage>
   )
 }

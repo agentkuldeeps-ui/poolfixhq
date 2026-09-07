@@ -1,55 +1,68 @@
-import QuickAnswer from './QuickAnswer'
-import Callout from './Callout'
-import SafetyWarning from './SafetyWarning'
-import TableOfContents from './TableOfContents'
-import ProductBlock from './ProductBlock'
+import AnswerBlock from '../AnswerBlock'
+import AffiliateButton from './AffiliateButton'
+import AffiliateDisclosure from './AffiliateDisclosure'
 import ComparisonTable from './ComparisonTable'
-import LeadFormCTA from './LeadFormCTA'
-import RelatedPosts from './RelatedPosts'
-import TechNote from './TechNote'
 import FAQ from './FAQ'
+import KeyTakeaways from './KeyTakeaways'
+import ProsCons from './ProsCons'
+import RatingBadge from './RatingBadge'
+import SafetyWarning from './SafetyWarning'
 import Sources from './Sources'
+import SpecTable from './SpecTable'
+import TableOfContents from './TableOfContents'
+import TechNote from './TechNote'
+import VerdictBox from './VerdictBox'
 
 /**
  * The component map handed to MDXRemote.
  *
- * Some components need to know about the article they sit inside -- QuickAnswer
- * falls back to frontmatter, TableOfContents needs the parsed H2s, RelatedPosts
- * needs resolved articles. Rather than making authors pass that in from MDX,
- * we bind it here so content files stay declarative:
+ * Several components need to know about the page they sit inside -- FAQ and
+ * Sources read frontmatter, TableOfContents needs the parsed headings,
+ * VerdictBox usually wants products[0]. Rather than making every MDX file
+ * pass that in by hand, we bind it here so content stays declarative:
  *
- *     <QuickAnswer />
+ *     <AnswerBlock />
  *     <TableOfContents />
- *     <RelatedPosts />
+ *     <VerdictBox />
+ *     <FAQ />
+ *     <Sources />
  *
- * Any prop written in the MDX still wins over the bound default.
+ * Any prop written explicitly in the MDX still wins over the bound default,
+ * so a roundup can do <VerdictBox product={...} /> per section.
  */
-export function mdxComponents({ article, related = [] } = {}) {
+export function mdxComponents({ article } = {}) {
   return {
-    QuickAnswer: (props) => <QuickAnswer answer={article?.quickAnswer} {...props} />,
+    AnswerBlock: (props) => <AnswerBlock answer={article?.answer} {...props} />,
     TableOfContents: (props) => <TableOfContents headings={article?.headings ?? []} {...props} />,
-    RelatedPosts: (props) => <RelatedPosts posts={related} {...props} />,
+    VerdictBox: (props) => <VerdictBox product={article?.products?.[0]} {...props} />,
     FAQ: (props) => <FAQ faqs={article?.faqs ?? []} {...props} />,
     Sources: (props) => <Sources sources={article?.sources ?? []} {...props} />,
-    TechNote,
-    Callout,
+    ComparisonTable: (props) => <ComparisonTable rows={article?.products ?? []} {...props} />,
+
+    AffiliateButton,
+    AffiliateDisclosure,
+    KeyTakeaways,
+    ProsCons,
+    RatingBadge,
     SafetyWarning,
-    ProductBlock,
-    ComparisonTable,
-    LeadFormCTA,
+    SpecTable,
+    TechNote,
   }
 }
 
 export {
-  QuickAnswer,
-  Callout,
-  SafetyWarning,
-  TableOfContents,
-  ProductBlock,
+  AnswerBlock,
+  AffiliateButton,
+  AffiliateDisclosure,
   ComparisonTable,
-  LeadFormCTA,
-  RelatedPosts,
-  TechNote,
   FAQ,
+  KeyTakeaways,
+  ProsCons,
+  RatingBadge,
+  SafetyWarning,
   Sources,
+  SpecTable,
+  TableOfContents,
+  TechNote,
+  VerdictBox,
 }

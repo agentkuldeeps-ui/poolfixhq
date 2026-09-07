@@ -5,20 +5,21 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import { mdxComponents } from '@/components/mdx'
 
 /**
- * Server-side MDX rendering. next-mdx-remote's RSC entrypoint compiles at
- * request time during the build, so pages stay fully static with no client
- * JavaScript for the article body.
+ * Compiles an MDX body on the server. Article bodies ship as HTML with zero
+ * client JavaScript, which is the Core Web Vitals margin over the WordPress
+ * competition and is easy to give away by accident.
  *
- * rehype-slug gives every H2/H3 an id; the ids it generates are mirrored by
- * slugifyHeading() in lib/content.js so TableOfContents anchors always resolve.
+ * rehype-slug gives every heading a stable id (matched by
+ * lib/content.js slugifyHeading, which the TOC relies on) and
+ * rehype-autolink-headings makes each one linkable -- deep links into a
+ * specific section are what get cited.
  */
-export default function MdxRenderer({ source, article, related }) {
+export default function MdxRenderer({ source, article }) {
   return (
     <MDXRemote
       source={source}
-      components={mdxComponents({ article, related })}
+      components={mdxComponents({ article })}
       options={{
-        parseFrontmatter: false,
         mdxOptions: {
           remarkPlugins: [remarkGfm],
           rehypePlugins: [

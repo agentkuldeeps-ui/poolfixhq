@@ -1,78 +1,162 @@
-import { getProducts } from '@/lib/products'
+'use client'
+
+import { useMemo, useState } from 'react'
+import Link from 'next/link'
+import { filterFacets, badgeLabel, priceTierLabel } from '@/lib/taxonomy'
 
 /**
- * ComparisonTable -- side-by-side product comparison, referenced by id.
+ * Comparison table with the "Your pool" filter bar.
  *
- * From MDX, pass a comma-separated string:
+ * THE ONE CLIENT COMPONENT ON THE SITE, and it earns it.
  *
- *     <ComparisonTable ids="taylor-k2006, hth-6-way-strips" />
+ * A static comparison table of eight pool pumps is not useful, because six of
+ * them do not fit the reader's pool. A 15,000-gallon above-ground vinyl pool
+ * on a cartridge filter has a different shortlist from a 40,000-gallon
+ * in-ground plaster pool on salt, and a table that cannot express that is a
+ * spec dump with extra steps. Letting the reader say which pool they own is
+ * the difference between a page they scan and a page they use.
  *
- * NOT an array literal. next-mdx-remote v6 strips JavaScript expressions from
- * MDX by default (that is the fix for the RCE advisory against v5), so
- * `ids={[...]}` silently evaluates to nothing. We keep that protection on --
- * content files have no business executing JS -- and take a string instead.
- * An array still works when the component is called from real JSX.
+ * How the matching works: a row matches a selected facet when it either
+ * declares that exact value OR declares the facet's neutral value ("any",
+ * "both"), because a product that fits every pool should never be filtered
+ * out by a pool-specific question.
  *
- * Mobile behaviour: the table scrolls horizontally inside its own container
- * rather than shrinking columns to unreadable widths. The wrapper is
- * focusable and labelled so keyboard and screen reader users can reach the
- * scroll region -- a plain overflow div is a known a11y trap.
+ * Everything renders server-side first: with JavaScript off, or before
+ * hydration, the full unfiltered table is present in the HTML. That matters
+ * because crawlers and answer engines read the initial HTML, and a table that
+ * only exists after hydration is a table they never see.
  */
-export function parseIds(ids) {
-  if (Array.isArray(ids)) return ids
-  if (typeof ids === 'string') return ids.split(',').map((id) => id.trim()).filter(Boolean)
-  return []
-}
+export default function ComparisonTable({
+  rows = [],
+  columns = [],
+  title = 'Compare',
+  facets = ['pool_type', 'sanitizer', 'gallons'],
+  caption,
+}) {
+  const active = filterFacets.filter((f) => facets.includes(f.key))
+  const [selected, setSelected] = useState({})
 
-export default function ComparisonTable({ ids = [], caption = 'Product comparison' }) {
-  const items = getProducts(parseIds(ids))
-  if (!items.length) return null
+  const visible = useMemo(() => {
+    const chosen = Object.entries(selected).filter(([, v]) => v)
+    if (!chosen.length) return rows
+
+    return rows.filter((row) =>
+      chosen.every(([key, value]) => {
+        const facet = active.find((f) => f.key === key)
+        const rowValue = row.fits?.[key] ?? row[key]
+        if (rowValue === undefined || rowValue === null) return true
+        return rowValue === value || rowValue === facet?.neutral
+      }),
+    )
+  }, [rows, selected, active])
+
+  const anySelected = Object.values(selected).some(Boolean)
 
   return (
-    <div className="not-prose my-8">
-      <div
-        role="region"
-        aria-label={caption}
-        tabIndex={0}
-        className="overflow-x-auto rounded-xl border border-slate-200"
-      >
-        <table className="w-full min-w-[640px] border-collapse text-left text-[15px]">
-          <caption className="sr-only">{caption}</caption>
+    <section className="my-8" aria-label={title}>
+      <div className="flex flex-wrap items-end justify-between gap-3">
+        <h2 className="text-xl font-bold text-pool-900 sm:text-2xl">{title}</h2>
+        {anySelected && (
+          <button
+            type="button"
+            onClick={() => setSelected({})}
+            className="text-sm font-semibold text-accent-700 hover:underline"
+          >
+            Clear filters
+          </button>
+        )}
+      </div>
+
+      {active.length > 0 && (
+        <div className="mt-4 rounded-xl border border-pool-200 bg-pool-50 p-4">
+          <p className="mb-3 text-[11px] font-bold uppercase tracking-widest text-pool-700">
+            Your pool
+          </p>
+          <div className="flex flex-wrap gap-4">
+            {active.map((facet) => (
+              <label key={facet.key} className="flex flex-col gap-1 text-sm">
+                <span className="font-semibold text-slate-700">{facet.label}</span>
+                <select
+                  value={selected[facet.key] ?? ''}
+                  onChange={(e) =>
+                    setSelected((s) => ({ ...s, [facet.key]: e.target.value || undefined }))
+                  }
+                  className="min-w-[10rem] rounded-lg border-2 border-pool-200 bg-white px-3 py-2 font-medium text-pool-900"
+                >
+                  <option value="">Any</option>
+                  {facet.options
+                    .filter((o) => o.slug !== facet.neutral)
+                    .map((o) => (
+                      <option key={o.slug} value={o.slug}>
+                        {o.label}
+                      </option>
+                    ))}
+                </select>
+              </label>
+            ))}
+          </div>
+          <p className="mt-3 text-[13px] text-slate-600">
+            Showing <strong>{visible.length}</strong> of {rows.length}. Products that suit any pool
+            always stay listed.
+          </p>
+        </div>
+      )}
+
+      <div className="mt-4 overflow-x-auto rounded-xl border border-slate-200">
+        <table className="w-full border-collapse text-left text-[15px]">
+          {caption && <caption className="sr-only">{caption}</caption>}
           <thead>
-            <tr className="bg-pool-700 text-white">
-              <th scope="col" className="px-4 py-3 font-semibold">Product</th>
-              <th scope="col" className="px-4 py-3 font-semibold">Best For</th>
-              <th scope="col" className="px-4 py-3 font-semibold">Watch out for</th>
+            <tr className="bg-pool-800 text-white">
+              <th scope="col" className="px-4 py-3 font-semibold">
+                Product
+              </th>
+              {columns.map((c) => (
+                <th key={c.key} scope="col" className="whitespace-nowrap px-4 py-3 font-semibold">
+                  {c.label}
+                </th>
+              ))}
             </tr>
           </thead>
           <tbody>
-            {items.map((product, index) => {
-              return (
-                <tr
-                  key={product.id}
-                  className={index % 2 ? 'bg-slate-50' : 'bg-white'}
-                >
-                  <th scope="row" className="max-w-[220px] px-4 py-4 align-top font-bold text-pool-900">
-                    {product.title}
-                    {false && (
-                      <span className="mt-1 block text-xs font-semibold uppercase tracking-wide text-accent-700">
-                        {product.badge}
-                      </span>
-                    )}
-                  </th>
-                  <td className="max-w-[260px] px-4 py-4 align-top text-slate-700">
-                    {product.summary}
+            {visible.map((row, i) => (
+              <tr key={row.name ?? i} className={i % 2 ? 'bg-slate-50' : 'bg-white'}>
+                <th scope="row" className="border-b border-slate-100 px-4 py-3 align-top font-semibold text-pool-900">
+                  {row.href ? (
+                    <Link href={row.href} className="hover:underline">
+                      {row.name}
+                    </Link>
+                  ) : (
+                    row.name
+                  )}
+                  {row.badge && (
+                    <span className="mt-1 block text-[11px] font-bold uppercase tracking-wide text-accent-700">
+                      {badgeLabel[row.badge] ?? row.badge}
+                    </span>
+                  )}
+                  {row.price_tier && (
+                    <span className="mt-0.5 block text-[12px] font-medium text-slate-400">
+                      {priceTierLabel[row.price_tier]}
+                    </span>
+                  )}
+                </th>
+                {columns.map((c) => (
+                  <td key={c.key} className="border-b border-slate-100 px-4 py-3 align-top text-slate-700">
+                    {row[c.key] ?? row.specs?.[c.key] ?? <span className="text-slate-300">&mdash;</span>}
                   </td>
-                  <td className="max-w-[260px] px-4 py-4 align-top text-slate-700">
-                    {product.constraint || '—'}
-                  </td>
-                </tr>
-              )
-            })}
+                ))}
+              </tr>
+            ))}
+
+            {!visible.length && (
+              <tr>
+                <td colSpan={columns.length + 1} className="px-4 py-8 text-center text-slate-500">
+                  Nothing here fits that combination. Try widening one of the filters.
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>
-      <p className="mt-2 text-xs text-slate-500 sm:hidden">Scroll the table sideways to see every column.</p>
-    </div>
+    </section>
   )
 }
