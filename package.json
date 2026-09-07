@@ -4,10 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && node scripts/check-links.mjs",
+    "build": "next build && node scripts/check-links.mjs && node scripts/check-compliance.mjs",
     "start": "next start",
     "lint": "next lint",
-    "check:links": "node scripts/check-links.mjs"
+    "check:links": "node scripts/check-links.mjs",
+    "check:compliance": "node scripts/check-compliance.mjs"
   },
   "dependencies": {
     "gray-matter": "4.0.3",

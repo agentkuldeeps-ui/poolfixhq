@@ -30,7 +30,7 @@ a bug** — it means a client component or a request-time API crept in.
 
 ```bash
 npm run dev          # localhost:3000
-npm run build        # next build + check:links. MUST pass before any commit
+npm run build        # next build + check:links + check:compliance. MUST pass before any commit
 npm run check:links  # internal link checker (needs a build first)
 npm start            # serve the production build locally
 ```
@@ -54,239 +54,166 @@ Copy `.env.example` to `.env.local` before running anything.
 ## Directory map
 
 ```
-app/                      routes (App Router)
-  layout.js               shell, global metadata, WebSite+Organization JSON-LD
-  page.js                 homepage — H1 "What's Wrong With Your Pool?"
-  {problems,equipment,chemistry,guides}/page.js       hub → <CategoryHub>
-  {problems,equipment,chemistry,guides}/[slug]/page.js article → <ArticlePage>
-  regional/page.js        state index grouped by region
-  regional/[state]/page.js  regional article (param is [state], not [slug])
-  tools/                  calculator index + shells
-  pool-repair/            lead capture SHELL — not wired up
-  about|editorial-policy|affiliate-disclosure|privacy-policy|terms/
-  sitemap.js robots.js feed.xml/route.js
-components/
-  home/                   the 10 homepage sections (see "Homepage" below)
-  mdx/                    the 8 components authors use inside MDX
-  mdx/index.js            component map handed to MDXRemote
-  ArticlePage.jsx         shared article shell (every category uses it)
-  CategoryHub.jsx         shared hub shell (every category uses it)
-  MdxRenderer.jsx         MDXRemote + remark/rehype config
-  Header, Footer, ArticleCard, Breadcrumbs, JsonLd, PageHeader,
-  ProblemCards, ProsePage
-lib/
-  authors.js              author + trust-strip data (CONTAINS PLACEHOLDERS)
-  seasonal.js             four-season copy for the homepage "right now" block
-  symptoms.js             THE SYMPTOM INDEX -- also the content roadmap
-  content.js              MDX loading + FRONTMATTER SCHEMA ENFORCEMENT
-  products.js             SINGLE SOURCE OF TRUTH for products
-  categories.js           the 5 categories
-  states.js               regional coverage list
-  tools.js                calculator registry
-  schema.js               JSON-LD builders
-  site.js                 name, URL, tagline, OG defaults
-  seo.js                  buildMetadata() — every page's <head> goes through it
-content/{problems,equipment,chemistry,guides,regional}/*.mdx
+app/
+  <category>/page.js          13 category hubs, 4-line wrappers over CategoryHub
+  <category>/[slug]/page.js   review / roundup / comparison pages
+  product-reviews/            best-of | comparisons | individual-reviews
+  brands/[brand]/             shop by brand system (compat tag)
+  tools/[slug]/               calculators -- UNCHANGED by the conversion
+  pool-repair/                lead-gen -- UNCHANGED by the conversion
+content/<category>/*.mdx      one file per review. Folder must match frontmatter category
+lib/categories.js             THE taxonomy: 13 categories, subcategories, cross-cut tags
+lib/symptoms.js               symptom -> product map (homepage differentiator)
+lib/frontmatter.js            schema, validation, compliance failures
+scripts/check-links.mjs       every internal href must resolve
+scripts/check-compliance.mjs  Associates rules, fails the build
+archive/                      the retired diagnostic content standard and research
 ```
+
+Full article history before the conversion lives on the
+`archive/diagnostic-content` branch. Nothing was deleted, only removed from
+`main`.
 
 ---
 
 ## Content model
 
-Articles are MDX at `content/<category>/<slug>.mdx`. **Filename must equal the
-`slug` frontmatter, and folder must equal the `category` frontmatter.** The build
-fails otherwise — that check is in `lib/content.js` and is deliberate.
+Three page types, set by `type` in frontmatter:
+
+| `type` | What it is | Schema.org | Lives at |
+|---|---|---|---|
+| `review` | One product, in depth | `Product` + `Review` | `/product-reviews/individual-reviews` |
+| `roundup` | Best-of for a category or subcategory | `ItemList` | `/product-reviews/best-of` |
+| `comparison` | Head-to-head, two products | `Product` ×2 | `/product-reviews/comparisons` |
+
+**Never emit `AggregateRating`.** We do not aggregate third-party ratings, and
+claiming to is a structured-data violation.
 
 ### Frontmatter schema — enforced at build time
 
+`lib/frontmatter.js` is the authority. **Unknown keys fail the build**, so a
+typo cannot silently do nothing.
+
 ```yaml
----
-title: "Pool Pump Will Not Prime: Every Cause, Cheapest Fix First"  # req, ≤90
-seoTitle: "Pool Pump Won't Prime: Causes & Fixes"   # optional, ≤60 — drives <title>/og:title only
-slug: pump-not-priming                    # req, kebab-case, == filename
-planId: EQP-001                           # req, AAA-000, UNIQUE across all content
-category: equipment                       # req, == folder, one of the 5 category slugs
-cluster: equipment                        # req, one of the 6 plan clusters
-primaryKeyword: pool pump not priming     # req
-quickAnswer: "…"                          # req, ≥40 chars — feeds <QuickAnswer /> and FAQPage
-metaDescription: "…"                      # req, ≤155
-status: scaffold                          # req, scaffold | live
-datePublished: 2026-08-06                 # req
-dateModified: 2026-08-06                  # req, must be ≥ datePublished
-uncommonTip: shaving-cream-lid-leak       # req, UNIQUE across live articles
-reviewedBy: "Name, credential"            # optional
-sources:                                  # req; URLs validated; non-empty for chemistry/safety
-  - title: Hayward Super Pump Owner's Manual
-    url: https://…
-faqs:                                     # optional — drives <FAQ /> AND FAQPage schema
-  - q: "…"
-    a: "…"
-products: [taylor-k2006]                  # optional
-relatedSlugs: [problems/green-pool-water] # optional
-featured: false                           # optional
----
+title:            # <= 90 chars
+seoTitle:         # optional, <= 60. Add one whenever title > 60
+slug:             # must match the filename
+type:             # review | roundup | comparison
+category:         # must match the folder, must exist in lib/categories.js
+subcategory:      # optional, validated against that category's list
+primaryKeyword:   # the query someone types, NOT an internal label
+quickAnswer:      # >= 40 chars
+metaDescription:  # <= 155 chars
+status:           # scaffold | live   -- scaffold is noindex,follow
+datePublished:
+dateModified:
+updated:          # optional, set by the freshness sweep
+techNote:         # optional slug; if set, the body MUST render <TechNote>
+products:
+  - name:         # required
+    asin:         # optional, but must be 10 uppercase alphanumeric if present
+    brand:
+    compat:       # hayward | pentair | jandy | polaris | dolphin | intex | bestway | n/a
+    badge:        # roundups: best-overall | best-budget | best-premium | also-great
+    rating:       # 0-5
+    price_tier:   # budget | mid | premium   -- NEVER a dollar figure
+pool_type:        # inground | above-ground | both
+sanitizer:        # chlorine | salt | both
+filter_type:      # cartridge | sand | de | any
+gallons:          # lt10k | 10-20k | 20-35k | 35k+ | any
+winner:           # true puts this on the homepage Top Picks strip
+sources:          # required. Real URLs only, structurally validated
+faqs:
+relatedSlugs:
+featured:
 ```
 
-`title` is the H1. `seoTitle` exists only so a long editorial headline can keep
-its full wording on the page while the SERP gets something that isn't
-truncated. Omit it unless the title is over ~60 characters.
-
-`category` and `cluster` are **not** duplicates. `category` is structural — it
-must equal the folder and drives the route. `cluster` is the content plan's
-taxonomy, and the two differ because **`brand-codes` and `equipment` both live
-under `/equipment`**. The mapping is enforced: a `cluster` under the wrong
-`category` fails the build.
+The four filter tags (`pool_type`, `sanitizer`, `filter_type`, `gallons`) drive
+the "Your pool" filter bar on comparison tables. `gallons` bands match the
+volume calculator's output exactly, so the calculator can hand off to
+"products sized for this."
 
 ### Build-time QC — two severities
 
-**Hard failures** (break the build):
+`fail` throws and breaks the build. `warn` prints and continues.
 
-- any schema violation, unknown frontmatter key, or unknown product id
-- **`planId` duplicate — always, at any status.** A duplicate means two people
-  wrote the same plan row; that should stop everything.
-- a `sources[].url` that isn't a real absolute URL — this is the check that
-  makes an invented citation impossible to ship
-- `dateModified` earlier than `datePublished`
-- cluster/category mismatch
+**Always a failure, at any status** — these are compliance, not craft:
 
-**Hard failures only at `status: live`, warnings at `scaffold`:**
+- any dollar figure, in frontmatter or body (`price_tier` instead)
+- a malformed ASIN
+- `winner: true` with no products
+- an invented or placeholder citation URL
 
-- primary keyword absent from the title
-- `uncommonTip` already used by another live article
-- chemistry articles, or any article containing `<SafetyWarning>`, with no sources
+**Failure at `status: live`, warning at `scaffold`:**
 
-**Always advisory:** primary keyword absent from the first 100 words. Deliberate
-— the natural opening to an article often doesn't contain the keyword, and
-forcing it produces exactly the jammed phrasing the voice spec exists to avoid.
+- fewer than 600 words (Amazon's original-content rule, and it will not rank)
+- a review or comparison with no products declared
+- `techNote` declared but `<TechNote>` never rendered
+- an Amazon link with no `<AffiliateDisclosure />` above it
+- a comparison with fewer than two products
+- a roundup without exactly one `best-overall`
+- a chemical category, or any `<SafetyWarning>`, with no source
+- primary keyword missing from the title
 
-Drafts must stay committable. A schema that blocks half-finished work pushes
-writers out of the repo, which costs more than it saves.
+**Cross-file, live pages only:** two individual reviews of the same ASIN is a
+hard failure. That is the cannibalisation case — it splits the ranking.
 
-Keyword matching is normalised — lowercased, punctuation stripped, stopwords
-ignored, lightly stemmed, and satisfied at 70% of content words. So
-`"pump not priming"` in a title satisfies `"pool pump not priming"`.
+### primaryKeyword must be a real query
 
-### Required article structure
+The single most expensive mistake made on the previous version of this site:
+six of nine live articles targeted an internal UI label ("filter pressure is
+high") instead of the query people type ("high pool filter pressure"). The
+label belongs in `lib/symptoms.js`, where a human reads it. The keyword belongs
+in frontmatter, where Google reads it. They are rarely the same string.
 
-Every article, in this order:
+### Sourcing
 
-1. `<QuickAnswer />` — first, right after the H1. Snippet target.
-2. `<TableOfContents />` — auto-built from H2s.
-3. Intro with the target keyword in the **first 100 words**, plus one
-   first-person tech anecdote.
-4. Fixes ordered **easiest → hardest**, each with a "why this works" line.
-5. One uncommon tip most sites miss.
-6. `## When to Call a Pro` containing `<LeadFormCTA />`.
+Manufacturer documentation is the spine of a review: the spec sheet and the
+manual, not the Amazon listing. Amazon copy is marketing and is frequently
+wrong about specifications.
 
-### Word targets are per-cluster, and length is an output
-
-Never write to a number. The plan's target column is a **ceiling to aim at** for
-equipment, and a **soft guide** everywhere else.
-
-- **Equipment and brand-code** — procedural depth is available, so hit the
-  target. **If one of these is short, it is almost always missing the
-  procedure**: how to do the job *correctly*, not just how to diagnose it going
-  wrong. That gap is the depth. More diagnostic branches is not.
-- **Symptom and chemistry** — diagnostic depth only. 10–15% under target is
-  expected and fine. Do not pad to close it. Below ~1,100 words means something
-  is genuinely missing; investigate that.
-- **Regional** — length follows whether the state has an internal split in the
-  advice. No split, shorter article.
-
-Report unders plainly. An under is information, not a failure.
-
-Also non-negotiable: 8th-grade reading level, target keyword
-in the title, and the veteran-tech voice — direct, practical, says out loud when
-the cheap fix beats the expensive one.
-
-**US English throughout — spelling, idiom and units.** `color` not `colour`,
-`gray` not `grey`, `oxidizing` not `oxidising`, `stabilized` not `stabilised`.
-US customary units first: gallons, °F, psi, fl oz. No British idiom —
-`fortnight`, `whilst`, `straight away`, `amongst`. The build warns on a word
-list (`checkLocale` in `lib/frontmatter.js`); it's a warning rather than a
-failure because a quotation or proper noun can legitimately carry one.
-
-**"Test these numbers first" — what that section is for.** Not to narrow the
-diagnosis; by then the diagnosis is usually made. It's there to narrow the
-**treatment path**. In a green pool, cyanuric acid decides whether the answer
-is "hold chlorine" or "you'll have to dilute first" — a fork worth thousands of
-gallons. Narrow the diagnosis where the diagnosis is still open; set the
-treatment path where it isn't.
-
-### Total hardness is not calcium hardness — standing rule
-
-Municipal water quality reports give **total** hardness. Pool test kits read
-**calcium** hardness, which is roughly **70–80%** of total, because the
-remainder is magnesium.
-
-Never present one as the other, in any article. A Dallas report saying 8 gpg is
-~135 ppm *total*, and the calcium fraction a pool owner will measure is lower
-than that. Getting this wrong would push every dosing recommendation in the
-chemistry cluster in the same wrong direction, and it would look authoritative
-while doing it.
-
-When quoting a municipal figure, say it's fill-water total hardness and that
-the calcium reading will come in below it.
-
-### Sourcing — see CONTENT_STANDARD.md §3
-
-**`CONTENT_STANDARD.md` is the governing instruction file for all article work.**
-It supersedes the old article template and, on any disagreement, it supersedes
-this file too. Read it in full before writing.
-
-Sourcing is defined there as four citable tiers — Tier 1 government/academic,
-Tier 2 manufacturer primary literature, Tier 3 recognised industry technical
-bodies (PHTA, NSPF/CPO, Orenda), Tier 4 trade and technical publications (AQUA
-Magazine, parts suppliers publishing genuine repair documentation). Competitor
-blogs, affiliate sites, content farms and forums are banned outright.
-
-Minimum per article: two sources, at least one from Tier 1 or 2. Chemistry and
-safety require Tier 1 where one exists.
-
-**Never invent** a source, URL, statistic or study. Unverifiable figures become
-`[VERIFY: what's needed]`.
-
-*Note: an earlier, stricter three-tier rule briefly lived here and banned Orenda,
-AQUA Magazine and parts-supplier documentation. CONTENT_STANDARD.md permits all
-three. That version is gone — do not reintroduce it.*
+- **Chemical claims** — dosing, concentrations, what a product treats — come
+  from the product label or SDS. Never state that a chemical treats a condition
+  beyond its label.
+- **Health claims** need CDC, EPA, a state health department or a university
+  extension service. Not a pool blog.
+- **Never copy Amazon reviews.** Synthesise owner-reported themes in your own
+  words and say that is what they are.
+- Hazmat shipping limits (cal-hypo, muriatic acid) are described as "check
+  availability in your state" — never as a stock or price claim.
 
 ### Safety
 
-`<SafetyWarning>` is **mandatory** on any article mentioning muriatic acid,
-chlorine, shock, or chemical mixing. Never-mix warnings are non-negotiable — do
-not soften the copy and do not restyle the component quieter.
+Gas, electrical and structural work is licensed work. Say so and stop.
+`<SafetyWarning>` requires a real source.
 
 ---
 
 ## Products and affiliate links
 
-`lib/products.js` is the single source of truth.
+**Amazon Associates. The rules below are hard constraints, enforced by
+`scripts/check-compliance.mjs`, which fails the build.**
 
-```js
-{ id, asin, title, image, features: [], bestFor, category, badge }
-```
-
-MDX references products **by id only**:
-
-```mdx
-<ProductBlock id="taylor-k2006" />
-<ComparisonTable ids="taylor-k2006, hth-6-way-strips" />
-```
-
-Note the comma-separated **string**, not an array literal — see "No JS
-expressions in MDX" below.
-
-**Never put an ASIN, an amazon.com URL, or a product image URL in a content
-file.** Links are built by `amazonUrl()` from the ASIN plus
-`NEXT_PUBLIC_AMAZON_TAG`, so the tag is never hardcoded in source or content.
-Outbound product links carry `rel="nofollow sponsored noopener"`. Product ids are
-stable keys — never reuse or repurpose one.
-
-Product images use a plain `<img>` with explicit `width`/`height`, not
-`next/image`. Deliberate: Amazon image dimensions vary and SVG placeholders would
-need `dangerouslyAllowSVG`. Explicit dimensions already prevent layout shift.
-
----
+1. **No prices, ever.** Not in frontmatter, not in prose, not in a component.
+   We are not pulling live pricing from Amazon's API, so any price we print is
+   one we typed once and will not maintain. Stale prices are the most common
+   Associates violation. Use `price_tier: budget | mid | premium`.
+2. **No discount, sale or stock claims.** Same reason, and they age faster.
+3. **Disclosure above the first affiliate link on every page**, plus the
+   standing paragraph in the footer.
+4. **Every Amazon link carries `tag=`, `rel="sponsored nofollow"`, and opens in
+   a new tab.** No shorteners, no cloaking — the check rejects `amzn.to`.
+5. **No affiliate links in RSS or email.** The feed is checked.
+6. **No Amazon-hosted images yet.** Hotlinking `m.media-amazon.com` needs
+   Creators API access, which requires **10 qualifying sales in a rolling
+   30-day window** (PA-API v5 was retired 15 May 2026). Until then: manufacturer
+   press images, own photos, or the illustrated placeholder. The
+   `remotePatterns` entry in `next.config.mjs` stays so the switch is one line.
+7. **Link the variant you actually recommend.** Onsite commission applies only
+   to the exact ASIN linked — the 50 lb pail, not the 5 lb tub.
+8. **Original commentary on every page.** A spec dump is not allowed under the
+   agreement and would not rank anyway. The 600-word floor enforces the shape
+   of this, not the substance; the substance is your job.
 
 ## MDX components
 
@@ -362,37 +289,33 @@ mirrors its algorithm so TOC anchors always resolve. **Change one, change both.*
 
 ## Homepage
 
-`app/page.js` composes ten server components from `components/home/`. **Section
-order is the argument** -- it is documented in a comment at the top of
-`app/page.js`; read that before reordering anything.
+Section order is the argument. A visitor arrives mid-problem, on a phone, next
+to a green pool.
 
-Three things about it are load-bearing:
+1. `Hero` — "What's Wrong With Your Pool? Here's What Fixes It." + 4 cards
+2. `SymptomIndex` — the long tail: symptom -> the product that fixes it
+3. `TopPicks` — #1 pick per high-volume category, from `winner: true`
+4. `SeasonalBlock` — what to buy this month, from `lib/seasonal.js`
+5. `ToolsStrip` — calculators, which feed sized recommendations
+6. `BrandChips` — shop by the brand already on the equipment pad
+7. `EmailCapture` — flag-gated until wired
+8. `RepairCTA` — monetize what DIY did not solve
+9. `TransparencyNote` — how we get paid, before the footer
 
-**The symptom index is the differentiator.** `lib/symptoms.js` lists ~24
-symptoms in the reader's own words. Entries whose article does not exist render
-as muted text with a "soon" tag, not links -- so the homepage can show the
-finished shape of the site without a single 404, and each entry becomes a link
-automatically the day its MDX lands. **That file doubles as the content
-roadmap**: add the symptom there first, write the article second. Same
-published-or-muted pattern in `RegionalFinder`.
+`TrustStrip` is deliberately NOT rendered: every stat in it was an unverified
+placeholder, and an unsubstantiated credibility claim is worse than none. Fill
+`lib/authors.js` with real credentials first.
 
-**The homepage revalidates daily** (`export const revalidate = 86400`) so
-`<SeasonalBlock>` stays current without a redeploy. This is ISR -- still static
-HTML, still `○` in the build output. `currentSeason()` resolves on the server;
-never move it to the client, or the server and browser clocks disagree and
-React throws a hydration error.
+`TopPicks` renders nothing until a page carries `winner: true`, so the homepage
+degrades cleanly while the catalog fills.
 
-**Unwired sections are flag-gated, not commented out.** `features.emailCapture`
-in `lib/site.js` is `false`, so `<EmailCapture>` renders nothing. A form that
-silently eats addresses costs more trust than no form. Flip the flag only once
-a provider and a POST handler exist.
+**The symptom index is the differentiator. Do not turn it into a department
+menu.** Several rows deliberately talk the reader out of a purchase ("clean it
+before you replace it", "not more shock"). That is the reason symptom traffic
+converts here and not on a catalog. Keep it.
 
-Placeholders that must not ship: `lib/authors.js` is entirely fabricated. The
-trust strip renders a loud `UNVERIFIED` tag next to any point with
-`verified: false`, deliberately -- an unsubstantiated credibility claim on a
-site giving chemical-handling advice should be impossible to ship by accident.
-
----
+Every homepage section is a server component. The page ships no client JS of
+its own. Check the build output before adding anything.
 
 ## Design system
 

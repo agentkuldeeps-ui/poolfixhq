@@ -1,9 +1,9 @@
 import Hero from '@/components/home/Hero'
 import SymptomIndex from '@/components/home/SymptomIndex'
-import FeaturedGuides from '@/components/home/FeaturedGuides'
+import TopPicks from '@/components/home/TopPicks'
 import SeasonalBlock from '@/components/home/SeasonalBlock'
 import ToolsStrip from '@/components/home/ToolsStrip'
-import RegionalFinder from '@/components/home/RegionalFinder'
+import BrandChips from '@/components/home/BrandChips'
 import EmailCapture from '@/components/home/EmailCapture'
 import RepairCTA from '@/components/home/RepairCTA'
 import TransparencyNote from '@/components/home/TransparencyNote'
@@ -33,11 +33,11 @@ export const revalidate = 86400
  * one whose problem was not one of the four.
  *
  *  1. Hero            the question + four taps to the four common failures
- *  2. SymptomIndex    the long tail, in the reader's own words
- *  3. FeaturedGuides  editorial picks
- *  4. SeasonalBlock   a reason to come back next quarter
- *  5. ToolsStrip      calculators
- *  6. RegionalFinder  climate silo entry point
+ *  2. SymptomIndex    the long tail, symptom -> the product that fixes it
+ *  3. TopPicks        the #1 pick per high-volume category
+ *  4. SeasonalBlock   what to buy this month; a reason to come back next quarter
+ *  5. ToolsStrip      calculators, which feed sized product recommendations
+ *  6. BrandChips      shop by the brand already on the equipment pad
  *  7. EmailCapture    owned audience (flag-gated until wired)
  *  8. RepairCTA       monetize the reader DIY did not solve
  *  9. TransparencyNote how we get paid, said before the footer
@@ -47,6 +47,9 @@ export const revalidate = 86400
  * placeholder and an unsubstantiated credibility claim is worse than none.
  * Fill in lib/authors.js with real, verifiable credentials, then re-add
  * <TrustStrip /> directly under <Hero />.
+ *
+ * <TopPicks> renders nothing until a review carries `winner: true`, so the
+ * page degrades cleanly while the catalog is still filling up.
  *
  * Every section is a server component. The homepage ships no client JS of its
  * own -- that is the Core Web Vitals margin over the WordPress competition,
@@ -59,10 +62,10 @@ export default function HomePage() {
 
       <Hero />
       <SymptomIndex />
-      <FeaturedGuides />
+      <TopPicks />
       <SeasonalBlock />
       <ToolsStrip />
-      <RegionalFinder />
+      <BrandChips />
       <EmailCapture />
       <RepairCTA />
       <TransparencyNote />

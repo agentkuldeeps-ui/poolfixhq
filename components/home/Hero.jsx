@@ -19,13 +19,14 @@ export default function Hero() {
 
           <h1 className="text-4xl font-extrabold tracking-tight text-pool-900 sm:text-5xl lg:text-6xl">
             What&rsquo;s Wrong With Your Pool?
+            <span className="mt-1 block text-pool-600">Here&rsquo;s What Fixes It.</span>
           </h1>
 
           <p className="mt-4 text-base leading-relaxed text-slate-600 sm:mt-5 sm:text-xl">
-            Pick the symptom. We will tell you what is actually causing it, what the fix costs, and
-            whether it is worth doing yourself — built from manufacturer documentation, CDC
-            guidance, and university extension research, not from the store that wants to sell you
-            chemicals.
+            Pick the symptom. We tell you which product actually fixes it — judged against
+            manufacturer specifications, owner feedback, and CDC and extension guidance, not
+            against the store&rsquo;s markup. Sometimes the answer is a five-dollar o-ring, and we
+            will say so.
           </p>
         </div>
 

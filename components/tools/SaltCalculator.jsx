@@ -123,7 +123,7 @@ export default function SaltCalculator() {
           Find your volume
         </Link>{' '}
         ·{' '}
-        <Link href="/equipment" className="link-inline">
+        <Link href="/salt-systems" className="link-inline">
           Salt cell guides
         </Link>
       </p>

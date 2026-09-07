@@ -1,20 +1,17 @@
 import Link from 'next/link'
 import { symptomGroups } from '@/lib/symptoms'
-import { getAllArticles } from '@/lib/content'
 
 /**
- * The diagnostic index -- the reason to come here instead of a WordPress site
- * organised by topic.
+ * The diagnostic index -- the reason to come here instead of a store organised
+ * by department.
  *
- * Symptoms without a published article render as muted text rather than links,
- * so this can show the finished shape of the site today without shipping a
- * single 404. Each entry becomes a link automatically when its MDX file lands.
+ * Every row names the symptom AND the thing that fixes it, then links to the
+ * category that sells it. There is no "soon" state any more: all 13 categories
+ * exist, so every row is a live link from day one.
  *
- * Fully static, no JS: three columns of plain links.
+ * Fully static, no JS.
  */
 export default function SymptomIndex() {
-  const published = new Set(getAllArticles().map((a) => `${a.category}/${a.slug}`))
-
   return (
     <section aria-labelledby="symptom-index-heading" className="border-b border-slate-200 bg-white">
       <div className="container-page py-12 sm:py-16">
@@ -26,8 +23,9 @@ export default function SymptomIndex() {
             Find your exact symptom
           </h2>
           <p className="mt-3 text-lg leading-relaxed text-slate-600">
-            Nobody wakes up with a &ldquo;water chemistry question.&rdquo; They wake up to a green
-            pool. Here is the site in the words you would actually use.
+            Nobody wakes up needing to browse pool chemicals. They wake up to a green pool. Here is
+            the catalog in the words you would actually use &mdash; and what each one really takes
+            to fix.
           </p>
         </div>
 
@@ -38,42 +36,36 @@ export default function SymptomIndex() {
                 {group.title}
               </h3>
 
-              <ul className="mt-4 space-y-1">
-                {group.symptoms.map((symptom) => {
-                  const href = `/${symptom.category}/${symptom.slug}`
-                  const live = published.has(`${symptom.category}/${symptom.slug}`)
-
-                  return (
-                    <li key={href}>
-                      {live ? (
-                        <Link
-                          href={href}
-                          className="group flex items-center gap-2 rounded-md px-2 py-1.5 text-[15px] text-pool-800 hover:bg-pool-50"
+              <ul className="mt-3 divide-y divide-slate-100">
+                {group.symptoms.map((symptom) => (
+                  <li key={symptom.label}>
+                    <Link
+                      href={symptom.href}
+                      className="group block rounded-md px-2 py-2.5 hover:bg-pool-50"
+                    >
+                      <span className="flex items-center gap-2">
+                        <svg
+                          aria-hidden="true"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2.5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="h-3.5 w-3.5 shrink-0 text-pool-400 group-hover:text-accent-600"
                         >
-                          <svg
-                            aria-hidden="true"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2.5"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            className="h-3.5 w-3.5 shrink-0 text-pool-400 group-hover:text-accent-600"
-                          >
-                            <path d="M9 6l6 6-6 6" />
-                          </svg>
-                          <span className="group-hover:underline">{symptom.label}</span>
-                        </Link>
-                      ) : (
-                        <span className="flex items-baseline gap-2 px-2 py-1.5 text-[15px] text-slate-400">
-                          <span aria-hidden="true" className="h-3.5 w-3.5 shrink-0" />
-                          <span className="flex-1">{symptom.label}</span>
-                          <span className="shrink-0 text-xs uppercase tracking-wide">soon</span>
+                          <path d="M9 6l6 6-6 6" />
+                        </svg>
+                        <span className="text-[15px] font-semibold text-pool-800 group-hover:underline">
+                          {symptom.label}
                         </span>
-                      )}
-                    </li>
-                  )
-                })}
+                      </span>
+                      <span className="mt-0.5 block pl-[22px] text-[13.5px] leading-snug text-slate-500">
+                        {symptom.fix}
+                      </span>
+                    </Link>
+                  </li>
+                ))}
               </ul>
 
               <Link

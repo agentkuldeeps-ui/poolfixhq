@@ -28,14 +28,14 @@ export default function SeasonalBlock() {
             <p className="mt-4 max-w-xl text-lg leading-relaxed text-pool-100">{season.body}</p>
 
             <div className="mt-6 flex flex-wrap gap-3">
-              <Link href="/guides" className="btn-primary">
-                Seasonal guides
+              <Link href={season.shop.primary.href} className="btn-primary">
+                {season.shop.primary.label}
               </Link>
               <Link
-                href="/regional"
+                href={season.shop.secondary.href}
                 className="inline-flex items-center justify-center rounded-lg border-2 border-pool-500 px-6 py-3 text-base font-semibold text-white transition-colors hover:bg-pool-700"
               >
-                Advice for your state
+                {season.shop.secondary.label}
               </Link>
             </div>
           </div>

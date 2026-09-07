@@ -6,7 +6,7 @@ import ProductBlock from './ProductBlock'
 import ComparisonTable from './ComparisonTable'
 import LeadFormCTA from './LeadFormCTA'
 import RelatedPosts from './RelatedPosts'
-import UncommonTip from './UncommonTip'
+import TechNote from './TechNote'
 import FAQ from './FAQ'
 import Sources from './Sources'
 
@@ -31,7 +31,7 @@ export function mdxComponents({ article, related = [] } = {}) {
     RelatedPosts: (props) => <RelatedPosts posts={related} {...props} />,
     FAQ: (props) => <FAQ faqs={article?.faqs ?? []} {...props} />,
     Sources: (props) => <Sources sources={article?.sources ?? []} {...props} />,
-    UncommonTip,
+    TechNote,
     Callout,
     SafetyWarning,
     ProductBlock,
@@ -49,7 +49,7 @@ export {
   ComparisonTable,
   LeadFormCTA,
   RelatedPosts,
-  UncommonTip,
+  TechNote,
   FAQ,
   Sources,
 }

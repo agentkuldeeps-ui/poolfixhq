@@ -147,7 +147,7 @@ export default function ChlorineCalculator() {
           Find your volume
         </Link>{' '}
         ·{' '}
-        <Link href="/chemistry" className="link-inline">
+        <Link href="/chlorine-shock" className="link-inline">
           Chemistry guides
         </Link>
       </p>

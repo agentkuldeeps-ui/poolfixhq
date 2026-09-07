@@ -19,6 +19,11 @@ export default function sitemap() {
 
   const staticPages = [
     { path: '/', priority: 1, changeFrequency: 'weekly' },
+    { path: '/product-reviews', priority: 0.9, changeFrequency: 'weekly' },
+    { path: '/product-reviews/best-of', priority: 0.8, changeFrequency: 'weekly' },
+    { path: '/product-reviews/comparisons', priority: 0.8, changeFrequency: 'weekly' },
+    { path: '/product-reviews/individual-reviews', priority: 0.8, changeFrequency: 'weekly' },
+    { path: '/brands', priority: 0.7, changeFrequency: 'monthly' },
     { path: '/tools', priority: 0.7, changeFrequency: 'monthly' },
     { path: '/pool-repair', priority: 0.6, changeFrequency: 'monthly' },
     { path: '/about', priority: 0.4, changeFrequency: 'yearly' },

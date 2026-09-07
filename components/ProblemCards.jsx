@@ -5,14 +5,15 @@ import Link from 'next/link'
  * device on the site: a visitor with a green pool should reach the green pool
  * article in one tap, above the fold, on a phone.
  *
- * Destinations point at /problems/<slug> articles. Update `href` when the
- * corresponding article slug changes.
+ * Destinations point at product categories. Each card names the symptom and
+ * lands on the category that sells the fix -- update `href` if a category slug
+ * changes.
  */
 export const problemCards = [
   {
-    href: '/problems/green-pool-water',
+    href: '/chlorine-shock',
     title: 'Green Water',
-    description: 'Algae bloom. Chlorine has been at zero longer than you think.',
+    description: 'Algae bloom. You need shock, and probably an algaecide behind it.',
     icon: (
       <>
         <path d="M12 3.2c3.2 3.9 5.5 6.9 5.5 9.6a5.5 5.5 0 11-11 0c0-2.7 2.3-5.7 5.5-9.6z" />
@@ -21,9 +22,9 @@ export const problemCards = [
     ),
   },
   {
-    href: '/problems/cloudy-pool-water',
+    href: '/pool-filters',
     title: 'Cloudy Water',
-    description: 'Filtration, chemistry, or fine particulate. Three fixes, one order.',
+    description: 'Usually the filter, sometimes a clarifier. Rarely more chlorine.',
     icon: (
       <>
         <path d="M6 17h11a4 4 0 000-8 6 6 0 00-11.3 2A3.5 3.5 0 006 17z" />
@@ -32,9 +33,9 @@ export const problemCards = [
     ),
   },
   {
-    href: '/equipment/pump-not-priming',
+    href: '/pool-pumps',
     title: 'Pump Problems',
-    description: 'Losing prime, screaming bearings, or no flow at all.',
+    description: 'Losing prime, screaming bearings, or no flow. Parts before pumps.',
     icon: (
       <>
         <circle cx="12" cy="11" r="6.5" />
@@ -45,9 +46,9 @@ export const problemCards = [
     ),
   },
   {
-    href: '/chemistry/chlorine-basics',
-    title: 'Chemistry Off',
-    description: 'pH drifting, chlorine that will not hold, stabilizer creep.',
+    href: '/test-kits',
+    title: 'Numbers Off',
+    description: 'Every fix starts with a number you measured. Get a real kit.',
     icon: (
       <>
         <path d="M9 3h6M10 3v6l-5 9a2 2 0 001.7 3h10.6a2 2 0 001.7-3l-5-9V3" />
