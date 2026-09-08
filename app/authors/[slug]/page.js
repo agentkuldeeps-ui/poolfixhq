@@ -94,8 +94,36 @@ export default function AuthorPage({ params }) {
             </div>
           )}
 
-          <div className="prose prose-slate max-w-none prose-p:text-[17px]">
-            <p>{author.bio}</p>
+          {/* Photo beside the bio, not beside the answer block -- floated
+              against the answer block it squeezed both. On a page whose whole
+              job is "is this a real person who knows this equipment", a
+              picture of them working on it does more than a studio portrait
+              would, and this site does not bench-test, so it is the only
+              first-hand evidence there is. */}
+          <div className="flex flex-col gap-6 sm:flex-row-reverse sm:items-start sm:gap-7">
+            {(author.atWorkImage || author.image) && !author.placeholder && (
+              <figure className="shrink-0 sm:w-64">
+                <img
+                  src={author.atWorkImage ?? author.image}
+                  alt={
+                    author.atWorkCaption ??
+                    `${author.name}, ${author.role ?? 'author'} at PoolFixHQ`
+                  }
+                  width={820}
+                  height={1096}
+                  className="w-full rounded-xl border border-slate-200 shadow-sm"
+                />
+                {author.atWorkCaption && (
+                  <figcaption className="mt-2 text-[13px] leading-snug text-slate-500">
+                    {author.atWorkCaption}
+                  </figcaption>
+                )}
+              </figure>
+            )}
+
+            <div className="prose prose-slate min-w-0 max-w-none prose-p:text-[17px]">
+              <p className="!mt-0">{author.bio}</p>
+            </div>
           </div>
 
           {author.certifications?.length > 0 && (
