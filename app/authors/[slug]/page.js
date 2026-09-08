@@ -19,9 +19,15 @@ export function generateStaticParams() {
 export function generateMetadata({ params }) {
   const a = getAuthor(params.slug)
   if (!a) return {}
+  // A credential line alone is usually too short for a useful meta
+  // description, so it gets composed into a full sentence rather than used raw.
+  const description = a.credential
+    ? `${a.name} — ${a.credential}. Reviews, buying criteria and product analysis for PoolFixHQ.`
+    : `Product reviews and analysis written by ${a.name} for PoolFixHQ, built from manufacturer documentation and published buying criteria.`
+
   return buildMetadata({
     title: a.name,
-    description: a.credential || `Reviews and analysis by ${a.name}.`,
+    description,
     path: `/authors/${a.slug}`,
     // A placeholder author is noindex: there is nothing verifiable to index,
     // and a thin author page with no real credentials is a liability rather

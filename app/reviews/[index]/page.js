@@ -49,13 +49,19 @@ export default function ReviewListingPage({ params }) {
 
       <div className="container-page py-10">
         {articles.length ? (
-          <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {articles.map((a) => (
-              <li key={`${a.category}/${a.slug}`}>
-                <ArticleCard article={a} />
-              </li>
-            ))}
-          </ul>
+          <>
+            {/* Cards render an <h3>. Without a heading between them and the
+                page <h1>, the outline jumps h1 -> h3, which check-seo flags
+                and which reads badly to a screen reader. */}
+            <h2 className="sr-only">{index.title}</h2>
+            <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {articles.map((a) => (
+                <li key={`${a.category}/${a.slug}`}>
+                  <ArticleCard article={a} />
+                </li>
+              ))}
+            </ul>
+          </>
         ) : (
           <div className="rounded-xl border border-dashed border-slate-300 p-8 text-center">
             <p className="text-slate-600">Nothing published in this format yet.</p>

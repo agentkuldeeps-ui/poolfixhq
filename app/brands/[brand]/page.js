@@ -55,13 +55,17 @@ export default function BrandPage({ params }) {
 
       <div className="container-page py-10">
         {articles.length ? (
-          <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {articles.map((a) => (
-              <li key={`${a.category}/${a.slug}`}>
-                <ArticleCard article={a} />
-              </li>
-            ))}
-          </ul>
+          <>
+            {/* Keeps the heading outline from jumping h1 -> h3 on the cards. */}
+            <h2 className="sr-only">{brand.label} reviews</h2>
+            <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {articles.map((a) => (
+                <li key={`${a.category}/${a.slug}`}>
+                  <ArticleCard article={a} />
+                </li>
+              ))}
+            </ul>
+          </>
         ) : (
           <div className="rounded-xl border border-dashed border-slate-300 p-8 text-center">
             <p className="text-slate-600">Nothing reviewed for {brand.label} yet.</p>
