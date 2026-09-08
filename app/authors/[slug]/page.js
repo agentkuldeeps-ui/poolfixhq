@@ -67,6 +67,33 @@ export default function AuthorPage({ params }) {
             </div>
           )}
 
+          {/* An author page is a content page, so it carries an answer block
+              like every other one. "Who is this and what do they cover" is a
+              real query, and this is the passage an answer engine lifts for
+              it. check-seo.mjs warns when a content page has none. */}
+          {!author.placeholder && (
+            <div className="answer-block not-prose mb-6">
+              <p className="mb-1.5 text-[11px] font-bold uppercase tracking-widest text-pool-600">
+                Short answer
+              </p>
+              <p>
+                {author.name} is the {author.role ?? 'author'} at PoolFixHQ
+                {author.expertise?.length > 0 && (
+                  <>
+                    , covering{' '}
+                    {author.expertise
+                      .map((s) => categoryBySlug[s]?.label?.toLowerCase() ?? s)
+                      .join(', ')}
+                  </>
+                )}
+                . {articles.length > 0 ? `${articles.length} ` : 'Their '}
+                {articles.length === 1 ? 'page carries' : 'pages carry'} their byline, each built
+                from manufacturer documentation and scored against criteria published before any
+                product is judged against them.
+              </p>
+            </div>
+          )}
+
           <div className="prose prose-slate max-w-none prose-p:text-[17px]">
             <p>{author.bio}</p>
           </div>

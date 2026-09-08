@@ -4,6 +4,7 @@ import { site } from '@/lib/site'
 
 const TRUST = [
   { href: '/how-we-test', label: 'How We Evaluate' },
+  { href: '/team', label: 'Who Writes These' },
   { href: '/about', label: 'About' },
   { href: '/editorial-policy', label: 'Editorial Policy' },
   { href: '/affiliate-disclosure', label: 'Affiliate Disclosure' },

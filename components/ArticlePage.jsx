@@ -3,6 +3,8 @@ import Breadcrumbs from '@/components/Breadcrumbs'
 import JsonLd from '@/components/JsonLd'
 import MdxRenderer from '@/components/MdxRenderer'
 import AuthorByline from '@/components/AuthorByline'
+import AuthorCard from '@/components/AuthorCard'
+import ReviewColophon from '@/components/ReviewColophon'
 import AnswerBlock from '@/components/AnswerBlock'
 import ArticleCard from '@/components/ArticleCard'
 import ReviewSidebar from '@/components/ReviewSidebar'
@@ -87,6 +89,14 @@ export default function ArticlePage({ article }) {
               <div className="prose prose-slate max-w-none prose-headings:scroll-mt-24 prose-p:text-[17px] prose-p:leading-relaxed prose-li:text-[17px]">
                 <MdxRenderer source={article.body} article={article} />
               </div>
+
+              {/* Below the body on purpose. A reader who has finished the
+                  review is deciding whether to act on it; that is the moment
+                  "who wrote this and how was it made" is worth most. Both
+                  blocks render nothing for a placeholder author rather than
+                  making a claim there is no true version of. */}
+              <ReviewColophon article={article} className="mt-12" />
+              <AuthorCard slug={article.author} className="mt-5" />
             </div>
 
             <ReviewSidebar article={article} />

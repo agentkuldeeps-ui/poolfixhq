@@ -13,6 +13,7 @@ const SECONDARY = [
   { href: '/reviews/best-of', label: 'Best Of' },
   { href: '/reviews/comparisons', label: 'Comparisons' },
   { href: '/how-we-test', label: 'How We Test' },
+  { href: '/team', label: 'Who We Are' },
 ]
 
 function Chevron({ className = '' }) {
