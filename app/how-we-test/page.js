@@ -2,8 +2,11 @@ import Link from 'next/link'
 import ProsePage from '@/components/ProsePage'
 import JsonLd from '@/components/JsonLd'
 import { categories } from '@/lib/taxonomy'
+import { scoreDimensions, DEFAULT_DIMENSIONS } from '@/lib/scoring'
 import { buildMetadata } from '@/lib/seo'
 import { faqSchema } from '@/lib/schema'
+
+const categoryTitle = (slug) => categories.find((c) => c.slug === slug)?.title ?? slug
 
 export const metadata = buildMetadata({
   title: 'How We Evaluate Pool Products',
@@ -19,7 +22,7 @@ const FAQS = [
   },
   {
     q: 'Where do your ratings come from?',
-    a: 'Each category publishes its buying criteria before any product is scored against them. A rating is our assessment against that fixed list, so two products in the same category are judged on identical grounds. Ratings are never aggregated customer scores.',
+    a: 'Every review scores the product on a fixed list of dimensions, each out of ten, and the headline rating out of five is the weighted mean of those scores divided by two. The dimensions and their weights are published per category before any product is scored against them, and the breakdown is printed on the review page. Our build fails if a stated rating disagrees with its own breakdown. Ratings are never aggregated customer scores.',
   },
   {
     q: 'Does the affiliate commission influence your recommendations?',
@@ -124,7 +127,7 @@ export default function HowWeTestPage() {
           </li>
         </ul>
 
-        <h2>How ratings work</h2>
+        <h2 id="scoring">How ratings work</h2>
 
         <p>
           A rating is a single number out of five, and it is our own assessment — not an average of
@@ -133,13 +136,75 @@ export default function HowWeTestPage() {
         </p>
 
         <p>
-          The criteria are published on each category hub <em>before</em> any product is scored
-          against them, which is what makes a score auditable rather than decorative. If you
-          disagree with a rating, you can see exactly which criterion we weighted and argue with
-          it.
+          It is also not typed in by hand. Every review scores the product on a fixed list of
+          dimensions, each out of ten, and the headline rating is the{' '}
+          <strong>weighted mean of those dimension scores, divided by two</strong>. The breakdown is
+          printed on the review page with the weights visible, so the arithmetic behind the number
+          is arithmetic you can redo.
         </p>
 
-        <h3>Where the criteria live</h3>
+        <p>
+          Two rules keep that honest. The dimensions and weights are fixed for an entire category
+          and published before any product in it is scored, so nobody gets a friendlier yardstick.
+          And the build itself refuses to publish a page whose stated rating disagrees with its own
+          breakdown — if we want a higher number we have to raise a dimension score and defend it in
+          the text where you can see it.
+        </p>
+
+        <p>
+          That mechanism has already cost a product. The Pentair IntelliFlo3 VSF 011075 carried a
+          4.2 in an early draft, written before the breakdown existed. When the dimensions were
+          scored and weighted it came out at 3.9, so the published rating is 3.9. The weights were
+          not adjusted to rescue the original number.
+        </p>
+
+        <h3>What each category is scored on</h3>
+
+        <p>
+          Dimensions differ by category, because the things that decide a pump are not the things
+          that decide a test kit. Weights within a category always sum to 100%.
+        </p>
+
+        {Object.entries(scoreDimensions).map(([slug, dims]) => (
+          <div key={slug} className="not-prose my-6 overflow-hidden rounded-xl border border-slate-200">
+            <p className="border-b border-slate-200 bg-slate-50 px-5 py-3 text-[15px] font-bold text-pool-900">
+              {categoryTitle(slug)}
+            </p>
+            <table className="w-full border-collapse text-left text-[15px]">
+              <thead>
+                <tr className="border-b border-slate-200 text-[11px] uppercase tracking-widest text-slate-500">
+                  <th scope="col" className="px-5 py-2.5 font-bold">Dimension</th>
+                  <th scope="col" className="px-5 py-2.5 font-bold">Weight</th>
+                </tr>
+              </thead>
+              <tbody>
+                {dims.map((d, i) => (
+                  <tr key={d.key} className={i % 2 ? 'bg-slate-50' : 'bg-white'}>
+                    <th scope="row" className="px-5 py-3 align-top font-semibold text-pool-900">
+                      {d.label}
+                      <span className="mt-0.5 block text-[13px] font-normal leading-snug text-slate-500">
+                        {d.blurb}
+                      </span>
+                    </th>
+                    <td className="whitespace-nowrap px-5 py-3 align-top font-bold text-pool-800">
+                      {Math.round(d.weight * 100)}%
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ))}
+
+        <p>
+          Categories without a published list above have not had a scored review yet. Until one is
+          written they fall back to a deliberately generic set —{' '}
+          {DEFAULT_DIMENSIONS.map((d) => `${d.label} ${Math.round(d.weight * 100)}%`).join(', ')} —
+          which exists so nothing ships unscored, not because it is good enough. A category gets its
+          own dimensions before it gets its first review.
+        </p>
+
+        <h3>Where the buying criteria live</h3>
 
         <ul className="not-prose grid gap-2 sm:grid-cols-2">
           {categories.map((c) => (

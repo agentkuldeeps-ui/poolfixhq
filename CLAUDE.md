@@ -76,6 +76,7 @@ lib/
   frontmatter.js              schema, validation, compliance failures
   content.js                  MDX loading, derived fields
   authors.js                  author entities. READ THE WARNING AT THE TOP
+  scoring.js                  per-category score dimensions + weights
   schema.js                   JSON-LD builders
   seo.js                      the single buildMetadata()
   site.js                     identity, amazonTag, feature flags
@@ -128,13 +129,15 @@ datePublished:
 dateModified:
 status:           # scaffold | live   -- scaffold is noindex,follow
 techNote:         # optional slug; if set, the body MUST render <TechNote>
+scores:           # {dimension: 0-10} per lib/scoring.js. SETS the rating
+buyersMiss:       # 5 strings -- feeds <ThingsBuyersMiss>
 products:
   - name:         # required
     asin:         # optional, but must be 10 uppercase alphanumeric if present
     brand: model:
     compat:       # hayward | pentair | jandy | polaris | dolphin | intex | bestway | n/a
     badge:        # roundups: best-overall | best-budget | best-premium | also-great
-    rating:       # 0-5, one decimal
+    rating:       # 0-5, one decimal. MUST equal the weighted `scores` / 2
     price_tier:   # budget | mid | premium   -- NEVER a dollar figure
     bestFor: notFor:
     specs: {}     # label -> value
@@ -160,6 +163,25 @@ RSS summary, used as the card excerpt in every listing, and written into
 It must **state the conclusion with no preamble.** The build rejects an answer
 starting "Here's what we found" or "In this review we'll look at" — that is
 worthless to an answer engine and to a reader.
+
+### Scoring
+
+`lib/scoring.js` holds, per category, the dimensions a product is judged on and
+the weight each carries. **Weights must sum to exactly 1** — checked at module
+load, so a bad edit throws on import rather than silently reweighting the site.
+
+The headline rating is derived, not asserted: `rating = weightedMean(scores) / 2`.
+`lib/frontmatter.js` fails the build when a declared `products[0].rating`
+differs from the computed value by more than 0.05. That is the whole point — a
+rating cannot be nudged without changing a dimension score that is printed on
+the page next to its weight.
+
+Adding a category: write its dimension list before its first review.
+`DEFAULT_DIMENSIONS` is a fallback so nothing ships unscored, not a substitute.
+
+`<Scorecard />` renders the table and recomputes the overall from the same
+numbers. `/how-we-test#scoring` renders the weight tables straight from this
+module, so the published method cannot drift from the code.
 
 ---
 

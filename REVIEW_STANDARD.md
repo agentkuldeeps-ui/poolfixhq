@@ -36,18 +36,48 @@ and actual opinions. Judgment is the moat.
 ## 2. Ratings
 
 A `rating` is our published judgment under `Review` schema, which asserts it
-is our evaluation. It must be defensible.
+is our evaluation. It must be defensible. **It is never typed in by hand.**
 
-Score against the `buyingCriteria` published on that category's hub — the same
-list for every product in the category, so the numbers compare. Where a score
-rests on manufacturer specification and synthesised owner feedback rather than
-hands-on use, the page says so.
+### 2.1 The mechanism
 
-Do not round a weak product up because 3.2 looks bad next to a competitor's
-page. If everything scores 4.5 the scale is decoration.
+`lib/scoring.js` publishes, per category, the dimensions a product is scored
+on and the weight each carries. Weights sum to exactly 1 — enforced at module
+load, so a typo throws rather than quietly reweighting the site.
 
-The build enforces the structural half: rate every product on a page or none.
-A partly-rated table invites a comparison that is not being made.
+Write the dimension scores into frontmatter as `scores:`, 0–10 each. The
+headline `rating` is then **weighted mean ÷ 2**, and `lib/frontmatter.js`
+fails the build if the declared `rating` differs from the computed one by more
+than 0.05.
+
+```yaml
+scores:
+  efficiency: 9
+  flowControl: 9
+  ...
+products:
+  - rating: 3.9      # must equal ratingFromScores(category, scores)
+```
+
+`<Scorecard />` renders the dimensions, the weights and the bars, and computes
+the overall from the same numbers. The reader can redo the arithmetic.
+
+### 2.2 The rules that make it honest
+
+- **Score the dimensions first, then read off the rating.** Do not pick a
+  rating and back-solve the dimensions into it.
+- **Never adjust weights to rescue a number.** Weights are a category-level
+  decision made before products, not a per-product dial. The IntelliFlo3 came
+  out at 3.9 against a 4.2 first draft; the 3.9 shipped.
+- Every dimension score must be defended somewhere in the body. A 6 with no
+  paragraph explaining the 6 is an unsourced claim.
+- Do not round a weak product up because 3.2 looks bad next to a competitor's
+  page. If everything scores 4.5 the scale is decoration.
+- A new category gets its own dimension list in `lib/scoring.js` **before** its
+  first review. `DEFAULT_DIMENSIONS` exists so nothing ships unscored, not
+  because it is adequate.
+
+The build also enforces the structural half: rate every product on a page or
+none. A partly-rated table invites a comparison that is not being made.
 
 ---
 
@@ -59,18 +89,60 @@ engine lifting the first self-contained passage after the H1.
 
 ### 3.1 Individual review (`type: review`, 900 words minimum)
 
+Three levels of information priority, in this order. A reader who leaves after
+level 1 must still have been served.
+
+**Level 1 — decide in 30 seconds** (above the fold, no scrolling required)
+
 1. `answer` — rendered automatically above the body
-2. `<KeyTakeaways>` — 3–5 standalone one-liners
-3. `<TableOfContents />`
-4. `<VerdictBox />` — verdict, best for, **not for**, rating, disclosure, CTA
-5. `<SpecTable>` — manufacturer figures, with provenance
-6. Performance against the category criteria, one H2 each
-7. `<ProsCons>` — both columns, always
-8. `<TechNote>` — the mechanism nobody else mentions
-9. Versus the alternatives
-10. What owners report, labelled as what it is
-11. `<AffiliateDisclosure />` then `<AffiliateButton />`
-12. `<FAQ />`, `<Sources />`
+2. `<QuickVerdict>` — rating, best for, not ideal for, the bottom line, CTA
+3. `<BeforeYouBuy>` — the checks that disqualify the product for some buyers,
+   including one prominent `warning`: the single thing most likely to make
+   this purchase a mistake
+4. `<Scorecard />` — the breakdown behind the rating, weights visible
+
+**Level 2 — the substance**
+
+5. How we evaluate this category (short, links to `/how-we-test#scoring`)
+6. What you actually get in the box, and what you do not
+7. Model differences, where a product line has confusable variants
+8. `<SpecTable>` — manufacturer figures, with provenance
+9. **What those specifications mean** — every spec that decides a purchase gets
+   translated into a consequence for the buyer. A spec table on its own is a
+   data dump; this section is the review.
+10. `<TechNote>` — the mechanism nobody else mentions
+11. Performance, one H2 per scored dimension, in scorecard order
+12. Compatibility, installation, common problems, long-term ownership
+13. Warranty — including what shrinks it
+14. Where you should buy it, and the honest answer even when it is not us
+
+**Level 3 — the buyer nobody else writes for**
+
+15. `<ThingsBuyersMiss>` — 5 points, from frontmatter `buyersMiss`
+16. `<WhoFor variant="buy">` and `<WhoFor variant="skip">` — named buyer
+    profiles with a reason each, never a generic "most people"
+17. Alternatives, with `<PlannedLink>` to comparison pages not yet written
+18. Is it worth the money
+19. `<ProsCons>` — both columns, always
+20. `<FAQ />`, `<Sources />`
+
+`<TechnicalDetails>` accordions carry depth that would otherwise bloat a
+section — the content ships in the HTML whether the accordion is open or not,
+deliberately, so crawlers see all of it.
+
+`<EvidenceNote>` labels the tier behind a claim: manufacturer, independent,
+professional, owner. Use it wherever a reader might reasonably assume we tested
+something we did not.
+
+The sidebar (`components/ReviewSidebar.jsx`) renders automatically on desktop
+from frontmatter — verdict, at-a-glance specs, table of contents, keep-reading
+links. Nothing to write for it, but keep `specs` short enough to be scannable
+there.
+
+**The publishing test.** Before shipping, ask: can a buyer answer these from
+the page alone? Will it fit my pool? Will it work with my equipment? What will
+it actually cost me to own? What goes wrong with it? Who should not buy this?
+What do I do if it breaks? If any answer is missing, the page is not finished.
 
 ### 3.2 Best-of roundup (`type: roundup`, 1200 words minimum)
 
@@ -156,10 +228,13 @@ notes: <emphasise / avoid>
 3. Research: manufacturer spec sheet and manual first, then 2–3 independent
    reviews, then owner-feedback themes. **Never pull price.** Never treat a
    retailer listing as a spec source.
-4. Write per §3 in the voice from §1. Cite per §4.
-5. Save to `content/{category}/{slug}.mdx`.
-6. `npm run build` must pass — links, SEO and compliance.
-7. Report back: file path, and **any claim that could not be verified.** That
+4. Confirm the category has a dimension list in `lib/scoring.js`. If not, write
+   one and defend the weights before writing a word of the review.
+5. Write per §3 in the voice from §1. Cite per §4. Score the dimensions per §2
+   and let the arithmetic set the rating.
+6. Save to `content/{category}/{slug}.mdx`.
+7. `npm run build` must pass — links, SEO and compliance.
+8. Report back: file path, and **any claim that could not be verified.** That
    last part is not optional.
 
 ---

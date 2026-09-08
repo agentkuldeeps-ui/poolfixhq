@@ -5,6 +5,7 @@ import MdxRenderer from '@/components/MdxRenderer'
 import AuthorByline from '@/components/AuthorByline'
 import AnswerBlock from '@/components/AnswerBlock'
 import ArticleCard from '@/components/ArticleCard'
+import ReviewSidebar from '@/components/ReviewSidebar'
 import { categoryBySlug, subcategoryLabel } from '@/lib/taxonomy'
 import { getRelated } from '@/lib/content'
 import { articleSchema } from '@/lib/schema'
@@ -75,14 +76,20 @@ export default function ArticlePage({ article }) {
         </header>
 
         <div className="container-page py-8">
-          <div className="mx-auto max-w-3xl">
-            {/* The answer block is rendered here rather than left to the MDX,
-                so no page can ship without one. check-seo.mjs enforces it. */}
-            <AnswerBlock answer={article.answer} />
+          {/* Two-column on desktop, single column below `lg`. The sidebar is
+              hidden rather than stacked on mobile -- see ReviewSidebar. */}
+          <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr),19rem] lg:gap-12">
+            <div className="min-w-0 max-w-3xl">
+              {/* The answer block is rendered here rather than left to the MDX,
+                  so no page can ship without one. check-seo.mjs enforces it. */}
+              <AnswerBlock answer={article.answer} />
 
-            <div className="prose prose-slate max-w-none prose-headings:scroll-mt-24 prose-p:text-[17px] prose-p:leading-relaxed prose-li:text-[17px]">
-              <MdxRenderer source={article.body} article={article} />
+              <div className="prose prose-slate max-w-none prose-headings:scroll-mt-24 prose-p:text-[17px] prose-p:leading-relaxed prose-li:text-[17px]">
+                <MdxRenderer source={article.body} article={article} />
+              </div>
             </div>
+
+            <ReviewSidebar article={article} />
           </div>
         </div>
 
