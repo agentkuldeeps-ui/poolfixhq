@@ -5,8 +5,9 @@
   "description": "Pool product reviews. Static Next.js, MDX content, schema-validated frontmatter.",
   "scripts": {
     "dev": "next dev",
-    "build": "next build && npm run check",
+    "build": "node scripts/check-env.mjs && next build && npm run check",
     "check": "node scripts/check-links.mjs && node scripts/check-seo.mjs && node scripts/check-compliance.mjs",
+    "check:env": "node scripts/check-env.mjs",
     "check:links": "node scripts/check-links.mjs",
     "check:seo": "node scripts/check-seo.mjs",
     "check:compliance": "node scripts/check-compliance.mjs",

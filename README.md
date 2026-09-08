@@ -23,13 +23,19 @@ NEXT_PUBLIC_SITE_URL=https://poolfixhq.com
 NEXT_PUBLIC_AMAZON_TAG=yourtag-20
 ```
 
-`NEXT_PUBLIC_AMAZON_TAG` has a deliberately fake fallback. The compliance
-checker fails the build if that fallback reaches a rendered link, so an
-untagged affiliate link cannot ship.
+`NEXT_PUBLIC_AMAZON_TAG` has a deliberately fake fallback. `scripts/check-env.mjs`
+runs before every build and fails fast if a **live page declares an ASIN** while
+the tag is unset, so an untagged affiliate link cannot ship. A site with no
+published affiliate links still builds fine without it.
+
+**`.env.local` is gitignored, so setting it on your machine does not set it on
+Vercel.** Add both variables under Project → Settings → Environment Variables,
+scoped to Production, Preview and Development, then redeploy — Next only reads
+them at build time.
 
 ## Before publishing anything
 
-1. Set `NEXT_PUBLIC_AMAZON_TAG`.
+1. Set `NEXT_PUBLIC_AMAZON_TAG` **in Vercel**, not just locally.
 2. Add a real author to `lib/authors.js` and remove `placeholder: true`. Read
    the comment block at the top of that file first — every field must be true.
 
