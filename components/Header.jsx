@@ -52,7 +52,13 @@ export default function Header() {
                   <Chevron className="h-3.5 w-3.5 transition-transform group-open/cat:rotate-180" />
                 </summary>
 
-                <div className="absolute left-0 top-11 w-[44rem] rounded-xl border border-slate-200 bg-white p-5 shadow-lg">
+                {/* Anchored to the RIGHT edge of the trigger, not the left.
+                    Left-anchored, a 44rem panel hanging off a nav item that
+                    sits two thirds across the header runs 80px past the right
+                    edge of a 1440px screen, and further on anything narrower.
+                    Anchoring right means it grows back towards the middle of
+                    the page, where there is always room. */}
+                <div className="absolute right-0 top-11 w-[44rem] max-w-[calc(100vw-2rem)] rounded-xl border border-slate-200 bg-white p-5 shadow-lg">
                   <div className="grid grid-cols-3 gap-x-6">
                     {categoriesByNavGroup.map(({ group, items }) => (
                       <div key={group}>

@@ -5,6 +5,7 @@ import BeforeYouBuy from './BeforeYouBuy'
 import ComparisonTable from './ComparisonTable'
 import EvidenceNote from './EvidenceNote'
 import FAQ from './FAQ'
+import Figure from './Figure'
 import KeyTakeaways from './KeyTakeaways'
 import PlannedLink from './PlannedLink'
 import ProsCons from './ProsCons'
@@ -55,10 +56,22 @@ export function mdxComponents({ article } = {}) {
     Sources: (props) => <Sources sources={article?.sources ?? []} {...props} />,
     ComparisonTable: (props) => <ComparisonTable rows={article?.products ?? []} {...props} />,
 
+    // A plain markdown table in a body has no wrapper of its own, so a wide
+    // one pushes the whole page sideways on a phone instead of scrolling
+    // inside its own box. Every one gets a scroll container.
+    table: (props) => (
+      <div className="my-6 overflow-x-auto">
+        <table {...props} />
+      </div>
+    ),
+    // Same problem, same fix, for fenced code blocks.
+    pre: (props) => <pre className="overflow-x-auto" {...props} />,
+
     AffiliateButton,
     AffiliateDisclosure,
     BeforeYouBuy,
     EvidenceNote,
+    Figure,
     KeyTakeaways,
     PlannedLink,
     ProsCons,
@@ -79,6 +92,7 @@ export {
   ComparisonTable,
   EvidenceNote,
   FAQ,
+  Figure,
   KeyTakeaways,
   PlannedLink,
   ProsCons,

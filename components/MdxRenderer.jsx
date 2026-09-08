@@ -20,6 +20,26 @@ export default function MdxRenderer({ source, article }) {
       source={source}
       components={mdxComponents({ article })}
       options={{
+        /**
+         * next-mdx-remote v6 turns on `blockJS` by default, which injects a
+         * remark plugin that STRIPS EVERY JSX EXPRESSION ATTRIBUTE from the
+         * MDX. String and boolean attributes survive; anything written as
+         * {...} is silently deleted.
+         *
+         * That default exists for sites compiling MDX submitted by untrusted
+         * users, where an expression is arbitrary code execution. Our MDX is
+         * authored in this repository, reviewed in the same pull request as
+         * the components it calls, and never accepts outside input -- so the
+         * threat it defends against does not exist here, while the cost is
+         * enormous: <BeforeYouBuy rows={[...]}/>, <Scorecard notes={{...}}/>,
+         * <ProsCons pros={[...]}/> and every other data-carrying component
+         * renders empty with no error at all.
+         *
+         * `blockDangerousJS` stays on (its default), so eval-style calls are
+         * still rejected. If MDX ever comes from outside this repo, this line
+         * has to be reconsidered before that content is compiled.
+         */
+        blockJS: false,
         mdxOptions: {
           remarkPlugins: [remarkGfm],
           rehypePlugins: [

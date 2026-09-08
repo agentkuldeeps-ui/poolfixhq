@@ -10,7 +10,14 @@
  * drawback for its intended buyer, say who it IS wrong for instead.
  */
 export default function ProsCons({ pros = [], cons = [], title }) {
-  if (!pros.length && !cons.length) return null
+  // See the note in BeforeYouBuy.jsx. Both columns are required by the
+  // editorial standard anyway, so an empty one is always a bug.
+  if (!pros.length || !cons.length) {
+    throw new Error(
+      `[ProsCons] needs both columns — got ${pros.length} pros and ${cons.length} cons. ` +
+        'If the MDX passes both, check `blockJS` in components/MdxRenderer.jsx.',
+    )
+  }
 
   return (
     <section className="my-8">

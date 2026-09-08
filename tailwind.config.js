@@ -82,9 +82,23 @@ module.exports = {
             maxWidth: 'none',
             a: { textUnderlineOffset: '3px' },
             'h2 a, h3 a': { textDecoration: 'none' },
-            // Wide spec tables must scroll inside themselves rather than
-            // forcing the page to scroll sideways on a phone.
-            table: { display: 'block', overflowX: 'auto', whiteSpace: 'nowrap' },
+            // NO `table` OVERRIDE HERE, deliberately.
+            //
+            // This used to carry `display: block; overflow-x: auto;
+            // white-space: nowrap`, intended to stop a wide spec table
+            // dragging the whole page sideways. It did stop that, and it
+            // caused something worse: `white-space: nowrap` forbids wrapping
+            // in EVERY cell of EVERY table inside prose, so a two-line note in
+            // a table cell ran off the edge on a phone instead of wrapping.
+            // `display: block` also silently disables `table-layout: fixed`
+            // and percentage column widths, so the usual fix stopped working.
+            //
+            // Horizontal scrolling now lives where it belongs -- on a wrapper
+            // element, one per table. Markdown tables get theirs from the
+            // `table` override in components/mdx/index.js; component tables
+            // (SpecTable, BeforeYouBuy, ComparisonTable, Scorecard) each ship
+            // with their own. The table itself stays a real table and its text
+            // wraps like text.
           },
         },
       }),

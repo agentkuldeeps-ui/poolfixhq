@@ -51,15 +51,23 @@ export default function Scorecard({ article, notes = {}, title = 'Our score' }) 
           </div>
         </div>
 
-        <table className="w-full border-collapse text-left text-[15px]">
+        {/* The rounded border above uses overflow-hidden, which CLIPS rather
+            than scrolls. Without this inner scroll container the Weight and
+            Score columns are invisible and unreachable on a phone. */}
+        <div className="overflow-x-auto">
+        <table className="w-full table-fixed border-collapse text-left text-[15px]">
           <caption className="sr-only">
             Score breakdown by dimension, with the weight each dimension carries.
           </caption>
           <thead>
             <tr className="border-b border-slate-200 bg-white text-[11px] uppercase tracking-widest text-slate-500">
-              <th scope="col" className="px-5 py-2.5 font-bold">Dimension</th>
-              <th scope="col" className="px-3 py-2.5 font-bold">Weight</th>
-              <th scope="col" className="px-5 py-2.5 font-bold">Score</th>
+              <th scope="col" className="w-[46%] px-3 py-2.5 font-bold sm:w-[52%] sm:px-5">
+                Dimension
+              </th>
+              <th scope="col" className="w-[16%] px-2 py-2.5 font-bold sm:w-[12%] sm:px-3">
+                Weight
+              </th>
+              <th scope="col" className="px-3 py-2.5 font-bold sm:px-5">Score</th>
             </tr>
           </thead>
           <tbody>
@@ -68,24 +76,27 @@ export default function Scorecard({ article, notes = {}, title = 'Our score' }) 
               const band = scoreBand(v)
               return (
                 <tr key={d.key} className={i % 2 ? 'bg-slate-50' : 'bg-white'}>
-                  <th scope="row" className="px-5 py-3 align-top font-semibold text-pool-900">
+                  <th
+                    scope="row"
+                    className="px-3 py-3 align-top font-semibold text-pool-900 sm:px-5"
+                  >
                     {d.label}
                     <span className="mt-0.5 block text-[13px] font-normal leading-snug text-slate-500">
                       {notes[d.key] ?? d.blurb}
                     </span>
                   </th>
-                  <td className="whitespace-nowrap px-3 py-3 align-top text-sm text-slate-500">
+                  <td className="whitespace-nowrap px-2 py-3 align-top text-sm text-slate-500 sm:px-3">
                     {Math.round(d.weight * 100)}%
                   </td>
-                  <td className="px-5 py-3 align-top">
-                    <div className="flex items-center gap-2.5">
+                  <td className="px-3 py-3 align-top sm:px-5">
+                    <div className="flex items-center gap-2 sm:gap-2.5">
                       <span className="w-9 shrink-0 font-bold text-pool-900">
                         {v.toFixed(0)}
                         <span className="text-xs font-semibold text-slate-400">/10</span>
                       </span>
                       <span
                         aria-hidden="true"
-                        className="h-2 w-24 shrink-0 overflow-hidden rounded-full bg-slate-200"
+                        className="hidden h-2 w-16 shrink-0 overflow-hidden rounded-full bg-slate-200 sm:block sm:w-24"
                       >
                         <span
                           className={`block h-full rounded-full ${BAND_COLOR[band]}`}
@@ -100,6 +111,7 @@ export default function Scorecard({ article, notes = {}, title = 'Our score' }) 
             })}
           </tbody>
         </table>
+        </div>
       </div>
 
       <p className="mt-3 text-[13.5px] leading-relaxed text-slate-500">

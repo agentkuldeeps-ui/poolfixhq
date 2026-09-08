@@ -29,7 +29,14 @@ const STYLES = {
 }
 
 export default function WhoFor({ variant = 'buy', items = [], title, id }) {
-  if (!items.length) return null
+  // See the note in BeforeYouBuy.jsx: an empty data prop means the JSX
+  // expression was stripped, not that the author wanted an empty section.
+  if (!items.length) {
+    throw new Error(
+      `[WhoFor variant="${variant}"] rendered with no items. If the MDX passes ` +
+        'items={[...]}, check `blockJS` in components/MdxRenderer.jsx.',
+    )
+  }
   const s = STYLES[variant] ?? STYLES.buy
   const headingId = id ?? `who-${variant}`
 

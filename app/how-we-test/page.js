@@ -170,29 +170,35 @@ export default function HowWeTestPage() {
             <p className="border-b border-slate-200 bg-slate-50 px-5 py-3 text-[15px] font-bold text-pool-900">
               {categoryTitle(slug)}
             </p>
-            <table className="w-full border-collapse text-left text-[15px]">
-              <thead>
-                <tr className="border-b border-slate-200 text-[11px] uppercase tracking-widest text-slate-500">
-                  <th scope="col" className="px-5 py-2.5 font-bold">Dimension</th>
-                  <th scope="col" className="px-5 py-2.5 font-bold">Weight</th>
-                </tr>
-              </thead>
-              <tbody>
-                {dims.map((d, i) => (
-                  <tr key={d.key} className={i % 2 ? 'bg-slate-50' : 'bg-white'}>
-                    <th scope="row" className="px-5 py-3 align-top font-semibold text-pool-900">
-                      {d.label}
-                      <span className="mt-0.5 block text-[13px] font-normal leading-snug text-slate-500">
-                        {d.blurb}
-                      </span>
-                    </th>
-                    <td className="whitespace-nowrap px-5 py-3 align-top font-bold text-pool-800">
-                      {Math.round(d.weight * 100)}%
-                    </td>
+            {/* overflow-hidden on the wrapper clips; this scrolls instead. */}
+            <div className="overflow-x-auto">
+              <table className="w-full table-fixed border-collapse text-left text-[15px]">
+                <thead>
+                  <tr className="border-b border-slate-200 text-[11px] uppercase tracking-widest text-slate-500">
+                    <th scope="col" className="px-3 py-2.5 font-bold sm:px-5">Dimension</th>
+                    <th scope="col" className="w-24 px-3 py-2.5 font-bold sm:px-5">Weight</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {dims.map((d, i) => (
+                    <tr key={d.key} className={i % 2 ? 'bg-slate-50' : 'bg-white'}>
+                      <th
+                        scope="row"
+                        className="px-3 py-3 align-top font-semibold text-pool-900 sm:px-5"
+                      >
+                        {d.label}
+                        <span className="mt-0.5 block text-[13px] font-normal leading-snug text-slate-500">
+                          {d.blurb}
+                        </span>
+                      </th>
+                      <td className="whitespace-nowrap px-3 py-3 align-top font-bold text-pool-800 sm:px-5">
+                        {Math.round(d.weight * 100)}%
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         ))}
 

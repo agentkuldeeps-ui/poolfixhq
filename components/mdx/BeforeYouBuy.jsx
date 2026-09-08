@@ -10,25 +10,39 @@
  * buyers up; if a review cannot name it, the review is not finished.
  */
 export default function BeforeYouBuy({ rows = [], warning, title = 'Before you buy' }) {
-  if (!rows.length) return null
+  // Loud, not silent. Returning null here once hid a real bug for a whole
+  // release: next-mdx-remote's blockJS option strips {...} attributes, so
+  // `rows` arrived empty and this section vanished from the page with no
+  // error anywhere. A component that needs data should say so.
+  if (!rows.length) {
+    throw new Error(
+      '[BeforeYouBuy] rendered with no rows. If the MDX does pass rows={[...]}, ' +
+        'the JSX expression is being stripped before it reaches the component — ' +
+        'check `blockJS` in components/MdxRenderer.jsx.',
+    )
+  }
 
   return (
     <section className="my-8" aria-labelledby="before-you-buy">
       <h2 id="before-you-buy">{title}</h2>
 
+      {/* table-fixed, not auto. With auto layout the browser sizes columns to
+          their longest unwrapped content, so the `note` lines push this table
+          to ~590px and a phone gets a sideways scroll instead of a readable
+          table. Fixed layout makes the w-2/5 hint real and lets text wrap. */}
       <div className="mt-4 overflow-x-auto rounded-xl border border-slate-200">
-        <table className="w-full border-collapse text-left text-[15px]">
+        <table className="w-full table-fixed border-collapse text-left text-[15px]">
           <caption className="sr-only">Key details to check before purchasing.</caption>
           <tbody>
             {rows.map((r, i) => (
               <tr key={r.label} className={i % 2 ? 'bg-slate-50' : 'bg-white'}>
                 <th
                   scope="row"
-                  className="w-2/5 border-b border-slate-100 px-4 py-3 align-top font-semibold text-pool-900"
+                  className="w-2/5 border-b border-slate-100 px-3 py-3 align-top font-semibold text-pool-900 sm:px-4"
                 >
                   {r.label}
                 </th>
-                <td className="border-b border-slate-100 px-4 py-3 align-top text-slate-700">
+                <td className="border-b border-slate-100 px-3 py-3 align-top text-slate-700 sm:px-4">
                   {r.value}
                   {r.note && <span className="mt-1 block text-[13px] text-slate-500">{r.note}</span>}
                 </td>

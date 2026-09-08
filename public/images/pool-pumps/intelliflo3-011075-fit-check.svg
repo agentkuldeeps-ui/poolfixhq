@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" role="img" aria-labelledby="ft fd">
+  <title id="ft">Will the Pentair IntelliFlo3 011075 fit your pool?</title>
+  <desc id="fd">Four checks before buying the 3 horsepower IntelliFlo3 011075. Plumbing must be 2 inch or larger, the equipment pad needs 208 to 230 volt service with a GFCI device, older Pentair IntelliTouch automation is not reliably compatible, and the touchscreen and I/O relay board are sold separately.</desc>
+  <style>
+    .f { font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+    .hd { font-size: 25px; font-weight: 800; fill: #0A3E58; }
+    .sub { font-size: 15px; fill: #64748b; }
+    .num { font-size: 15px; font-weight: 800; fill: #ffffff; }
+    .q { font-size: 17px; font-weight: 700; fill: #0A3E58; }
+    .a { font-size: 13.5px; fill: #475569; }
+    .tagok { font-size: 12px; font-weight: 800; fill: #15803d; }
+    .tagno { font-size: 12px; font-weight: 800; fill: #b45309; }
+  </style>
+  <rect width="960" height="500" fill="#ffffff"/>
+  <g class="f">
+    <text x="40" y="46" class="hd">Four checks before you buy the 011075</text>
+    <text x="40" y="72" class="sub">Any one of these can make the 3 HP the wrong pump for your pad</text>
+
+    <rect x="40" y="100" width="880" height="84" rx="10" fill="#ffffff" stroke="#e2e8f0"/>
+    <circle cx="76" cy="142" r="17" fill="#0F6188"/>
+    <text x="76" y="148" class="num" text-anchor="middle">1</text>
+    <text x="110" y="132" class="q">Is your plumbing 2 inch or larger?</text>
+    <text x="110" y="158" class="a">On 1.5 inch pipe the system cannot use the flow. The 1.5 HP 011065 is the better buy.</text>
+    <rect x="792" y="126" width="108" height="30" rx="15" fill="#fffbeb" stroke="#fcd34d"/>
+    <text x="846" y="146" class="tagno" text-anchor="middle">deal breaker</text>
+
+    <rect x="40" y="196" width="880" height="84" rx="10" fill="#ffffff" stroke="#e2e8f0"/>
+    <circle cx="76" cy="238" r="17" fill="#0F6188"/>
+    <text x="76" y="244" class="num" text-anchor="middle">2</text>
+    <text x="110" y="228" class="q">Do you have 208&#8211;230V at the equipment pad?</text>
+    <text x="110" y="254" class="a">No 115V option on this model, unlike the 1.5 HP. A GFCI protective device is also required.</text>
+    <rect x="792" y="222" width="108" height="30" rx="15" fill="#fffbeb" stroke="#fcd34d"/>
+    <text x="846" y="242" class="tagno" text-anchor="middle">deal breaker</text>
+
+    <rect x="40" y="292" width="880" height="84" rx="10" fill="#ffffff" stroke="#e2e8f0"/>
+    <circle cx="76" cy="334" r="17" fill="#0F6188"/>
+    <text x="76" y="340" class="num" text-anchor="middle">3</text>
+    <text x="110" y="324" class="q">Are you running older Pentair IntelliTouch automation?</text>
+    <text x="110" y="350" class="a">Documented baud-rate mismatch causing random shutdowns. Not currently compatible with SolarTouch.</text>
+    <rect x="792" y="318" width="108" height="30" rx="15" fill="#fffbeb" stroke="#fcd34d"/>
+    <text x="846" y="338" class="tagno" text-anchor="middle">check first</text>
+
+    <rect x="40" y="388" width="880" height="84" rx="10" fill="#ffffff" stroke="#e2e8f0"/>
+    <circle cx="76" cy="430" r="17" fill="#0F6188"/>
+    <text x="76" y="436" class="num" text-anchor="middle">4</text>
+    <text x="110" y="420" class="q">Were you expecting a touchscreen in the box?</text>
+    <text x="110" y="446" class="a">Three-button drive only. Touchscreen, I/O relay board and 3 inch union kit are separate part numbers.</text>
+    <rect x="792" y="414" width="108" height="30" rx="15" fill="#ecfdf5" stroke="#86efac"/>
+    <text x="846" y="434" class="tagok" text-anchor="middle">add later</text>
+  </g>
+</svg>

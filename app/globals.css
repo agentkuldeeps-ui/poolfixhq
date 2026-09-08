@@ -35,6 +35,34 @@
   :focus-visible {
     @apply outline-2 outline-offset-2 outline-accent-600;
   }
+
+  /* Overflow guard rails.
+
+     Long unbroken tokens -- model numbers like 011075-EU, part numbers, bare
+     URLs in a sources list -- have no break opportunity, so they push their
+     container wider than the viewport and the page scrolls sideways. This
+     lets the browser break them as a last resort rather than blowing out the
+     layout. Applied to text-bearing elements only, never to layout wrappers,
+     so it cannot change how a grid or flex row is sized. */
+  p,
+  li,
+  dd,
+  dt,
+  td,
+  th,
+  h1,
+  h2,
+  h3,
+  h4,
+  figcaption,
+  blockquote {
+    overflow-wrap: anywhere;
+  }
+
+  /* A URL is the worst offender: break it at the punctuation it already has. */
+  a[href^='http'] {
+    word-break: break-word;
+  }
 }
 
 @layer components {

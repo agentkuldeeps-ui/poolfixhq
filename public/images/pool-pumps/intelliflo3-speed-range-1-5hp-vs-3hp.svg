@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 440" width="960" height="440" role="img" aria-labelledby="srt srd">
+  <title id="srt">IntelliFlo3 speed range: 1.5 HP versus 3 HP</title>
+  <desc id="srd">The 1.5 horsepower IntelliFlo3 runs 400 to 4,000 RPM with a Weighted Energy Factor of 9.4. The 3 horsepower model runs 450 to 3,450 RPM with a Weighted Energy Factor of 7.1, so the larger pump has both a higher minimum speed and a lower maximum speed.</desc>
+  <style>
+    .f { font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+    .hd { font-size: 25px; font-weight: 800; fill: #0A3E58; }
+    .sub { font-size: 15px; fill: #64748b; }
+    .lbl { font-size: 17px; font-weight: 700; fill: #0A3E58; }
+    .meta { font-size: 13.5px; fill: #64748b; }
+    .tick { font-size: 12.5px; fill: #94a3b8; }
+    .val { font-size: 13.5px; font-weight: 700; fill: #ffffff; }
+    .note { font-size: 14.5px; fill: #0A3E58; }
+    .pill { font-size: 12.5px; font-weight: 700; }
+  </style>
+  <rect width="960" height="440" fill="#ffffff"/>
+  <g class="f">
+    <text x="40" y="46" class="hd">Bigger horsepower, narrower speed band</text>
+    <text x="40" y="72" class="sub">Published speed range and efficiency rating for the two IntelliFlo3 VSF models</text>
+    <line x1="250" y1="130" x2="890" y2="130" stroke="#e2e8f0" stroke-width="1"/>
+    <g class="tick" text-anchor="middle">
+      <text x="250" y="120">0</text>
+      <text x="410" y="120">1,000</text>
+      <text x="570" y="120">2,000</text>
+      <text x="730" y="120">3,000</text>
+      <text x="890" y="120">4,000 RPM</text>
+    </g>
+    <g stroke="#f1f5f9" stroke-width="1">
+      <line x1="410" y1="130" x2="410" y2="330"/>
+      <line x1="570" y1="130" x2="570" y2="330"/>
+      <line x1="730" y1="130" x2="730" y2="330"/>
+      <line x1="890" y1="130" x2="890" y2="330"/>
+    </g>
+    <text x="40" y="172" class="lbl">1.5 HP &#8212; 011065</text>
+    <text x="40" y="194" class="meta">WEF 9.4 &#183; 115V or 240V</text>
+    <rect x="314" y="150" width="576" height="42" rx="8" fill="#0F6188"/>
+    <text x="326" y="177" class="val">400 RPM</text>
+    <text x="878" y="177" class="val" text-anchor="end">4,000 RPM</text>
+    <text x="40" y="262" class="lbl">3.0 HP &#8212; 011075</text>
+    <text x="40" y="284" class="meta">WEF 7.1 &#183; 240V only</text>
+    <rect x="322" y="240" width="480" height="42" rx="8" fill="#083247"/>
+    <text x="334" y="267" class="val">450 RPM</text>
+    <text x="790" y="267" class="val" text-anchor="end">3,450 RPM</text>
+    <rect x="802" y="240" width="88" height="42" rx="8" fill="#fef3c7" stroke="#f59e0b" stroke-dasharray="4 3"/>
+    <text x="846" y="267" class="pill" fill="#b45309" text-anchor="middle">550 lost</text>
+    <line x1="250" y1="330" x2="890" y2="330" stroke="#cbd5e1" stroke-width="1"/>
+    <rect x="40" y="356" width="880" height="60" rx="10" fill="#f0f7fb" stroke="#bfdcea"/>
+    <rect x="40" y="356" width="5" height="60" rx="2.5" fill="#F77316"/>
+    <text x="64" y="383" class="note" font-weight="700">The 3 HP starts higher and stops sooner.</text>
+    <text x="64" y="404" class="note" fill="#475569">Its speed band is 3,000 RPM wide against the 1.5 HP model&#8217;s 3,600, and its efficiency rating is lower.</text>
+  </g>
+</svg>

@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 470" width="960" height="470" role="img" aria-labelledby="wt wd">
+  <title id="wt">Pentair pool pump warranty by purchase path</title>
+  <desc id="wd">Buying from a dealer, builder or pool service company with professional installation and registration gives three years parts and labour. Buying from an internet retailer gives one year parts only with no labour. Failing to register the pump leaves the base limited warranty of 60 days.</desc>
+  <style>
+    .f { font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+    .hd { font-size: 25px; font-weight: 800; fill: #0A3E58; }
+    .sub { font-size: 15px; fill: #64748b; }
+    .col { font-size: 12px; font-weight: 800; letter-spacing: 1.2px; fill: #64748b; }
+    .path { font-size: 16px; font-weight: 700; fill: #0A3E58; }
+    .cond { font-size: 13px; fill: #64748b; }
+    .big { font-size: 27px; font-weight: 800; }
+    .small { font-size: 13.5px; font-weight: 600; }
+  </style>
+  <rect width="960" height="470" fill="#ffffff"/>
+  <g class="f">
+    <text x="40" y="46" class="hd">The same pump, three different warranties</text>
+    <text x="40" y="72" class="sub">Pentair&#8217;s published policy. Where you buy changes the coverage more than anything else does.</text>
+    <text x="40" y="112" class="col">WHERE YOU BOUGHT IT</text>
+    <text x="620" y="112" class="col">WHAT YOU ACTUALLY GET</text>
+
+    <rect x="40" y="128" width="500" height="84" rx="10" fill="#f8fafc" stroke="#e2e8f0"/>
+    <rect x="40" y="128" width="5" height="84" rx="2.5" fill="#15803d"/>
+    <text x="64" y="158" class="path">Dealer, builder or pool service company</text>
+    <text x="64" y="181" class="cond">Professionally installed, and registered with Pentair</text>
+    <text x="64" y="200" class="cond">within the required window</text>
+    <path d="M556 170 h36" stroke="#cbd5e1" stroke-width="2" fill="none"/>
+    <path d="M586 164 l10 6 l-10 6 z" fill="#cbd5e1"/>
+    <rect x="608" y="128" width="312" height="84" rx="10" fill="#ecfdf5" stroke="#86efac"/>
+    <text x="632" y="168" class="big" fill="#15803d">3 years</text>
+    <text x="632" y="192" class="small" fill="#166534">Parts and labour</text>
+
+    <rect x="40" y="228" width="500" height="84" rx="10" fill="#f8fafc" stroke="#e2e8f0"/>
+    <rect x="40" y="228" width="5" height="84" rx="2.5" fill="#b45309"/>
+    <text x="64" y="258" class="path">An internet retailer</text>
+    <text x="64" y="281" class="cond">Including the link on this page. Registration still</text>
+    <text x="64" y="300" class="cond">required, but it does not restore the full term.</text>
+    <path d="M556 270 h36" stroke="#cbd5e1" stroke-width="2" fill="none"/>
+    <path d="M586 264 l10 6 l-10 6 z" fill="#cbd5e1"/>
+    <rect x="608" y="228" width="312" height="84" rx="10" fill="#fffbeb" stroke="#fcd34d"/>
+    <text x="632" y="268" class="big" fill="#b45309">1 year</text>
+    <text x="632" y="292" class="small" fill="#92400e">Parts only &#8212; no labour</text>
+
+    <rect x="40" y="328" width="500" height="84" rx="10" fill="#f8fafc" stroke="#e2e8f0"/>
+    <rect x="40" y="328" width="5" height="84" rx="2.5" fill="#b91c1c"/>
+    <text x="64" y="358" class="path">Anywhere, but never registered</text>
+    <text x="64" y="381" class="cond">The base limited warranty is all that remains,</text>
+    <text x="64" y="400" class="cond">whoever you bought it from.</text>
+    <path d="M556 370 h36" stroke="#cbd5e1" stroke-width="2" fill="none"/>
+    <path d="M586 364 l10 6 l-10 6 z" fill="#cbd5e1"/>
+    <rect x="608" y="328" width="312" height="84" rx="10" fill="#fef2f2" stroke="#fca5a5"/>
+    <text x="632" y="368" class="big" fill="#b91c1c">60 days</text>
+    <text x="632" y="392" class="small" fill="#991b1b">Base limited warranty</text>
+
+    <text x="40" y="446" class="cond">Source: Pentair Pool Product Warranty Information and Pool Warranty Registration Card (P/N 151632.C).</text>
+  </g>
+</svg>

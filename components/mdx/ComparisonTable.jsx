@@ -102,7 +102,14 @@ export default function ComparisonTable({
         </div>
       )}
 
-      <div className="mt-4 overflow-x-auto rounded-xl border border-slate-200">
+      {/* This one genuinely cannot fit a phone -- it is a product against
+          three to six spec columns, and squeezing it would make every column
+          unreadable. So it scrolls inside its own box, and says so, because a
+          table that is silently cut off at the edge looks like a bug. */}
+      <p className="mt-4 text-[13px] text-slate-500 sm:hidden" aria-hidden="true">
+        Swipe the table sideways to see every column.
+      </p>
+      <div className="mt-2 overflow-x-auto rounded-xl border border-slate-200 sm:mt-4">
         <table className="w-full border-collapse text-left text-[15px]">
           {caption && <caption className="sr-only">{caption}</caption>}
           <thead>
