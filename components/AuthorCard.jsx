@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { getAuthor } from '@/lib/authors'
+import { getAuthor, profileLabel } from '@/lib/authors'
 import { categoryBySlug } from '@/lib/taxonomy'
 
 function Initials({ name }) {
@@ -115,20 +115,28 @@ export default function AuthorCard({ slug, className = '' }) {
             </p>
           )}
 
+          {/* rel="me" is doing real work here, not decoration: it is the
+              microformat that declares this link points at the same person,
+              and it is half of what makes `sameAs` a verifiable claim rather
+              than an assertion. */}
           {author.sameAs?.length > 0 && (
-            <ul className="mt-3 flex flex-wrap gap-3 text-[13.5px]">
-              {author.sameAs.map((u) => (
-                <li key={u}>
-                  <a
-                    href={u}
-                    target="_blank"
-                    rel="noopener me"
-                    className="text-pool-700 hover:underline"
-                  >
-                    {new URL(u).hostname.replace(/^www\./, '')}
-                  </a>
-                </li>
-              ))}
+            <ul className="mt-3 flex flex-wrap gap-x-4 gap-y-1.5 text-[13.5px]">
+              {author.sameAs.map((u) => {
+                const { network, handle } = profileLabel(u)
+                return (
+                  <li key={u}>
+                    <a
+                      href={u}
+                      target="_blank"
+                      rel="noopener me"
+                      className="font-medium text-pool-700 hover:underline"
+                    >
+                      {network}
+                      {handle && <span className="font-normal text-slate-500"> {handle}</span>}
+                    </a>
+                  </li>
+                )
+              })}
             </ul>
           )}
         </div>

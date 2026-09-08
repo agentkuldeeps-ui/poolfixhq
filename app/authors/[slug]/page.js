@@ -4,7 +4,7 @@ import ArticleCard from '@/components/ArticleCard'
 import Breadcrumbs from '@/components/Breadcrumbs'
 import JsonLd from '@/components/JsonLd'
 import PageHeader from '@/components/PageHeader'
-import { authors, getAuthor } from '@/lib/authors'
+import { authors, getAuthor, profileLabel } from '@/lib/authors'
 import { categoryBySlug } from '@/lib/taxonomy'
 import { getLiveArticles } from '@/lib/content'
 import { breadcrumbSchema, personSchema } from '@/lib/schema'
@@ -121,8 +121,44 @@ export default function AuthorPage({ params }) {
               </figure>
             )}
 
-            <div className="prose prose-slate min-w-0 max-w-none prose-p:text-[17px]">
-              <p className="!mt-0">{author.bio}</p>
+            <div className="min-w-0">
+              <div className="prose prose-slate max-w-none prose-p:text-[17px]">
+                <p className="!mt-0">{author.bio}</p>
+              </div>
+
+              {/* Elsewhere on the web. This is the half of E-E-A-T a site
+                  cannot manufacture for itself: anyone can publish a byline,
+                  but a byline that resolves to the same person on a platform
+                  we do not control is checkable. rel="me" states the claim in
+                  a form a machine reads; the visible handle states it in a
+                  form a reader can go and confirm. */}
+              {author.sameAs?.length > 0 && (
+                <div className="mt-5">
+                  <p className="text-[11px] font-bold uppercase tracking-widest text-pool-600">
+                    Elsewhere
+                  </p>
+                  <ul className="mt-2 flex flex-wrap gap-x-5 gap-y-2 text-[15px]">
+                    {author.sameAs.map((u) => {
+                      const { network, handle } = profileLabel(u)
+                      return (
+                        <li key={u}>
+                          <a
+                            href={u}
+                            target="_blank"
+                            rel="noopener me"
+                            className="font-semibold text-pool-700 hover:underline"
+                          >
+                            {network}
+                            {handle && (
+                              <span className="font-normal text-slate-500"> {handle}</span>
+                            )}
+                          </a>
+                        </li>
+                      )
+                    })}
+                  </ul>
+                </div>
+              )}
             </div>
           </div>
 
