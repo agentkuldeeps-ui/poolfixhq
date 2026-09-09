@@ -2,6 +2,7 @@ import './globals.css'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import JsonLd from '@/components/JsonLd'
+import Analytics from '@/components/Analytics'
 import { site } from '@/lib/site'
 import { buildMetadata } from '@/lib/seo'
 import { websiteSchema } from '@/lib/schema'
@@ -55,6 +56,11 @@ export default function RootLayout({ children }) {
           {children}
         </main>
         <Footer />
+
+        {/* Last in the body, and afterInteractive, so measurement never
+            competes with rendering the page. Renders nothing outside
+            production -- see components/Analytics.jsx. */}
+        <Analytics />
       </body>
     </html>
   )

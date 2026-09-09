@@ -11,11 +11,16 @@ export const metadata = buildMetadata({
 
 /**
  * Written to describe what this site ACTUALLY does today: a static site with
- * no accounts, no forms and no first-party analytics.
+ * no accounts and no forms, running Google Analytics 4 and nothing else.
  *
- * If analytics, a newsletter or any form is added later, this page must be
- * updated in the same commit. A privacy policy describing data collection
- * that does not happen is almost as bad as one omitting collection that does.
+ * THE RULE THIS PAGE LIVES BY: if a newsletter, a form, an ad network or a
+ * second analytics tool is added later, this page is updated in the SAME
+ * commit. A privacy policy describing collection that does not happen is
+ * almost as bad as one omitting collection that does, and both are trivially
+ * checkable by anyone who opens dev tools.
+ *
+ * GA4 was added on 2026-09-09; the "no first-party tracking" wording that
+ * stood here before it went out with the same commit that added the tag.
  */
 export default function PrivacyPolicyPage() {
   return (
@@ -23,20 +28,61 @@ export default function PrivacyPolicyPage() {
       eyebrow="Legal"
       title="Privacy Policy"
       description="What we collect, which is very little."
-      updated="2026-09-07"
+      updated="2026-09-09"
     >
       <h2>The short version</h2>
 
       <p>
         {site.name} is a static website. We do not ask for your name, email address or any other
-        personal information, we do not have accounts, and we do not run advertising networks.
+        personal information, we do not have accounts, and we do not run advertising networks. We
+        use Google Analytics to count visits, which sets cookies — that is the only tracking on
+        the site, and the section below says exactly what it does.
       </p>
 
       <h2>What we collect directly</h2>
 
       <p>
-        Nothing. There are no forms, no sign-ups and no first-party tracking cookies on this site
-        at present. If that changes, this page will be updated before the change ships.
+        Nothing you type. There are no forms, no sign-ups and no logins. The only information
+        gathered is the anonymous usage measurement described next.
+      </p>
+
+      <h2>Analytics</h2>
+
+      <p>
+        We use <strong>Google Analytics 4</strong> to see which pages get read and which do not.
+        It sets cookies in your browser and reports to Google: the pages you view on this site,
+        roughly where in the world you are, your device and browser type, and how you arrived
+        here. Google receives your IP address to work out approximate location; GA4 does not store
+        it.
+      </p>
+
+      <p>
+        We use it to decide what to write next — nothing more. We do not run advertising, we do
+        not build profiles of individual readers, and we cannot identify you from it. The reports
+        we see are counts and averages.
+      </p>
+
+      <p>
+        <strong>If you would rather not be counted</strong>, any of these work: a browser set to
+        block third-party or analytics cookies, most ad blockers or privacy extensions, or
+        Google&rsquo;s own{' '}
+        <a
+          href="https://tools.google.com/dlpage/gaoptout"
+          target="_blank"
+          rel="noopener nofollow"
+        >
+          Analytics opt-out browser add-on
+        </a>
+        . Nothing on this site behaves differently if you do — there is no wall and no nag.
+        Google&rsquo;s handling of this data is covered by{' '}
+        <a
+          href="https://policies.google.com/privacy"
+          target="_blank"
+          rel="noopener nofollow"
+        >
+          Google&rsquo;s privacy policy
+        </a>
+        .
       </p>
 
       <h2>What our host collects</h2>
@@ -80,8 +126,16 @@ export default function PrivacyPolicyPage() {
 
       <p>
         Depending on where you live, you may have rights to access or delete personal data a site
-        holds about you. Since we do not collect any, there is generally nothing for us to return
-        or erase — but if you believe otherwise, write to us and we will look into it.
+        holds about you. We hold no account, contact or payment data, so in most cases there is
+        nothing for us to return or erase. The exception is the analytics data described above,
+        which sits in Google Analytics rather than with us — we can delete what is attributable to
+        you there on request, and the browser-level opt-outs listed in that section stop it being
+        collected in the first place.
+      </p>
+
+      <p>
+        We do not sell or share personal information, in the sense those terms carry under
+        California law or any other.
       </p>
 
       <h2>Changes</h2>
